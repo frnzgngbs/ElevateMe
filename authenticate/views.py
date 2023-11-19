@@ -25,12 +25,9 @@ class Registration(View):
 
                 print("SAVED!")
 
-                reg_succesful = Login()
+                reg_successful = Login()
 
-                return render(request, 'register.html',
-                              {
-                                  "state": True
-                              })
+                return reg_successful.post(request)
 
 
         except IntegrityError as error:

@@ -15,8 +15,7 @@
         <div class="fillinput">Please fill the inputs below</div>
 
         <div class="form">
-            <form id="registerform" action="{% if state %}{% url 'authenticate:home' %}
-                                            {% else %} {% url 'authenticate:signup' %} {% endif %}" method="post">
+            <form id="registerform" action="{% url 'authenticate:register' %}" method="post">
                 {% csrf_token %}
                 <div class="username">
                     <input type="text" id="username" name="username" placeholder="Username">
