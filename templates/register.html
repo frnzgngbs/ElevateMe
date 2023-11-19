@@ -2,11 +2,9 @@
 <html>
 
 <head>
-
     <title>Create Account</title>
-    <link rel="stylesheet" type="text/css" href="/ElevateMe/style/register.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
-
 </head>
 <body>
 <div class="container">
@@ -17,10 +15,12 @@
         <div class="fillinput">Please fill the inputs below</div>
 
         <div class="form">
-            <form id="registerform" action="">
-
+            <form id="registerform" action="{% if state %}{% url 'authenticate:home' %}
+                                            {% else %} {% url 'authenticate:signup' %} {% endif %}" method="post">
+                {% csrf_token %}
                 <div class="username">
                     <input type="text" id="username" name="username" placeholder="Username">
+
                 </div>
 
                 <div class="email">
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="password">
-                    <input type="password" id="pword" name="pword" placeholder="Password">
+                    <input type="password" id="password" name="password" placeholder="Password">
                 </div>
 
                 <div class="confirmpassword">
@@ -38,7 +38,6 @@
                 <div class="next">
                     <input type="submit" value="Next" form="registerform">
                 </div>
-
             </form>
         </div>
     </div>

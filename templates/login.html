@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="/style/login.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css" />
     <link
             href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
             rel="stylesheet"
@@ -14,10 +14,11 @@
         <div class="container">
             <div class="square">
                 <div class="appName">ElevateMe</div>
-                <form action="">
+                <form action="{% url 'authenticate:home' %}" method="post">
+                    {% csrf_token %}
                     <div class="left-aligned">
                         <div class="userInfo">
-                            <label class="register" for="username"
+                            <label class="user" for="username"
                             >Username</label
                             >
                             <input
@@ -48,7 +49,7 @@
                         </div>
                         <div class="text">
                             <span class="text1">Don't have an account?</span>
-                            <span class="signUp"><a href="/templates/register.html">Sign Up</a></span>
+                            <span class="signUp"><a href="{% url 'authenticate:signup' %}">Sign Up</a></span>
                         </div>
                     </div>
                 </form>
