@@ -5,7 +5,22 @@
     <title>Create Account</title>
     <link rel="stylesheet" type="text/css" href="../static/css/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script>
+        {% if State %}
+            const errorMessage = "{{ message|safe }}";  // Use the safe filter to prevent HTML encoding
+            function validatePassword() {
+                let password = document.getElementById("password").value;
+                let confirmPassword = document.getElementById("confirmpassword").value;
+
+                if (password !== confirmPassword) {
+                    alert(errorMessage);
+                }
+            }
+        {% endif %}
+    </script>
+
 </head>
+
 <body>
 <div class="container">
     <div class="square">
@@ -15,11 +30,11 @@
         <div class="fillinput">Please fill the inputs below</div>
 
         <div class="form">
-            <form id="registerform" action="{% url 'authenticate:register' %}" method="post">
+            <form id="registerform" action="{% url 'authenticate:register' %}" method="post"
+                  onsubmit="validatePassword()">
                 {% csrf_token %}
                 <div class="username">
                     <input type="text" id="username" name="username" placeholder="Username">
-
                 </div>
 
                 <div class="email">
@@ -31,7 +46,8 @@
                 </div>
 
                 <div class="confirmpassword">
-                    <input type="password" id="confirmpword" name="confirmpword" placeholder="Password Confirmation">
+                    <input type="password" id="confirmpassword" name="confirmpword"
+                           placeholder="Password Confirmation">
                 </div>
 
                 <div class="next">
@@ -42,4 +58,5 @@
     </div>
 </div>
 </body>
+
 </html>

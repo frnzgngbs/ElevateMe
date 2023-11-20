@@ -1,11 +1,11 @@
 # views.py
-from django.contrib.auth import login, authenticate
-from django.db import IntegrityError
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
-from authenticate.models import User
 
-class Registration(View):
+class SignUpForm(View):
     template_name = "login.html"
     template_name2 = "register.html"
 
@@ -13,26 +13,29 @@ class Registration(View):
         return render(request, self.template_name2)
 
     def post(self, request):
-        try:
-            if request.method == "POST":
-                username = request.POST.get("username")
-                email = request.POST.get("email")
-                password = request.POST.get("password")
+        if request.method == "POST":
 
-                user = User(username=username, password=password, email=email)
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            confirm_pass = request.POST.get("confirmpword")
+            email = request.POST.get("email")
 
-                user.save()
+            if password != confirm_pass:
+                return render(request, 'register.html',
+                              {
+                                  "message": "Password doesn't match",
+                                  "State": True
+                              })
 
-                print("SAVED!")
+            user = User.objects.create_user(username, email, password)
+            user.save()
 
-                reg_successful = Login()
+            print(f"Username: {username}\n"
+                  f"Email: {email}\n"
+                  f"Password: {password}")
 
-                return reg_successful.post(request)
+            return redirect('authenticate:login')
 
-
-        except IntegrityError as error:
-            print("NOT SAVED!")
-            redirect("https://www.youtube.com/")
 
 class Login(View):
     def get(self, request):
@@ -40,25 +43,30 @@ class Login(View):
 
     def post(self, request):
         if request.method == "POST":
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+            uname = request.POST.get("username")
+            passw = request.POST.get("password")
 
-            user = User.objects.filter(username=username, password=password).first()
+            print(f"Username: {uname}\n"
+                  f"Password: {passw}")
 
-            if user:
-                return render(request, 'index.html',
+            user = authenticate(request, username=uname, password=passw)
+
+            if user is not None:
+                login(request, user)
+
+                return render(request, 'home.html',
                               {
-                                  "username": username,
+                                  "user": user
                               })
-        return redirect("authenticate:signin")
 
+        return redirect('authenticate:login')
+
+
+@login_required(login_url="authenticate:login")
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'home.html')
 
 
-def signin(request):
-    return render(request, 'login.html')
-
-
-def signupForm(request):
-    return render(request, "register.html")
+def signOut(request):
+    logout(request)
+    return redirect('authenticate:login')

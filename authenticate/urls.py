@@ -4,9 +4,9 @@ from . import views
 app_name = 'authenticate'
 
 urlpatterns = [
-    path('register/', views.Registration.as_view(), name='register'),
-    path('signUp/', views.signupForm, name='signup'),
-    path('home/', views.Login.as_view(), name='home'),
-    path('', views.signin, name="signin")
+    path('register/', views.SignUpForm.as_view(), name='register'),
+    path('login/', views.Login.as_view(), name='login'),
+    path('home/', views.home, name='home'),
+    path('signout/', views.signOut, name='signout'),
 ]
 
