@@ -6,11 +6,10 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 class SignUpForm(View):
-    template_name = "login.html"
-    template_name2 = "register.html"
+    template_name = "register.html"
 
     def get(self, request):
-        return render(request, self.template_name2)
+        return render(request, self.template_name)
 
     def post(self, request):
         if request.method == "POST":
@@ -21,11 +20,7 @@ class SignUpForm(View):
             email = request.POST.get("email")
 
             if password != confirm_pass:
-                return render(request, 'register.html',
-                              {
-                                  "message": "Password doesn't match",
-                                  "State": True
-                              })
+                return redirect('authenticate:home')
 
             user = User.objects.create_user(username, email, password)
             user.save()
@@ -37,9 +32,11 @@ class SignUpForm(View):
             return redirect('authenticate:login')
 
 
-class Login(View):
+class LoginForm(View):
+    template_name = "login.html"
+    template_name2 = "home.html"
     def get(self, request):
-        return render(request, "login.html")
+        return render(request, self.template_name)
 
     def post(self, request):
         if request.method == "POST":
@@ -54,10 +51,7 @@ class Login(View):
             if user is not None:
                 login(request, user)
 
-                return render(request, 'home.html',
-                              {
-                                  "user": user
-                              })
+                return redirect('authenticate:home')
 
         return redirect('authenticate:login')
 
