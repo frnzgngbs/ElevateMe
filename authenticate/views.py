@@ -1,36 +1,27 @@
 # views.py
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+
 from django.shortcuts import render, redirect
 from django.views import View
 
-class SignUpForm(View):
+from authenticate.form import SignUpForm
+
+
+class SignUpView(View):
     template_name = "register.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        form = SignUpForm()
+        return render(request, self.template_name, {"form": form})
 
     def post(self, request):
-        if request.method == "POST":
-
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            confirm_pass = request.POST.get("confirmpword")
-            email = request.POST.get("email")
-
-            if password != confirm_pass:
-                return redirect('authenticate:home')
-
-            user = User.objects.create_user(username, email, password)
-            user.save()
-
-            print(f"Username: {username}\n"
-                  f"Email: {email}\n"
-                  f"Password: {password}")
-
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect('authenticate:login')
 
+        return render(request, self.template_name, {"form": form})
 
 class LoginForm(View):
     template_name = "login.html"
@@ -56,9 +47,19 @@ class LoginForm(View):
         return redirect('authenticate:login')
 
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
 @login_required(login_url="authenticate:login")
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect('authenticate:login')
+        else:
+            return render(request, 'home.html')
+    else:
+        return redirect('authenticate:login')
+
 
 
 def signOut(request):

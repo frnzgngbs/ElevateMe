@@ -5,20 +5,6 @@
     <title>Create Account</title>
     <link rel="stylesheet" type="text/css" href="../static/css/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
-    <script>
-        {% if State %}
-            const errorMessage = "{{ message|safe }}";  // Use the safe filter to prevent HTML encoding
-            function validatePassword() {
-                let password = document.getElementById("password").value;
-                let confirmPassword = document.getElementById("confirmpassword").value;
-
-                if (password !== confirmPassword) {
-                    alert(errorMessage);
-                }
-            }
-        {% endif %}
-    </script>
-
 </head>
 
 <body>
@@ -28,33 +14,38 @@
         <div class="elevateme">ElevateMe</div>
         <div class="createaccount">Create Account</div>
         <div class="fillinput">Please fill the inputs below</div>
-
         <div class="form">
-            <form id="registerform" action="{% url 'authenticate:register' %}" method="post"
-                  onsubmit="validatePassword()">
+            <form method="post" action="{% url 'authenticate:register' %}" >
                 {% csrf_token %}
                 <div class="username">
-                    <input type="text" id="username" name="username" placeholder="Username">
+                    {{ form.username }}
+                    <label for="{{ form.username.id_for_label }}"></label>
+                    <span class="error-message">{{ form.username.errors }}</span>
                 </div>
 
                 <div class="email">
-                    <input type="email" id="email" name="email" placeholder="Email">
+                    {{ form.email }}
+                    <label for="{{ form.email.id_for_label }}"></label>
+                    <span class="error-message">{{ form.email.errors }}</span>
                 </div>
 
                 <div class="password">
-                    <input type="password" id="password" name="password" placeholder="Password">
+                    <label for="{{ form.password1.id_for_label }}"></label>
+                    {{ form.password1 }}
+                    <span class="error-message">{{ form.password1.errors }}</span>
                 </div>
 
                 <div class="confirmpassword">
-                    <input type="password" id="confirmpassword" name="confirmpword"
-                           placeholder="Password Confirmation">
+                    <label for="{{ form.password2.id_for_label }}"></label>
+                    {{ form.password2 }}
+                    <span class="error-message">{{ form.password2.errors }}</span>
                 </div>
 
-                <div class="next">
-                    <input type="submit" value="Next" form="registerform">
-                </div>
+                <button type="submit" class="next">Next</button>
+
             </form>
         </div>
+
     </div>
 </div>
 </body>
