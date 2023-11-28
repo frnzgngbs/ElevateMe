@@ -23,6 +23,7 @@ class SignUpView(View):
 
         return render(request, self.template_name, {"form": form})
 
+
 class LoginForm(View):
     template_name = "login.html"
     template_name2 = "home.html"
@@ -46,17 +47,13 @@ class LoginForm(View):
 
         return redirect('authenticate:login')
 
-
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-
 @login_required(login_url="authenticate:login")
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
             return redirect('authenticate:login')
         else:
-            return render(request, 'home.html')
+            return render(request, 'Homepage.html')
     else:
         return redirect('authenticate:login')
 

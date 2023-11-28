@@ -1,0 +1,267 @@
+.container {
+    display: flex;
+    flex-direction: horizontal;
+    align-items: baseline;
+    justify-content: baseline;
+    height: 20vh;
+    text-align: center;
+  }
+  body, html{
+    background-color: #ffffff;
+    font-family: "Lexend Deca", sans-serif;
+  }
+  
+  .elevateme{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 50px auto 70px 70px;
+    color: #448a81;
+  }
+  
+  .button-clicked{
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    border: 0;
+    background-color: #186f65;
+    color: #ffffff;
+    margin: 0 50px 0 0;
+  }
+
+  .button1{
+    width: 100px;
+    height: 40px;
+    border-radius: 25px;
+    border: 0;
+    background-color: #ffffff;
+    color: black;
+    margin: 0 50px 0 0;
+  }
+
+  .psg{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 50px auto 0 120px;
+    color: #448a81;
+  }
+  .generator{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 auto 100px 120px;
+    color: #448a81;
+  }
+  
+  .specify-text1, .specify-text2, .specify-text3{
+    margin: 0 auto 0 120px;
+  }
+  
+  .generate-button{
+    width: 150px;
+    height: 50px;
+    margin: 100px auto 0 120px;
+    color: #ffffff;
+    border-radius: 25px;
+    border: 2px;
+    background-color: #448a81;
+  }
+
+  .venn-container {
+  position: relative;
+  width: 300px; /* Adjust size as needed */
+  height: 300px; /* Adjust size as needed */
+}
+
+.circle1, .circle2, .circle3, .filters {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.circle1 {
+  width: 300px; /* Adjust size as needed */
+  height: 300px; /* Adjust size as needed */
+  background-color: transparent;
+  border: 5px solid #186f65;
+  top: 100px;
+  bottom: 50px; /* Adjust position */
+  left: -300px; /* Adjust position */
+}
+
+.circle2 {
+  width: 300px; /* Adjust size as needed */
+  height: 300px; /* Adjust size as needed */
+  background-color: transparent;
+  border: 5px solid #186f65;
+  top: 100px; /* Adjust position */
+  left: -150px; /* Adjust position */
+}
+
+.circle3 {
+  width: 300px; /* Adjust size as needed */
+  height: 300px; /* Adjust size as needed */
+  background-color: transparent;
+  border: 5px solid #186f65;
+  top: 250px; /* Adjust position */
+  left: -230px;
+}
+.filters, .filters-button{
+  position: absolute;
+  top: 150px;
+  left: 1100px;
+}
+.filters-button{
+  position: absolute;
+  top: 140px;
+  left: 1300px;
+  width: 50px;
+  height: 40px;
+  background-color: #186f65;
+  border-radius: 10px;
+}
+
+h2{
+  color: #186f65;
+}
+
+.popup{
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 1300px;
+}
+
+.text1{
+  position: relative;
+  left: -30px;
+}
+.text2, .text3, .text4, .text5{
+  position: relative;
+  left: -70px;
+}
+.f1, .f2, .f3, .f4{
+  position: relative;
+  left: 50px;
+  border: 0;
+}
+
+.f4{
+  display: block;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  width: 250px;
+  height: 100px;
+  text-align: center;
+}
+
+.closebtn{
+  position: relative;
+  top: 50px;
+  left: -0px;
+  width: 80px;
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  border: 2px solid #186f65;
+}
+
+.apply{
+  position: relative;
+  top: 50px;
+  left: 100px;
+  width: 80px;
+  height: 40px;
+  background-color: #186f65;
+  border-radius: 25px;
+  border: 2px solid #186f65;
+  color: #ffffff;
+}
+
+
+  
+/*.circle1 {
+    width: 300px;
+    height: 300px;
+    background-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: 150px;
+    left: -150px;
+    border: 5px solid #186f65;
+    z-index: 2;
+}
+
+.circle2 {
+    width: 300px;
+    height: 300px;
+    background-color: transparent;
+    border-radius: 50%;
+    position: absolute;
+    top: 150px;
+    left: -20px;
+    border: 5px solid #186f65;
+    z-index: 1;
+}
+
+.venn-diagram {
+    position: relative;
+    width: 300px;
+    height: 200px;
+}*/
+
+     /* * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+      }
+      .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+      }
+      .chartCard {
+        width: 100vw;
+        height: calc(100vh - 40px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width: 700px;
+        padding: 20px;
+        border-radius: 20px;
+        background: white;
+      }*/
+
+
+
+  /* For screens smaller than 768px */
+  @media (max-width: 1000px) {
+    .container {
+      flex-direction: column;
+      height: auto; /* Adjust height as needed */
+    }
+  
+    .buttons {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+  
+    .psg, .generator, .specify-text1, .specify-text2, .specify-text3, .generate-button {
+      margin: 10px auto ;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .generate-button{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+  }
+  
