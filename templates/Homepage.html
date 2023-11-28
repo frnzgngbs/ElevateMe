@@ -49,6 +49,9 @@
                             name="field1"
                             type="text"
                             id="field1"
+                            {% if field1 is not None %}
+                            value="{{ field1 }}"
+                            {% endif %}
                             placeholder="Input scope here..."
                         />
 
@@ -58,6 +61,9 @@
                             name="field2"
                             type="text"
                             id="field2"
+                            {% if field2 is not None %}
+                            value="{{ field2}}"
+                            {% endif %}
                             placeholder="Input scope here..."
                         />
 
@@ -67,6 +73,9 @@
                             name="field3"
                             type="text"
                             id="field3"
+                            {% if field3 is not None %}
+                            value="{{ field3 }}"
+                            {% endif %}
                             placeholder="Input scope here..."
                         />
 
@@ -75,11 +84,13 @@
                             <input
                                 class="f4"
                                 type="text"
+                                name="filter"
+                                id="filter"
                                 placeholder="Input filter here..."
                             />
                         </div>
                         <button class="closebtn" id="closeButton">Close</button>
-                        <button class="apply" id="applyButton" s>Apply</button>
+                        <button class="apply" id="applyButton">Apply</button>
                     </form>
                 </div>
             </div>
@@ -92,26 +103,45 @@
                     Specify first the number of Venn Diagram and Input the
                     scopes of your problem statement you want to be generated
                 </p>
-                <div class="venn-container">
-                    <div class="circle1">
-                        <p class="field1">{{ field1 }}</p>
+                <form method="post" action="{% url 'homepage:generatePS' %}">
+                    {% csrf_token %}
+                    <div class="venn-container">
+                        <div class="circle1">
+                            <input
+                                type="text"
+                                name="field1_text"
+                                id="field1_text"
+                                value="{{ field1 }}"
+                                readonly
+                            />
+                        </div>
+                        <div class="circle2">
+                            <input
+                                type="text"
+                                name="field2_text"
+                                id="field2_text"
+                                value="{{ field2 }}"
+                                readonly
+                            />
+                        </div>
+                        <div class="circle3">
+                            <input
+                                type="text"
+                                name="field3_text"
+                                id="field3_text"
+                                value="{{ field3 }}"
+                                readonly
+                            />
+                        </div>
                     </div>
-                    <div class="circle2">
-                        <p class="field2">{{ field2 }}</p>
-                    </div>
-                    <div class="circle3">
-                        <p style="margin-top: 150px" class="field3">
-                            {{ field3 }}
-                        </p>
-                    </div>
-                </div>
+                    <input
+                        class="generate-button"
+                        id="generate-button"
+                        type="submit"
+                        value="Generate"
+                    />
+                </form>
             </div>
-            <input
-                class="generate-button"
-                id="generate-button"
-                type="submit"
-                value="Generate"
-            />
         </div>
         <script src="{% static 'script/Homepage.js' %}"></script>
     </body>
