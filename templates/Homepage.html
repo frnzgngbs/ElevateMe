@@ -50,8 +50,10 @@
                             type="text"
                             id="field1"
                             {% if field1 is not None %}
-                            value="{{ field1 }}"
-                            {% endif %}
+                                value="{{ field1 }}"
+                            {% elif venn_scopes.field1 %}
+                                value="{{ venn_scopes.field1 }}"
+                            {% endif%}
                             placeholder="Input scope here..."
                         />
 
@@ -62,8 +64,10 @@
                             type="text"
                             id="field2"
                             {% if field2 is not None %}
-                            value="{{ field2}}"
-                            {% endif %}
+                                value="{{ field2}}"
+                            {% elif venn_scopes.field2 %}
+                                value="{{ venn_scopes.field2 }}"
+                            {% endif%}
                             placeholder="Input scope here..."
                         />
 
@@ -74,8 +78,10 @@
                             type="text"
                             id="field3"
                             {% if field3 is not None %}
-                            value="{{ field3 }}"
-                            {% endif %}
+                                value="{{ field3 }}"
+                            {% elif venn_scopes.field3 %}
+                                value="{{ venn_scopes.field3 }}"
+                            {% endif%}
                             placeholder="Input scope here..."
                         />
 
@@ -89,9 +95,9 @@
                                 placeholder="Input filter here..."
                             />
                         </div>
-                        <button class="closebtn" id="closeButton">Close</button>
                         <button class="apply" id="applyButton">Apply</button>
                     </form>
+                    <button class="closebtn" id="closeButton">Close</button>
                 </div>
             </div>
         </div>
@@ -111,7 +117,13 @@
                                 type="text"
                                 name="field1_text"
                                 id="field1_text"
-                                readonly>{{ field1 }}
+                                readonly
+                            >
+                                {% if field1 is not None %}
+                                    {{ field1 }}
+                                {% elif venn_scopes.field1 is not None%}
+                                    {{ venn_scopes.field1 }}
+                                {% endif %}
                             </textarea>
                         </div>
                         <div class="circle2">
@@ -119,7 +131,13 @@
                                 type="text"
                                 name="field2_text"
                                 id="field2_text"
-                                readonly>{{ field2 }}
+                                readonly
+                            >
+                                {% if field2 is not None %}
+                                    {{ field2 }}
+                                {% elif venn_scopes.field2 is not None%}
+                                    {{ venn_scopes.field2 }}
+                                {% endif %}
                             </textarea>
                         </div>
                         <div class="circle3">
@@ -127,7 +145,13 @@
                                 type="text"
                                 name="field3_text"
                                 id="field3_text"
-                                readonly>{{ field3 }}
+                                readonly
+                            >
+                                {% if field3 is not None %}
+                                    {{ field3 }}
+                                {% elif venn_scopes.field3 is not None%}
+                                    {{ venn_scopes.field3 }}
+                                {% endif %}
                             </textarea>
                         </div>
                     </div>
@@ -139,6 +163,15 @@
                     />
                 </form>
             </div>
+            {% if generate_response is not None %}
+                {% for key, value in generate_response.items %}
+            <table>
+                <tr>
+                    <td>{{ value }}</td>
+                </tr>
+            </table>
+            {% endfor %}
+            {% endif %}
         </div>
         <script src="{% static 'script/Homepage.js' %}"></script>
     </body>
