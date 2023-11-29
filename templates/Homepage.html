@@ -107,31 +107,28 @@
                     {% csrf_token %}
                     <div class="venn-container">
                         <div class="circle1">
-                            <input
+                            <textarea
                                 type="text"
                                 name="field1_text"
                                 id="field1_text"
-                                value="{{ field1 }}"
-                                readonly
-                            />
+                                readonly>{{ field1 }}
+                            </textarea>
                         </div>
                         <div class="circle2">
-                            <input
+                            <textarea
                                 type="text"
                                 name="field2_text"
                                 id="field2_text"
-                                value="{{ field2 }}"
-                                readonly
-                            />
+                                readonly>{{ field2 }}
+                            </textarea>
                         </div>
                         <div class="circle3">
-                            <input
+                            <textarea
                                 type="text"
                                 name="field3_text"
                                 id="field3_text"
-                                value="{{ field3 }}"
-                                readonly
-                            />
+                                readonly>{{ field3 }}
+                            </textarea>
                         </div>
                     </div>
                     <input

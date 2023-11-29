@@ -75,12 +75,16 @@ html {
     height: 300px; /* Adjust size as needed */
 }
 
-.circle1,
-.circle2,
-.circle3,
-.filters {
+.filters{
     position: absolute;
     border-radius: 50%;
+}
+.circle1,
+.circle2,
+.circle3{
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .circle1 {
@@ -94,22 +98,78 @@ html {
 }
 
 .circle2 {
-    width: 300px; /* Adjust size as needed */
-    height: 300px; /* Adjust size as needed */
+    width: 300px;
+    height: 300px;
     background-color: transparent;
     border: 5px solid #186f65;
-    top: 100px; /* Adjust position */
-    left: -150px; /* Adjust position */
+    top: 100px;
+    left: -150px;
 }
 
 .circle3 {
-    width: 300px; /* Adjust size as needed */
-    height: 300px; /* Adjust size as needed */
+    width: 300px;
+    height: 300px;
     background-color: transparent;
     border: 5px solid #186f65;
-    top: 250px; /* Adjust position */
+    top: 250px;
     left: -230px;
 }
+
+.venn-container textarea {
+        border: none;
+        resize: none;
+        background-color: transparent;
+        font-size: 16px;
+        overflow: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+    }
+.circle1 textarea{
+        width: calc(100% - 180px);
+        height: calc(100% - 200px);
+        top: 75px;
+        left: 20px;
+        text-align: center;
+        line-height: 20px;
+        background-color: transparent;
+}
+.circle2 textarea{
+        width: calc(100% - 200px);
+        height: calc(100% - 180px);
+        top: 50px;
+        left: 155px;
+        outline: none;
+}
+.circle3 textarea{
+        width: calc(100% - 100px);
+        height: calc(100% - 220px);
+        top: 180px;
+        left: 50px;
+        text-align: center;
+        line-height: 20px;
+        scrollbar-color: #186f65 #448a81;
+}
+
+.circle1 textarea::-webkit-scrollbar, .circle2 textarea::-webkit-scrollbar, .circle3 textarea::-webkit-scrollbar{
+    width: 13px;
+}
+
+.circle1 textarea::-webkit-scrollbar-thumb, .circle2 textarea::-webkit-scrollbar-thumb, .circle3 textarea::-webkit-scrollbar-thumb{
+    background-color: lightgray;
+    border-radius: 25px;
+}
+
+.circle1 textarea::-webkit-scrollbar-track, .circle2 textarea::-webkit-scrollbar-track, .circle3 textarea::-webkit-scrollbar-track{
+    background-color: white;
+}
+
+.circle1 textarea:focus, .circle2 textarea:focus, .circle3 textarea:focus{
+    outline: none;
+}
+
 .filters,
 .filters-button {
     position: absolute;
@@ -196,62 +256,6 @@ h2 {
     width: 20px;
     max-width: 10%;
 }
-/*.circle1 {
-    width: 300px;
-    height: 300px;
-    background-color: transparent;
-    border-radius: 50%;
-    position: absolute;
-    top: 150px;
-    left: -150px;
-    border: 5px solid #186f65;
-    z-index: 2;
-}
-
-.circle2 {
-    width: 300px;
-    height: 300px;
-    background-color: transparent;
-    border-radius: 50%;
-    position: absolute;
-    top: 150px;
-    left: -20px;
-    border: 5px solid #186f65;
-    z-index: 1;
-}
-
-.venn-diagram {
-    position: relative;
-    width: 300px;
-    height: 200px;
-}*/
-
-/* * {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-      }
-      .chartMenu {
-        width: 100vw;
-        height: 40px;
-      }
-      .chartMenu p {
-        padding: 10px;
-        font-size: 20px;
-      }
-      .chartCard {
-        width: 100vw;
-        height: calc(100vh - 40px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .chartBox {
-        width: 700px;
-        padding: 20px;
-        border-radius: 20px;
-        background: white;
-      }*/
 
 /* For screens smaller than 768px */
 @media (max-width: 1000px) {
