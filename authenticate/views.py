@@ -28,6 +28,8 @@ class LoginForm(View):
     template_name = "login.html"
     template_name2 = "home.html"
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('authenticate:home')
         return render(request, self.template_name)
 
     def post(self, request):
