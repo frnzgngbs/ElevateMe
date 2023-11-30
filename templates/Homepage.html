@@ -163,8 +163,11 @@
                     />
                 </form>
             </div>
+        </div>
+            <div class="Problem-Statement">
             {% if generate_response is not None %}
-                <form>
+                <p class="ps-form" id="ps-form">Problem Statement</p>
+                <form class="generate-form" id="generate-form">
                 {% for key, value in generate_response.items %}
             <table>
                 <tr>
@@ -174,7 +177,7 @@
             {% endfor %}
             {% endif %}
             </form>
-        </div>
+            </div>
         <script src="{% static 'script/Homepage.js' %}"></script>
     </body>
 </html>
