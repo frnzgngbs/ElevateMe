@@ -64,7 +64,7 @@ class GeneratePS(View):
 
 
 def generateAi(field1, field2, field3, filter):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     if filter != "":
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{

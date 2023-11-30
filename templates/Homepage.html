@@ -164,14 +164,16 @@
                 </form>
             </div>
             {% if generate_response is not None %}
+                <form>
                 {% for key, value in generate_response.items %}
             <table>
                 <tr>
-                    <td>{{ value }}</td>
+                    <td><input type="checkbox">{{ value }}</td>
                 </tr>
             </table>
             {% endfor %}
             {% endif %}
+            </form>
         </div>
         <script src="{% static 'script/Homepage.js' %}"></script>
     </body>
