@@ -1,6 +1,6 @@
 from django.urls import path
 
-app_name = "savedlist"
+app_name = "Saved"
 
 urlpatterns = [
 

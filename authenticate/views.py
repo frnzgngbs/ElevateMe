@@ -1,12 +1,10 @@
 # views.py
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from django.views import View
 
 from authenticate.form import SignUpForm
-
 
 class SignUpView(View):
     template_name = "register.html"
@@ -26,10 +24,9 @@ class SignUpView(View):
 
 class LoginForm(View):
     template_name = "login.html"
-    template_name2 = "home.html"
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('authenticate:home')
+            return redirect('homepage:home')
         return render(request, self.template_name)
 
     def post(self, request):
@@ -45,20 +42,9 @@ class LoginForm(View):
             if user is not None:
                 login(request, user)
 
-                return redirect('authenticate:home')
+                return redirect('homepage:home')
 
         return redirect('authenticate:login')
-
-@login_required(login_url="authenticate:login")
-def home(request):
-    if request.user.is_authenticated:
-        if request.user.is_staff:
-            return redirect('authenticate:login')
-        else:
-            return render(request, 'Homepage.html')
-    else:
-        return redirect('authenticate:login')
-
 
 
 def signOut(request):

@@ -186,7 +186,7 @@ html{
     left: 1300px;
     width: 50px;
     height: 40px;
-    background-color: #186f65;
+    background-image: url("/static/media/filter-setting.png");
     border-radius: 10px;
 }
 

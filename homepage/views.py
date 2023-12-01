@@ -74,16 +74,31 @@ class GeneratePS(View):
 
         return redirect('authenticate:home')
 
+class Homepage(View):
+    template_name = "homepage.html"
+    @method_decorator(login_required(login_url="authenticate:login"))
+    def get(self, request):
+        venn_diagram = request.session.get('venn_scopes')
+        generate_response = request.session.get('openai')
+
+        context = {
+            "venn_scopes": venn_diagram,
+            "generate_response": generate_response
+        }
+        return render(request, self.template_name, context)
+    def post(self, request):
+        pass
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
         "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
-                    f"{field1}, {field2}, {field3}, make sure  include the numbering for "
-                    f"each problem statement. I do not need an explanation; just give me the problem statement "
-                    f"directly. Please make each problem statement unique. Apply filter: {field4}"
+                   f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
+                   f"the problem statement. I do not need an explanation; just give me the problem statement "
+                   f"directly. Please make each problem statement unique. Apply filter: {field4}"
+
     }])
 
     print(completion)
@@ -100,3 +115,7 @@ def generateAi(field1, field2, field3, field4):
         questions_dict[i] = question_without_number
 
     return questions_dict
+
+
+def savePage(request):
+    return render(request, "save.html")

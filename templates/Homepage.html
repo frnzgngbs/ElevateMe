@@ -17,10 +17,10 @@
             <div class="elevateme">ElevateMe</div>
 
             <div class="buttons">
-                <a href="#"
+                <a href="{% url 'homepage:home' %} "
                     ><input class="button-clicked" type="button" value="Home"
                 /></a>
-                <a href="#"
+                <a href="{% url 'homepage:save' %}"
                     ><input class="button1" type="button" value="Saved"
                 /></a>
                 <input class="button1" type="button" value="List" />
@@ -112,9 +112,9 @@
                             type="text"
                             id="field1"
                             {% if field1 is not None %}
-                            value="{{ field1 }}"
+                                value="{{ field1 }}"
                             {% elif venn_scopes.field1 %}
-                            value="{{ venn_scopes.field1 }}"
+                                value="{{ venn_scopes.field1 }}"
                             {% endif%}
                             placeholder="Input scope here..."
                     />
@@ -126,9 +126,9 @@
                             type="text"
                             id="field2"
                             {% if field2 is not None %}
-                            value="{{ field2}}"
+                                value="{{ field2}}"
                             {% elif venn_scopes.field2 %}
-                            value="{{ venn_scopes.field2 }}"
+                                value="{{ venn_scopes.field2 }}"
                             {% endif%}
                             placeholder="Input scope here..."
                     />
@@ -140,9 +140,9 @@
                             type="text"
                             id="field3"
                             {% if field3 is not None %}
-                            value="{{ field3 }}"
+                                value="{{ field3 }}"
                             {% elif venn_scopes.field3 %}
-                            value="{{ venn_scopes.field3 }}"
+                                value="{{ venn_scopes.field3 }}"
                             {% endif%}
                             placeholder="Input scope here..."
                     />
