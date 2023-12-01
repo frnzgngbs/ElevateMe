@@ -1,16 +1,24 @@
 import openai
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from django.views import View
 from django.shortcuts import render, redirect
 
 
-# Generate problem statement
-
 class VennDiagramFilter(View):
     template_name = "homepage.html"
 
+    @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
-        context = request.session.get('venn_scopes')
+        venn_diagram = request.session.get('venn_scopes')
+        generate_response = request.session.get('openai')
+
+        context = {
+            "venn_scopes": venn_diagram,
+            "generate_response": generate_response
+        }
+
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -19,20 +27,27 @@ class VennDiagramFilter(View):
             field2 = request.POST.get("field2")
             field3 = request.POST.get("field3")
 
-            context = {
+            venn_scopes = {
                 'field1': field1,
                 'field2': field2,
                 'field3': field3,
             }
 
-            request.session['venn_scopes'] = context
+            generate_response = request.session.get('openai')
+
+            request.session['venn_scopes'] = venn_scopes
+
+            context = {
+                "venn_scopes": venn_scopes,
+                "generate_response": generate_response
+            }
 
             return render(request, self.template_name, context)
 
         return redirect("authenticate:home")
 
-
 class GeneratePS(View):
+    @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
         return render(request, "homepage.html")
 
@@ -41,11 +56,8 @@ class GeneratePS(View):
             field1 = request.POST.get("field1_text")
             field2 = request.POST.get("field2_text")
             field3 = request.POST.get("field3_text")
-            filter = request.POST.get("filter")
+            field4 = request.POST.get("filter")
 
-            print(field1)
-            print(field2)
-            print(field3)
             # Perform any additional processing with the data if needed
 
             generate_response = generateAi(field1, field2, field3, filter)
@@ -63,25 +75,16 @@ class GeneratePS(View):
         return redirect('authenticate:home')
 
 
-def generateAi(field1, field2, field3, filter):
-    openai.api_key = "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"
+def generateAi(field1, field2, field3, field4):
+    openai.api_key = "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"
 
-    if filter != "":
-        completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
-            "role": "user",
-            "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
-                       f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
-                       f"the problem statement. I do not need an explanation; just give me the problem statement "
-                       f"directly. Please make each problem statement unique."
-        }])
-    else:
-        completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
-            "role": "user",
-            "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
-                       f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
-                       f"the problem statement. I do not need an explanation; just give me the problem statement "
-                       f"directly. Please make each problem statement unique. Apply filter: {filter}"
-        }])
+    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
+        "role": "user",
+        "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
+                    f"{field1}, {field2}, {field3}, make sure  include the numbering for "
+                    f"each problem statement. I do not need an explanation; just give me the problem statement "
+                    f"directly. Please make each problem statement unique. Apply filter: {field4}"
+    }])
 
     print(completion)
 
@@ -89,6 +92,7 @@ def generateAi(field1, field2, field3, filter):
 
     # Create a dictionary to store the questions
     questions_dict = {}
+
 
     for i, question in enumerate(response_list, start=1):
         # Split each question and take the second part (after the dot)

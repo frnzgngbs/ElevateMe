@@ -28,77 +28,6 @@
                 <a href="{% url 'authenticate:signout' %}"
                     ><input class="button1" type="button" value="Sign Out"
                 /></a>
-
-                <div class="filters">Venn Diagram Settings</div>
-
-                <div class="filters-button" id="pop-up"></div>
-                <div class="overlay" id="overlay"></div>
-
-                <div class="popup" id="popup">
-                    <h2>Venn Diagram Settings</h2>
-                    <h4 class="text1">Number of Fields</h4>
-
-                    <form
-                        method="post"
-                        action="{%url 'homepage:displayFields'%}"
-                    >
-                        {% csrf_token%}
-                        <h4 class="text2">Field 1:</h4>
-                        <input
-                            class="f1"
-                            name="field1"
-                            type="text"
-                            id="field1"
-                            {% if field1 is not None %}
-                                value="{{ field1 }}"
-                            {% elif venn_scopes.field1 %}
-                                value="{{ venn_scopes.field1 }}"
-                            {% endif%}
-                            placeholder="Input scope here..."
-                        />
-
-                        <h4 class="text3">Field 2:</h4>
-                        <input
-                            class="f2"
-                            name="field2"
-                            type="text"
-                            id="field2"
-                            {% if field2 is not None %}
-                                value="{{ field2}}"
-                            {% elif venn_scopes.field2 %}
-                                value="{{ venn_scopes.field2 }}"
-                            {% endif%}
-                            placeholder="Input scope here..."
-                        />
-
-                        <h4 class="text4">Field 3:</h4>
-                        <input
-                            class="f3"
-                            name="field3"
-                            type="text"
-                            id="field3"
-                            {% if field3 is not None %}
-                                value="{{ field3 }}"
-                            {% elif venn_scopes.field3 %}
-                                value="{{ venn_scopes.field3 }}"
-                            {% endif%}
-                            placeholder="Input scope here..."
-                        />
-
-                        <h4 class="text5">Filter</h4>
-                        <div class="filter-input">
-                            <input
-                                class="f4"
-                                type="text"
-                                name="filter"
-                                id="filter"
-                                placeholder="Input filter here..."
-                            />
-                        </div>
-                        <button class="apply" id="applyButton">Apply</button>
-                    </form>
-                    <button class="closebtn" id="closeButton">Close</button>
-                </div>
             </div>
         </div>
 
@@ -162,6 +91,75 @@
                         value="Generate"
                     />
                 </form>
+            </div>
+
+            <div class="filters-button" id="pop-up"></div>
+            <div class="overlay" id="overlay"></div>
+
+            <div class="popup" id="popup">
+                <h2>Venn Diagram Settings</h2>
+                <h4 class="text1">Number of Fields</h4>
+
+                <form
+                        method="post"
+                        action="{%url 'homepage:filter'%}"
+                >
+                    {% csrf_token%}
+                    <h4 class="text2">Field 1:</h4>
+                    <input
+                            class="f1"
+                            name="field1"
+                            type="text"
+                            id="field1"
+                            {% if field1 is not None %}
+                            value="{{ field1 }}"
+                            {% elif venn_scopes.field1 %}
+                            value="{{ venn_scopes.field1 }}"
+                            {% endif%}
+                            placeholder="Input scope here..."
+                    />
+
+                    <h4 class="text3">Field 2:</h4>
+                    <input
+                            class="f2"
+                            name="field2"
+                            type="text"
+                            id="field2"
+                            {% if field2 is not None %}
+                            value="{{ field2}}"
+                            {% elif venn_scopes.field2 %}
+                            value="{{ venn_scopes.field2 }}"
+                            {% endif%}
+                            placeholder="Input scope here..."
+                    />
+
+                    <h4 class="text4">Field 3:</h4>
+                    <input
+                            class="f3"
+                            name="field3"
+                            type="text"
+                            id="field3"
+                            {% if field3 is not None %}
+                            value="{{ field3 }}"
+                            {% elif venn_scopes.field3 %}
+                            value="{{ venn_scopes.field3 }}"
+                            {% endif%}
+                            placeholder="Input scope here..."
+                    />
+
+                    <h4 class="text5">Filter (Optional)</h4>
+                    <div class="filter-input">
+                        <input
+                                class="f4"
+                                type="text"
+                                name="filter"
+                                id="filter"
+                                placeholder="Input filter here. Please type None if no filter desire."
+                        />
+                    </div>
+                    <button class="apply" id="applyButton">Apply</button>
+                </form>
+                <button class="closebtn" id="closeButton">Close</button>
             </div>
         </div>
             <div class="Problem-Statement">

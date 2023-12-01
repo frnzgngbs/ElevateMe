@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import VennDiagramFilter, GeneratePS
+
+from . import views
 
 app_name = 'homepage'
 
 urlpatterns = [
-    path('field/', VennDiagramFilter.as_view(), name="displayFields"),
-    path('generate/', GeneratePS.as_view(), name="generatePS")
+    path('filter/', views.VennDiagramFilter.as_view(), name="filter"),
+    path('generate/', views.GeneratePS.as_view(), name="generatePS")
 ]
