@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     const buttons = document.querySelectorAll('.buttons input[type="button"]');
-
     buttons.forEach((btn) => {
         if (btn.value === "Home") {
             btn.classList.add("button-clicked");
