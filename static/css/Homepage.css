@@ -90,6 +90,12 @@ html{
     overflow: hidden;
 }
 
+.circle1_2venn, .circle2_2venn{
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
 .circle1 {
     width: 300px; /* Adjust size as needed */
     height: 300px; /* Adjust size as needed */
@@ -101,6 +107,25 @@ html{
 }
 
 .circle2 {
+    width: 300px;
+    height: 300px;
+    background-color: transparent;
+    border: 5px solid #186f65;
+    top: 100px;
+    left: -150px;
+}
+
+.circle1_2venn {
+    width: 300px; /* Adjust size as needed */
+    height: 300px; /* Adjust size as needed */
+    background-color: transparent;
+    border: 5px solid #186f65;
+    top: 100px;
+    bottom: 50px; /* Adjust position */
+    left: -300px; /* Adjust position */
+}
+
+.circle2_2venn {
     width: 300px;
     height: 300px;
     background-color: transparent;
@@ -157,6 +182,27 @@ html{
         text-align: center;
 }
 
+.circle1_2venn textarea{
+        width: calc(100% - 180px);
+        height: calc(100% - 200px);
+        top: 75px;
+        left: 20px;
+        padding: 0;
+        margin: 0;
+        vertical-align: top;
+        line-height: normal;
+        text-align: center;
+}
+.circle2_2venn textarea{
+        width: calc(100% - 200px);
+        height: calc(100% - 180px);
+        top: 50px;
+        left: 155px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+}
+
 .circle1 textarea::-webkit-scrollbar, .circle2 textarea::-webkit-scrollbar, .circle3 textarea::-webkit-scrollbar{
     width: 13px;
 }
@@ -182,8 +228,8 @@ html{
 }
 .filters-button {
     position: absolute;
-    top: 140px;
-    left: 1300px;
+    top: 215px;
+    left: 1230px;
     width: 50px;
     height: 40px;
     background-image: url("/static/media/filter-setting.png");
@@ -192,6 +238,7 @@ html{
 
 h2 {
     color: #186f65;
+
 }
 
 .popup {
@@ -203,7 +250,38 @@ h2 {
 
 .text1 {
     position: relative;
-    left: -30px;
+    left: -70px;
+}
+.venn-2{
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    display: flex;
+    top: 63px;
+    left: 180px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.venn-3{
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    display: flex;
+    top: 63px;
+    left: 230px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #186f65;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 .text2,
 .text3,
@@ -214,20 +292,22 @@ h2 {
 }
 .f1,
 .f2,
-.f3,
-.f4 {
+.f3{
     position: relative;
     left: 50px;
     border: 0;
 }
 
 .f4 {
+    position: relative;
+    width: 350px;
+    height: 100px;
+    left: -70px;
     display: block;
     background-color: #d9d9d9;
     border-radius: 10px;
-    width: 250px;
-    height: 100px;
     text-align: center;
+    border: 2px solid black;
 }
 
 .closebtn {
@@ -244,7 +324,7 @@ h2 {
 .apply {
     position: relative;
     top: 30px;
-    left: 130px;
+    left: 180px;
     width: 80px;
     height: 40px;
     background-color: #186f65;

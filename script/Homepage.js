@@ -60,4 +60,40 @@ generateForm.addEventListener('submit', function(event) {
     psLine.style.display = 'none'; // Hide the text with ID 'ps-form'
 });*/
 
+function toggleDiagram(diagramId) {
+  const diagrams = document.getElementsByClassName('venn-container');
+  for (let i = 0; i < diagrams.length; i++) {
+    diagrams[i].style.display = 'none';
+  }
+  document.getElementById(diagramId).style.display = 'block';
 
+  const field3Input = document.getElementById('field3');
+  if (diagramId === 'venn-2') {
+    field3Input.disabled = true;
+    field3Input.value = '';
+  } else {
+    field3Input.disabled = false;
+  }
+
+  const selectDiv2 = document.querySelector('#venn2filter');
+  const selectDiv3 = document.querySelector('#venn3filter');
+
+  selectDiv2.addEventListener('click', () => {
+      venn3filter.style.transform = ''
+      venn2filter.style.backgroundColor = '#186f65';
+      venn2filter.style.color = 'white';
+      venn3filter.style.backgroundColor = 'white';
+      venn3filter.style.borderColor = '#186f65'
+      venn3filter.style.color = 'black';
+  });
+
+  selectDiv3.addEventListener('click', () =>{
+      venn2filter.style.transform = ''
+      venn3filter.style.backgroundColor = '#186f65';
+      venn3filter.style.color = 'white';
+      venn2filter.style.backgroundColor = 'white';
+      venn2filter.style.borderColor = '#186f65'
+      venn2filter.style.color = 'black';
+    });
+
+}
