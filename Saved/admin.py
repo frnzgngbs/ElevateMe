@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import TwoVenn, ThreeVenn
+from .models import TwoProblemStatement, ThreeProblemStatement
 
 # Register your models here.
-admin.site.register(TwoVenn)
-admin.site.register(ThreeVenn)
+admin.site.register(TwoProblemStatement)
+admin.site.register(ThreeProblemStatement)
