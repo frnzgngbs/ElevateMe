@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="container2">
+            <div class="container2">
             <div class="psg">Problem Statement Generator</div>
             <div class="specify-text1">
                 <p>
@@ -40,7 +40,26 @@
                 </p>
                 <form method="post" action="{% url 'homepage:generatePS' %}">
                     {% csrf_token %}
-                    <div class="venn-container">
+                <div class="venn-container" id="venn-2">
+                        <div class="circle1_2venn">
+                            <textarea
+                                type="text"
+                                name="field1_text_2venn"
+                                id="field1_text_2venn"
+                                readonly>
+                            </textarea>
+                        </div>
+                        <div class="circle2_2venn">
+                            <textarea
+                                type="text"
+                                name="field2_text_2venn"
+                                id="field2_text_2venn"
+                                readonly>
+                            </textarea>
+                        </div>
+               </div>
+
+                    <div class="venn-container" id="venn-3">
                         <div class="circle1">
                             <textarea
                                 type="text"
@@ -84,6 +103,7 @@
                             </textarea>
                         </div>
                     </div>
+
                     <input
                         class="generate-button"
                         id="generate-button"
@@ -91,20 +111,28 @@
                         value="Generate"
                     />
                 </form>
-            </div>
 
             <div class="filters-button" id="pop-up"></div>
             <div class="overlay" id="overlay"></div>
 
             <div class="popup" id="popup">
+
                 <h2>Venn Diagram Settings</h2>
-                <h4 class="text1">Number of Fields</h4>
 
                 <form
                         method="post"
                         action="{%url 'homepage:filter'%}"
                 >
                     {% csrf_token%}
+                    <div class="venn-input" id="venn-input">
+                    <h4 class="text1">Number of Fields</h4>
+                    <div class="venn-2" id="venn2filter" onclick="toggleDiagram('venn-2')">
+                        <p>2</p>
+                    </div>
+                    <div class="venn-3" id="venn3filter" onclick="toggleDiagram('venn-3')">
+                        <p>3</p>
+                    </div>
+                </div>
                     <h4 class="text2">Field 1:</h4>
                     <input
                             class="f1"
@@ -112,9 +140,9 @@
                             type="text"
                             id="field1"
                             {% if field1 is not None %}
-                                value="{{ field1 }}"
+                            value="{{ field1 }}"
                             {% elif venn_scopes.field1 %}
-                                value="{{ venn_scopes.field1 }}"
+                            value="{{ venn_scopes.field1 }}"
                             {% endif%}
                             placeholder="Input scope here..."
                     />
@@ -126,9 +154,9 @@
                             type="text"
                             id="field2"
                             {% if field2 is not None %}
-                                value="{{ field2}}"
+                            value="{{ field2}}"
                             {% elif venn_scopes.field2 %}
-                                value="{{ venn_scopes.field2 }}"
+                            value="{{ venn_scopes.field2 }}"
                             {% endif%}
                             placeholder="Input scope here..."
                     />
@@ -139,11 +167,6 @@
                             name="field3"
                             type="text"
                             id="field3"
-                            {% if field3 is not None %}
-                                value="{{ field3 }}"
-                            {% elif venn_scopes.field3 %}
-                                value="{{ venn_scopes.field3 }}"
-                            {% endif%}
                             placeholder="Input scope here..."
                     />
 
