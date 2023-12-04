@@ -68,9 +68,12 @@ function toggleDiagram(diagramId) {
   document.getElementById(diagramId).style.display = 'block';
 
   const field3Input = document.getElementById('field3');
+  const field3 = document.getElementById('field3_head')
   if (diagramId === 'venn-2') {
     field3Input.disabled = true;
     field3Input.value = '';
+    field3Input.hidden = true;
+    field3.hidden = true;
   } else {
     field3Input.disabled = false;
   }
@@ -97,3 +100,22 @@ function toggleDiagram(diagramId) {
     });
 
 }
+
+<!-- your_template.html -->
+<!-- ... Your existing HTML code ... -->
+document.addEventListener("DOMContentLoaded", function () {
+    const generateForm = document.getElementById('generateForm');
+    const vennRadioButtons = document.getElementsByName('venn_settings');
+
+    function updateFormAction() {
+        const selectedVennSetting = [...vennRadioButtons].find(radio => radio.checked);
+
+        if (selectedVennSetting) {
+            const url = '/filter/' + selectedVennSetting.value + '/';
+            generateForm.action = url;
+        }
+    }
+
+    // Attach the change event listener to update the form action
+    vennRadioButtons.forEach(radio => radio.addEventListener('change', updateFormAction));
+});

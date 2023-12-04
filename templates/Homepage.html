@@ -1,204 +1,212 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="/static/css/Homepage.css" />
-        <title>ElevateMe</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="elevateme">ElevateMe</div>
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link
+                href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
+                rel="stylesheet"
+            />
+            <link rel="stylesheet" href="/static/css/Homepage.css" />
+            <title>ElevateMe</title>
+        </head>
+        <body>
+            <div class="container">
+                <div class="elevateme">ElevateMe</div>
 
-            <div class="buttons">
-                <a href="{% url 'homepage:home' %} "
-                    ><input class="button-clicked" type="button" value="Home"
-                /></a>
-                <a href="{% url 'homepage:save' %}"
-                    ><input class="button1" type="button" value="Saved"
-                /></a>
-                <input class="button1" type="button" value="List" />
-                <input class="button1" type="button" value="5-Whys" />
-                <a href="{% url 'authenticate:signout' %}"
-                    ><input class="button1" type="button" value="Sign Out"
-                /></a>
+                <div class="buttons">
+                    <a href="{% url 'homepage:home' %} "
+                        ><input class="button-clicked" type="button" value="Home"
+                    /></a>
+                    <a href="{% url 'homepage:save' %}"
+                        ><input class="button1" type="button" value="Saved"
+                    /></a>
+                    <input class="button1" type="button" value="List" />
+                    <input class="button1" type="button" value="5-Whys" />
+                    <a href="{% url 'authenticate:signout' %}"
+                        ><input class="button1" type="button" value="Sign Out"
+                    /></a>
+                </div>
             </div>
-        </div>
 
-            <div class="container2">
-            <div class="psg">Problem Statement Generator</div>
-            <div class="specify-text1">
-                <p>
-                    Specify first the number of Venn Diagram and Input the
-                    scopes of your problem statement you want to be generated
-                </p>
-                <form method="post" action="{% url 'homepage:generatePS' %}">
-                    {% csrf_token %}
-                <div class="venn-container" id="venn-2">
+                <div class="container2">
+                <div class="psg">Problem Statement Generator</div>
+                <div class="specify-text1">
+                    <p>
+                        Specify first the number of Venn Diagram and Input the
+                        scopes of your problem statement you want to be generated
+                    </p>
+                    <form method="post" action="{% url 'homepage:generatePS' %}">
+                        {% csrf_token %}
+                    <div class="venn-container" id="venn-2">
                         <div class="circle1_2venn">
-                            <textarea
-                                type="text"
-                                name="field1_text_2venn"
-                                id="field1_text_2venn"
-                                readonly>
-                            </textarea>
+                                <textarea
+                                        type="text"
+                                        name="field1_text"
+                                        id="field1_text"
+                                        readonly
+                                >
+                                    {% if field1 is not None %}
+                                        {{ field1 }}
+                                    {% elif venn_scopes.field1 is not None%}
+                                        {{ venn_scopes.field1 }}
+                                    {% endif %}
+                                </textarea>
                         </div>
                         <div class="circle2_2venn">
-                            <textarea
-                                type="text"
-                                name="field2_text_2venn"
-                                id="field2_text_2venn"
-                                readonly>
-                            </textarea>
-                        </div>
-               </div>
-
-                    <div class="venn-container" id="venn-3">
-                        <div class="circle1">
-                            <textarea
-                                type="text"
-                                name="field1_text"
-                                id="field1_text"
-                                readonly
-                            >
-                                {% if field1 is not None %}
-                                    {{ field1 }}
-                                {% elif venn_scopes.field1 is not None%}
-                                    {{ venn_scopes.field1 }}
-                                {% endif %}
-                            </textarea>
-                        </div>
-                        <div class="circle2">
-                            <textarea
-                                type="text"
-                                name="field2_text"
-                                id="field2_text"
-                                readonly
-                            >
-                                {% if field2 is not None %}
-                                    {{ field2 }}
-                                {% elif venn_scopes.field2 is not None%}
-                                    {{ venn_scopes.field2 }}
-                                {% endif %}
-                            </textarea>
-                        </div>
-                        <div class="circle3">
-                            <textarea
-                                type="text"
-                                name="field3_text"
-                                id="field3_text"
-                                readonly
-                            >
-                                {% if field3 is not None %}
-                                    {{ field3 }}
-                                {% elif venn_scopes.field3 is not None%}
-                                    {{ venn_scopes.field3 }}
-                                {% endif %}
-                            </textarea>
+                                <textarea
+                                        type="text"
+                                        name="field2_text"
+                                        id="field2_text"
+                                        readonly
+                                >
+                                    {% if field2 is not None %}
+                                        {{ field2 }}
+                                    {% elif venn_scopes.field2 is not None%}
+                                        {{ venn_scopes.field2 }}
+                                    {% endif %}
+                                </textarea>
                         </div>
                     </div>
+                        <div class="venn-container" id="venn-3">
+                            <div class="circle1">
+                                <textarea
+                                    type="text"
+                                    name="field1_text"
+                                    id="field1_text"
+                                    readonly
+                                >
+                                    {% if field1 is not None %}
+                                        {{ field1 }}
+                                    {% elif venn_scopes.field1 is not None%}
+                                        {{ venn_scopes.field1 }}
+                                    {% endif %}
+                                </textarea>
+                            </div>
+                            <div class="circle2">
+                                <textarea
+                                    type="text"
+                                    name="field2_text"
+                                    id="field2_text"
+                                    readonly
+                                >
+                                    {% if field2 is not None %}
+                                        {{ field2 }}
+                                    {% elif venn_scopes.field2 is not None%}
+                                        {{ venn_scopes.field2 }}
+                                    {% endif %}
+                                </textarea>
+                            </div>
+                            <div class="circle3">
+                                <textarea
+                                    type="text"
+                                    name="field3_text"
+                                    id="field3_text"
+                                    readonly
+                                >
+                                    {% if field3 is not None %}
+                                        {{ field3 }}
+                                    {% elif venn_scopes.field3 is not None%}
+                                        {{ venn_scopes.field3 }}
+                                    {% endif %}
+                                </textarea>
+                            </div>
+                        </div>
 
-                    <input
-                        class="generate-button"
-                        id="generate-button"
-                        type="submit"
-                        value="Generate"
-                    />
-                </form>
-
-            <div class="filters-button" id="pop-up"></div>
-            <div class="overlay" id="overlay"></div>
-
-            <div class="popup" id="popup">
-
-                <h2>Venn Diagram Settings</h2>
-
-                <form
-                        method="post"
-                        action="{%url 'homepage:filter'%}"
-                >
-                    {% csrf_token%}
-                    <div class="venn-input" id="venn-input">
-                    <h4 class="text1">Number of Fields</h4>
-                    <div class="venn-2" id="venn2filter" onclick="toggleDiagram('venn-2')">
-                        <p>2</p>
-                    </div>
-                    <div class="venn-3" id="venn3filter" onclick="toggleDiagram('venn-3')">
-                        <p>3</p>
-                    </div>
-                </div>
-                    <h4 class="text2">Field 1:</h4>
-                    <input
-                            class="f1"
-                            name="field1"
-                            type="text"
-                            id="field1"
-                            {% if field1 is not None %}
-                            value="{{ field1 }}"
-                            {% elif venn_scopes.field1 %}
-                            value="{{ venn_scopes.field1 }}"
-                            {% endif%}
-                            placeholder="Input scope here..."
-                    />
-
-                    <h4 class="text3">Field 2:</h4>
-                    <input
-                            class="f2"
-                            name="field2"
-                            type="text"
-                            id="field2"
-                            {% if field2 is not None %}
-                            value="{{ field2}}"
-                            {% elif venn_scopes.field2 %}
-                            value="{{ venn_scopes.field2 }}"
-                            {% endif%}
-                            placeholder="Input scope here..."
-                    />
-
-                    <h4 class="text4">Field 3:</h4>
-                    <input
-                            class="f3"
-                            name="field3"
-                            type="text"
-                            id="field3"
-                            placeholder="Input scope here..."
-                    />
-
-                    <h4 class="text5">Filter (Optional)</h4>
-                    <div class="filter-input">
                         <input
-                                class="f4"
-                                type="text"
-                                name="filter"
-                                id="filter"
-                                placeholder="Input filter here. Please type None if no filter desire."
+                            class="generate-button"
+                            id="generate-button"
+                            type="submit"
+                            value="Generate"
                         />
-                    </div>
-                    <button class="apply" id="applyButton">Apply</button>
+                    </form>
+
+                <div class="filters-button" id="pop-up"></div>
+                <div class="overlay" id="overlay"></div>
+
+                <div class="popup" id="popup">
+
+                    <h2>Venn Diagram Settings</h2>
+
+                    <form
+                            method="post" action="{% url 'homepage:filter' %}" id="generateForm"
+                    >
+                        {% csrf_token%}
+                        <div class="venn-input" id="venn-input">
+                        <h4 class="text1">Number of Fields</h4>
+                            <input type="radio" id="venn_radio_2" name="venn_settings" value="2">Two
+                            <input type="radio" id="venn_radio_3" name="venn_settings" value="3" checked>Three
+
+                        </div>
+                        <h4 class="text2">Field 1:</h4>
+                        <input
+                                class="f1"
+                                name="field1"
+                                type="text"
+                                id="field1"
+                                {% if field1 is not None %}
+                                value="{{ field1 }}"
+                                {% elif venn_scopes.field1 %}
+                                value="{{ venn_scopes.field1 }}"
+                                {% endif%}
+                                placeholder="Input scope here..."
+                        />
+
+                        <h4 class="text3">Field 2:</h4>
+                        <input
+                                class="f2"
+                                name="field2"
+                                type="text"
+                                id="field2"
+                                {% if field2 is not None %}
+                                value="{{ field2}}"
+                                {% elif venn_scopes.field2 %}
+                                value="{{ venn_scopes.field2 }}"
+                                {% endif%}
+                                placeholder="Input scope here..."
+                        />
+
+                        <h4 class="text4" id="field3_head">Field 3:</h4>
+                        <input
+                                class="f3"
+                                name="field3"
+                                type="text"
+                                id="field3"
+                                placeholder="Input scope here..."
+                        />
+
+                        <h4 class="text5">Filter (Optional)</h4>
+                        <div class="filter-input">
+                            <input
+                                    class="f4"
+                                    type="text"
+                                    name="filter"
+                                    id="filter"
+                                    placeholder="Input filter here. Please type None if no filter desire."
+                            />
+                        </div>
+                        <button class="apply" id="applyButton">Apply</button>
+                    </form>
+                    <button class="closebtn" id="closeButton">Close</button>
+                </div>
+            </div>
+                <div class="Problem-Statement">
+                {% if generate_response is not None %}
+                    <p class="ps-form" id="ps-form">Problem Statement</p>
+                    <form class="generate-form" id="generate-form">
+                    {% for key, value in generate_response.items %}
+                <table>
+                    <tr>
+                        <td><input type="checkbox">{{ value }}</td>
+                    </tr>
+                </table>
+                {% endfor %}
+                {% endif %}
                 </form>
-                <button class="closebtn" id="closeButton">Close</button>
-            </div>
-        </div>
-            <div class="Problem-Statement">
-            {% if generate_response is not None %}
-                <p class="ps-form" id="ps-form">Problem Statement</p>
-                <form class="generate-form" id="generate-form">
-                {% for key, value in generate_response.items %}
-            <table>
-                <tr>
-                    <td><input type="checkbox">{{ value }}</td>
-                </tr>
-            </table>
-            {% endfor %}
-            {% endif %}
-            </form>
-            </div>
-        <script src="{% static 'script/Homepage.js' %}"></script>
-    </body>
-</html>
+                </div>
+            <script src="{% static 'script/Homepage.js' %}"></script>
+                </div>
+        </body>
+    </html>
