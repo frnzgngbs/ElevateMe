@@ -151,7 +151,7 @@ class Homepage(View):
         # return redirect('homepage:home')
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
