@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/SavedList.css" />
+    <title>ElevateMe</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="elevateme">ElevateMe</div>
+
+        <div class="buttons">
+            <a href="#"><input class="button1" type="button" value="Home" /></a>
+            <a href="#"><input class="button-clicked" type="button" value="Saved" /></a>
+            <input class="button1" type="button" value="List" />
+            <input class="button1" type="button" value="5-Whys" />
+            <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
+        </div>
+    </div>
+    <div class="savedlist">
+        <h1> Saved List</h1>
+        <div class="vennDiagram2">
+            <h2>2 Venn Diagram List </h2>
+            <div class="outside-container">
+                <div class="outside-container2">
+                    <button class="add-button" onclick="showAddCardModal('vennDiagram2Container')">Add</button>
+                </div>
+                <div class="vennDiagram2-container">
+                    <div class="cards-container" id="vennDiagram2Container">
+                        <!-- Card Template initial -->
+                     <!--    <div class="card" id="card1">
+                            <input type="checkbox" class="checkbox" />
+                            <div class="card-text" contenteditable="true">Problem Statement </div>
+                            <button class="edit-button"
+                            onclick="showEditCardModal('vennDiagram2Container', 'cardId')">Edit</button>
+                            <button class="delete-button"
+                                onclick="deleteCard('vennDiagram2Container', 'card1')">Delete</button>
+                        </div> -->
+                       
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <div class="vennDiagram3">
+            <h2>3 Venn Diagram List </h2>
+            <button class="add-button" onclick="showAddCardModal('vennDiagram3Container')">Add</button>
+            <div class="vennDiagram3-container">
+                <div class="cards-container" id="vennDiagram3Container">
+                    <!-- <div class="card">
+                        <input type="checkbox" class="checkbox" />
+                        <div class="card-text" contenteditable="true">Your Text Here</div>
+                        <button class="edit-button"
+                            onclick="showEditCardModal('vennDiagram3Container', 'cardId')">Edit</button>
+                       <button class="delete-button"
+                            onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+
+       <!--  Wala nani nga part and add sa saved page kay need siya ma specify if 2 or 3 type ba siya nga venn, sa PS list page nalang naay add. wala nako gi delete for testing pero if eh continue goods rapud pede rata mag empty sa iya information sa asa gikan nga venn-->
+      <div id="addCardModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddCardModal()">&times;</span>
+                <label for="newCardText">Enter problem Statement</label>
+                <br>
+                <textarea id="newCardText" rows="4" placeholder="Enter Problem Statement Here"></textarea>
+                <br>
+                <button class="confirm-add-button" onclick="confirmAddCard()">Confirm Add</button>
+            </div>
+        </div> 
+
+        <div id="editCardModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditCardModal()">&times;</span>
+               <!--  <form id="editCardForm" method="post" action="{% url 'saved:displayFields' %}">  <!-- //not sure here franzy saon pag form -->
+                  <!--   {% csrf_token %} --> 
+                    <label for="editCardText">Edit Problem Statement</label>
+                    <br>
+                    <textarea id="editCardText" name="editedText" rows="4" placeholder="Edit Problem Statement"></textarea>
+                    <br>
+                    <button type="submit" class="confirm-edit-button" onclick="confirmEditCard()">Confirm Edit</button>
+             <!--        
+                </form> -->
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="{% static 'script/Saved.js' %}"></script>
+</body>
+
+</html>
