@@ -136,9 +136,12 @@
                         {% csrf_token%}
                         <div class="venn-input" id="venn-input">
                         <h4 class="text1">Number of Fields</h4>
-                            <input type="radio" id="venn_radio_2" name="venn_settings" value="2">Two
-                            <input type="radio" id="venn_radio_3" name="venn_settings" value="3" checked>Three
 
+                            <input type="radio" class="venn-2" id="venn_radio_2" name="venn_settings" value="2" onchange="toggleDiagram('venn-2')">
+                            <label class="venn2-label" for="venn2">Two</label>
+
+                            <input type="radio" class="venn-3" id="venn_radio_3" name="venn_settings" value="3" onchange="toggleDiagram('venn-3')" checked>
+                            <label class="venn3-label" for="venn3">Three</label>
                         </div>
                         <h4 class="text2">Field 1:</h4>
                         <input
@@ -196,16 +199,19 @@
                 {% if generate_response is not None %}
                     <p class="ps-form" id="ps-form">Problem Statement</p>
                     <form class="generate-form" id="generate-form">
-                    {% for key, value in generate_response.items %}
-                <table>
-                    <tr>
-                        <td><input type="checkbox">{{ value }}</td>
-                    </tr>
-                </table>
-                {% endfor %}
-                {% endif %}
-                </form>
-                </div>
+                        {% for key, value in generate_response.items %}
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox">{{ value }}</td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+                    {% endif %}
+                        {% if generate_response.items %}
+                            <button class="save" id="save">Save To List</button>
+                        {% endif %}
+                    </form>
+            </div>
             <script src="{% static 'script/Homepage.js' %}"></script>
                 </div>
         </body>

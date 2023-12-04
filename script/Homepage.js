@@ -76,28 +76,9 @@ function toggleDiagram(diagramId) {
     field3.hidden = true;
   } else {
     field3Input.disabled = false;
+    field3Input.hidden = false;
+    field3.hidden = false;
   }
-
-  const selectDiv2 = document.querySelector('#venn2filter');
-  const selectDiv3 = document.querySelector('#venn3filter');
-
-  selectDiv2.addEventListener('click', () => {
-      venn3filter.style.transform = ''
-      venn2filter.style.backgroundColor = '#186f65';
-      venn2filter.style.color = 'white';
-      venn3filter.style.backgroundColor = 'white';
-      venn3filter.style.borderColor = '#186f65'
-      venn3filter.style.color = 'black';
-  });
-
-  selectDiv3.addEventListener('click', () =>{
-      venn2filter.style.transform = ''
-      venn3filter.style.backgroundColor = '#186f65';
-      venn3filter.style.color = 'white';
-      venn2filter.style.backgroundColor = 'white';
-      venn2filter.style.borderColor = '#186f65'
-      venn2filter.style.color = 'black';
-    });
 
 }
 
