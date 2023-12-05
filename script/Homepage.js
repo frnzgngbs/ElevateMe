@@ -35,6 +35,7 @@ const overlay = document.getElementById("overlay");
 const popup = document.getElementById("popup");
 const closeButton = document.getElementById("closeButton");
 
+
 popupButton.addEventListener("click", function () {
     overlay.style.display = "block";
     popup.style.display = "block";
@@ -45,58 +46,32 @@ closeButton.addEventListener("click", function () {
     popup.style.display = "none";
 });
 
-const generateForm = document.getElementById('generate-form');
-const saveButton = document.querySelector('.save');
-const psLine = document.getElementById('ps-form'); // Assuming the ID is 'ps-form'
+const generateForm = document.getElementById("generate-form");
+const saveButton = document.querySelector(".save");
+const psLine = document.getElementById("ps-form"); // Assuming the ID is 'ps-form'
 
-generateForm.addEventListener('submit', function(event) {
+generateForm.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent default form submission behavior
 
-    // Your logic to handle form submission (AJAX request, data processing, etc.)
-
     // Show the Save button after form submission
-    saveButton.style.display = 'block';
-    generateForm.style.display = 'none'; // Optionally hide the form after submission
-    psLine.style.display = 'none'; // Hide the text with ID 'ps-form'
+    saveButton.style.display = "block";
+    generateForm.style.display = "none"; // Optionally hide the form after submission
+    psLine.style.display = "none"; // Hide the text with ID 'ps-form'
 });
 
 function toggleDiagram(diagramId) {
-  const diagrams = document.getElementsByClassName('venn-container');
-  for (let i = 0; i < diagrams.length; i++) {
-    diagrams[i].style.display = 'none';
-  }
-  document.getElementById(diagramId).style.display = 'block';
 
-  const field3Input = document.getElementById('field3');
-  const field3 = document.getElementById('field3_head')
-  if (diagramId === 'venn-2') {
-    field3Input.disabled = true;
-    field3Input.value = '';
-    field3Input.hidden = true;
-    field3.hidden = true;
-  } else {
-    field3Input.disabled = false;
-    field3Input.hidden = false;
-    field3.hidden = false;
-  }
-
+    const field3Input = document.getElementById("field3");
+    const field3 = document.getElementById("field3_head");
+    if (diagramId === "venn-2") {
+        field3Input.disabled = true;
+        field3Input.value = "";
+        field3Input.hidden = true;
+        field3.hidden = true;
+    } else if (diagramId === "venn-3") {
+        field3Input.disabled = false;
+        field3Input.hidden = false;
+        field3.hidden = false;
+    }
 }
 
-<!-- your_template.html -->
-<!-- ... Your existing HTML code ... -->
-document.addEventListener("DOMContentLoaded", function () {
-    const generateForm = document.getElementById('generateForm');
-    const vennRadioButtons = document.getElementsByName('venn_settings');
-
-    function updateFormAction() {
-        const selectedVennSetting = [...vennRadioButtons].find(radio => radio.checked);
-
-        if (selectedVennSetting) {
-            const url = '/filter/' + selectedVennSetting.value + '/';
-            generateForm.action = url;
-        }
-    }
-
-    // Attach the change event listener to update the form action
-    vennRadioButtons.forEach(radio => radio.addEventListener('change', updateFormAction));
-});

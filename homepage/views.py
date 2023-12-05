@@ -11,7 +11,6 @@ class VennDiagramFilter(View):
 
     @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request, venn_settings):
-
         venn_diagram = request.session.get('venn_scopes')
         generate_response = request.session.get('openai')
 
@@ -22,9 +21,9 @@ class VennDiagramFilter(View):
 
         return render(request, self.template_name, context)
 
-    def post(self, request):
+    def post(self, request, venn_settings):
         if request.method == "POST":
-            venn_settings = request.POST.get("venn_settings")
+            # Use the venn_settings from the URL pattern
             if venn_settings == "2":
                 field1 = request.POST.get("field1")
                 field2 = request.POST.get("field2")
@@ -76,6 +75,7 @@ class VennDiagramFilter(View):
 
         return redirect("homepage:home")
 
+
 class GeneratePS(View):
     @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
@@ -84,30 +84,56 @@ class GeneratePS(View):
     def post(self, request):
         if request.method == "POST":
             venn_diagram = request.session.get('venn_scopes')
+            setting = venn_diagram["settings"]
 
-            field1 = request.POST.get("field1_text")
-            field2 = request.POST.get("field2_text")
-            field3 = request.POST.get("field3_text")
-            field4 = venn_diagram.get('filter')
+            # 2 VENN DIAGRAM SETTING
+            if setting == "2":
 
-            # Perform any additional processing with the data if needed
+                field1 = venn_diagram['field1']
+                field2 = venn_diagram['field2']
+                field3 = "None"
+                field4 = venn_diagram['field4']
 
-            generate_response = generateAi(field1, field2, field3, field4)
-            venn_scopes = request.session.get('venn_scopes')
+                # Perform any additional processing with the data if needed
 
-            request.session['openai'] = generate_response
+                generate_response = generateAi(field1, field2, field3, field4)
 
-            # Pass the fields to the template
-            return render(request, 'homepage.html',
-                          {
-                              "generate_response": generate_response,
-                              "venn_scopes": venn_scopes
-                          })
+                request.session['openai'] = generate_response
+
+                # Pass the fields to the template
+                return render(request, 'homepage.html',
+                              {
+                                  "generate_response": generate_response,
+                                  "venn_scopes": venn_diagram
+                              })
+
+            # 3 VENN DIAGRAM SETTING
+            elif setting == "3":
+
+                field1 = venn_diagram['field1']
+                field2 = venn_diagram['field2']
+                field3 = venn_diagram['field3']
+                field4 = venn_diagram['field4']
+
+                # Perform any additional processing with the data if needed
+
+                generate_response = generateAi(field1, field2, field3, field4)
+
+                request.session['openai'] = generate_response
+
+                # Pass the fields to the template
+                return render(request, 'homepage.html',
+                              {
+                                  "generate_response": generate_response,
+                                  "venn_scopes": venn_diagram
+                              })
 
         return redirect('homepage:home')
 
+
 class Homepage(View):
     template_name = "homepage.html"
+
     @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
         generate_response = request.session.get('openai')
@@ -118,40 +144,13 @@ class Homepage(View):
             "generate_response": generate_response
         }
         return render(request, self.template_name, context)
+
     def post(self, request):
         pass
-        # if request.method == "POST":
-        #     setting = request.POST.get("venn_settings")
-        #     field1 = request.POST.get("field1")
-        #     field2 = request.POST.get("field2")
-        #     field3 = request.POST.get("field3")
-        #     field4 = request.POST.get("filter")
-        #
-        #     venn_scopes = {
-        #         'settings': setting,
-        #         'field1': field1,
-        #         'field2': field2,
-        #         'field3': field3,
-        #         'filter': field4,
-        #     }
-        #
-        #     request.session['venn_scopes'] = venn_scopes
-        #
-        #     generate_response = request.session.get('openai')
-        #
-        #     request.session['venn_scopes'] = venn_scopes
-        #
-        #     context = {
-        #         "venn_scopes": venn_scopes,
-        #         "generate_response": generate_response
-        #     }
-        #
-        #     return render(request, self.template_name, context)
-        #
-        # return redirect('homepage:home')
+
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -161,14 +160,11 @@ def generateAi(field1, field2, field3, field4):
                    f"directly. Please make each problem statement unique. Apply filter: {field4}"
 
     }])
-
     print(completion)
-
     response_list = completion.choices[0].message.content.split('\n')
 
     # Create a dictionary to store the questions
     questions_dict = {}
-
 
     for i, question in enumerate(response_list, start=1):
         # Split each question and take the second part (after the dot)
@@ -179,4 +175,8 @@ def generateAi(field1, field2, field3, field4):
 
 
 def savePage(request):
+    request.session.delete()
+
+    request.session.save()
+
     return render(request, "save.html")
