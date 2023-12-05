@@ -81,15 +81,14 @@
         <div id="editCardModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeEditCardModal()">&times;</span>
-               <!--  <form id="editCardForm" method="post" action="{% url 'saved:displayFields' %}">  <!-- //not sure here franzy saon pag form -->
-                  <!--   {% csrf_token %} --> 
+                <form>
+                     {% csrf_token %}
                     <label for="editCardText">Edit Problem Statement</label>
                     <br>
                     <textarea id="editCardText" name="editedText" rows="4" placeholder="Edit Problem Statement"></textarea>
                     <br>
                     <button type="submit" class="confirm-edit-button" onclick="confirmEditCard()">Confirm Edit</button>
-             <!--        
-                </form> -->
+                </form>
             </div>
         </div>
         

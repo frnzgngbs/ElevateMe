@@ -47,17 +47,8 @@ closeButton.addEventListener("click", function () {
 });
 
 const generateForm = document.getElementById("generate-form");
-const saveButton = document.querySelector(".save");
+const saveButton = document.querySelector(".Saving");
 const psLine = document.getElementById("ps-form"); // Assuming the ID is 'ps-form'
-
-generateForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission behavior
-
-    // Show the Save button after form submission
-    saveButton.style.display = "block";
-    generateForm.style.display = "none"; // Optionally hide the form after submission
-    psLine.style.display = "none"; // Hide the text with ID 'ps-form'
-});
 
 function toggleDiagram(diagramId) {
 

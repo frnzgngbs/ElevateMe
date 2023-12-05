@@ -356,7 +356,7 @@ h2 {
     position: relative;
     top: 350px;
     border-radius: 50px;
-    background-color: #DADADA;
+    background-color: #C5DCC2;
     text-align: justify;
     display: flex;
     flex-direction: column; /* Display items in a column */
@@ -374,6 +374,7 @@ h2 {
     background-color: #186f65;
     font-weight: bold;
     margin-top: 20px;
+    color: white;
 }
 
 /* For screens smaller than 768px */

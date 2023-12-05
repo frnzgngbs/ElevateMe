@@ -37,10 +37,15 @@ class LoginForm(View):
             print(f"Username: {uname}\n"
                   f"Password: {passw}")
 
+            auth = {
+                "username": uname,
+                "password": passw
+            }
             user = authenticate(request, username=uname, password=passw)
 
             if user is not None:
                 login(request, user)
+                request.session['auth'] = auth
 
                 return redirect('homepage:home')
 

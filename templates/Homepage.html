@@ -191,10 +191,10 @@
                                 name="venn_settings"
                                 value="2"
                                 onchange="toggleDiagram('venn-2')"
-
+                                required
+                                checked
                         />
                         <label class="venn2-label" for="venn2">Two</label>
-
                         <input
                                 type="radio"
                                 class="venn-3"
@@ -202,6 +202,7 @@
                                 name="venn_settings"
                                 value="3"
                                 onchange="toggleDiagram('venn-3')"
+                                required
                         />
                         <label class="venn3-label" for="venn3">Three</label>
                     {% elif venn_scopes.settings == "3" %}
@@ -212,9 +213,9 @@
                                 name="venn_settings"
                                 value="2"
                                 onchange="toggleDiagram('venn-2')"
+                                required
                         />
                         <label class="venn2-label" for="venn2">Two</label>
-
                         <input
                                 type="radio"
                                 class="venn-3"
@@ -222,7 +223,8 @@
                                 name="venn_settings"
                                 value="3"
                                 onchange="toggleDiagram('venn-3')"
-
+                                required
+                                checked
                         />
                         <label class="venn3-label" for="venn3">Three</label>
                     {% else %}
@@ -232,7 +234,7 @@
                                 id="venn_radio_2"
                                 name="venn_settings"
                                 value="2"
-                                onchange="toggleDiagram('venn-2')"
+                                onchange="toggleDiagram('venn-2')"required
                         />
                         <label class="venn2-label" for="venn2">Two</label>
 
@@ -243,6 +245,7 @@
                                 name="venn_settings"
                                 value="3"
                                 onchange="toggleDiagram('venn-3')"
+                                required
 
                         />
                         <label class="venn3-label" for="venn3">Three</label>
@@ -275,7 +278,6 @@
                         {% endif %}
                         placeholder="Input scope here..."
                 />
-
                 <h4 class="text4" id="field3_head">Field 3:</h4>
                 <input
                         class="f3"
@@ -289,7 +291,6 @@
                         {% endif %}
                         placeholder="Input scope here..."
                 />
-
                 <h4 class="text5">Filter (Optional)</h4>
                 <div class="filter-input">
                     <input
@@ -308,17 +309,18 @@
     <div class="Problem-Statement">
         {% if generate_response is not None %}
             <p class="ps-form" id="ps-form">Problem Statement</p>
-            <form class="generate-form" id="generate-form">
-            {% for key, value in generate_response.items %}
+            <form class="generate-form" id="generate-form" action="{% url 'Saving:saveModel' %}" method="post">
+                {% csrf_token %}
                 <table>
-                    <tr>
-                        <td><input type="checkbox" />{{ value }}</td>
-                    </tr>
+                    {% for key, value in generate_response.items %}
+                        <tr>
+                            <td><input type="checkbox" name="checkbox_group" value="{{ value }}"/> {{ value }}</td>
+                        </tr>
+                    {% endfor %}
                 </table>
-            {% endfor %} {% endif %} {% if generate_response.items %}
-        <button class="save" id="save">Save To List</button>
-    {% endif %}
-        </form>
+                <button class="save" id="save" type="submit">Save To List</button>
+            </form>
+        {% endif %}
     </div>
     <script src="{% static 'script/Homepage.js' %}"></script>
 </div>

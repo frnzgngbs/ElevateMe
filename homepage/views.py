@@ -1,9 +1,12 @@
 import openai
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 
 from django.views import View
 from django.shortcuts import render, redirect
+
+from Saving.models import TwoVennDiagram, ThreeVennDiagram, TwoProblemStatement, ThreeProblemStatement
 
 
 class VennDiagramFilter(View):
@@ -27,12 +30,14 @@ class VennDiagramFilter(View):
             if venn_settings == "2":
                 field1 = request.POST.get("field1")
                 field2 = request.POST.get("field2")
+                field3 = "none"
                 field4 = request.POST.get("filter")
 
                 venn_scopes = {
                     'settings': venn_settings,
                     'field1': field1,
                     'field2': field2,
+                    'field3': field3,
                     'filter': field4,
                 }
 
@@ -82,6 +87,7 @@ class GeneratePS(View):
         return render(request, "homepage.html")
 
     def post(self, request):
+
         if request.method == "POST":
             venn_diagram = request.session.get('venn_scopes')
             setting = venn_diagram["settings"]
@@ -92,7 +98,7 @@ class GeneratePS(View):
                 field1 = venn_diagram['field1']
                 field2 = venn_diagram['field2']
                 field3 = "None"
-                field4 = venn_diagram['field4']
+                field4 = venn_diagram['filter']
 
                 # Perform any additional processing with the data if needed
 
@@ -113,7 +119,7 @@ class GeneratePS(View):
                 field1 = venn_diagram['field1']
                 field2 = venn_diagram['field2']
                 field3 = venn_diagram['field3']
-                field4 = venn_diagram['field4']
+                field4 = venn_diagram['filter']
 
                 # Perform any additional processing with the data if needed
 
@@ -150,7 +156,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -163,7 +169,6 @@ def generateAi(field1, field2, field3, field4):
     print(completion)
     response_list = completion.choices[0].message.content.split('\n')
 
-    # Create a dictionary to store the questions
     questions_dict = {}
 
     for i, question in enumerate(response_list, start=1):
@@ -173,10 +178,5 @@ def generateAi(field1, field2, field3, field4):
 
     return questions_dict
 
-
 def savePage(request):
-    request.session.delete()
-
-    request.session.save()
-
     return render(request, "save.html")
