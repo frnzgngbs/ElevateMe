@@ -47,10 +47,6 @@ class SaveProblemStatement(View):
             return redirect('homepage:home')
         return redirect('homepage:home')
 
-
-# def Save(request):
-#     return render(request, 'save.html')
-
 class Save(View):
     def get(self, request):
         auth = request.session.get('auth')
@@ -86,8 +82,27 @@ class SaveOperation(View):
         pass
 
     def post(self, request, operation):
+        auth = request.session.get('auth')
+        user = User.objects.get(username=auth["username"])
+        checked_checkboxes = request.POST.getlist('checkbox_group')
         # IF OPERATION EQUALS TO UPDATE, CHECK FIRST THE BUTTON VALUE THAT SUBMITTED THE FORM
         # IF THE VALUE IS "2.1" MEANING IT IS FROM THE 2 VENN, IF "3.1" FROM THE 3 VENN ( ALL ARE UPDATE OPERATION ).
+        if request.method == "POST":
+            button_value = request.POST.get('button')
+            if button_value == "button2.1":
+                for value in checked_checkboxes:
+                    print(value)
+
+            elif button_value == "button2.2":
+                # PERFORM DELETE
+                print()
+            elif button_value == "button3.1":
+                # PERFORM UPDATE
+                print()
+            elif button_value == "button3.2":
+                # PERFORM DELETE
+                print()
+
         return HttpResponse(operation)
 
 
