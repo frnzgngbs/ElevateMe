@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authenticate',
     'homepage',
-    'Saving'
+    'Saving',
+    'Whys'
 ]
 
 MIDDLEWARE = [

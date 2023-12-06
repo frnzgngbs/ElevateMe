@@ -53,8 +53,9 @@
                 <a href="#"
                     ><input class="button-clicked" type="button" value="Saved"
                 /></a>
-                <input class="button1" type="button" value="List" />
-                <input class="button1" type="button" value="5-Whys" />
+                <input class="button1" type="button" value="Ranking" />
+                <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Whys" /></a>
+                <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
             </div>
         </div>
         <div class="savedlist">
