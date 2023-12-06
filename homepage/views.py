@@ -177,6 +177,3 @@ def generateAi(field1, field2, field3, field4):
         questions_dict[i] = question_without_number
 
     return questions_dict
-
-def savePage(request):
-    return render(request, "save.html")

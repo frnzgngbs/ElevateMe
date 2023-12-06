@@ -7,56 +7,6 @@ function deleteCard(containerId, cardId) {
     }
 }
 
-
-/* mogana nani ang mga functions but need siya unique IDs para eh pasapasa pang edit og pang delete. Let me know if naa sayup 
-*/
-/* function createCard(containerId, text) {
-    // Increment the cardCounter for a unique ID
-    const cardId = 'card' + cardCounter++;
-
-    // Create card elements
-    const card = document.createElement("div");
-    card.className = "card";
-    card.id = cardId;
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "checkbox";
-
-    const cardText = document.createElement("div");
-    cardText.className = "card-text";
-    cardText.contentEditable = true;
-    cardText.textContent = text;
-
-    const editButton = document.createElement("button");
-    editButton.className = "edit-button";
-    editButton.textContent = "Edit";
-    // Set a data attribute to store the cardId
-    editButton.dataset.cardId = cardId;
-    editButton.onclick = function () {
-        showEditCardModal(containerId, cardId);
-    };
-
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "delete-button";
-    deleteButton.textContent = "Delete";
-    // Set a data attribute to store the cardId
-    deleteButton.dataset.cardId = cardId;
-    deleteButton.onclick = function () {
-        deleteCard(containerId, cardId);
-    };
-
-    // Append elements to the card
-    card.appendChild(checkbox);
-    card.appendChild(cardText);
-    card.appendChild(editButton);
-    card.appendChild(deleteButton);
-
-    // Append the card to the cards container
-    const cardsContainer = document.getElementById(containerId);
-    cardsContainer.appendChild(card);
-}
- */
 function createCard(containerId, text) {
     // Increment the cardCounter for a unique ID
     const cardId = 'card' + cardCounter++;
@@ -204,4 +154,52 @@ function showAddCardModal(containerId) {
 }
 
 // Additional functions or modifications can be added as needed
- 
+/* mogana nani ang mga functions but need siya unique IDs para eh pasapasa pang edit og pang delete. Let me know if naa sayup
+*/
+/* function createCard(containerId, text) {
+    // Increment the cardCounter for a unique ID
+    const cardId = 'card' + cardCounter++;
+
+    // Create card elements
+    const card = document.createElement("div");
+    card.className = "card";
+    card.id = cardId;
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+
+    const cardText = document.createElement("div");
+    cardText.className = "card-text";
+    cardText.contentEditable = true;
+    cardText.textContent = text;
+
+    const editButton = document.createElement("button");
+    editButton.className = "edit-button";
+    editButton.textContent = "Edit";
+    // Set a data attribute to store the cardId
+    editButton.dataset.cardId = cardId;
+    editButton.onclick = function () {
+        showEditCardModal(containerId, cardId);
+    };
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-button";
+    deleteButton.textContent = "Delete";
+    // Set a data attribute to store the cardId
+    deleteButton.dataset.cardId = cardId;
+    deleteButton.onclick = function () {
+        deleteCard(containerId, cardId);
+    };
+
+    // Append elements to the card
+    card.appendChild(checkbox);
+    card.appendChild(cardText);
+    card.appendChild(editButton);
+    card.appendChild(deleteButton);
+
+    // Append the card to the cards container
+    const cardsContainer = document.getElementById(containerId);
+    cardsContainer.appendChild(card);
+}
+ */
