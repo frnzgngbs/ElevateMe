@@ -1,93 +1,161 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/static/css/save.css" />
+        <title>ElevateMe</title>
+        <script>
+            function updateAction(formId, operation) {
+                var form = document.getElementById(formId);
+                form.action = '{% url 'Saving:saveOperation' '0' %}'.replace('0', operation);
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/static/css/save.css" />
-    <title>ElevateMe</title>
-    <script>
-        function updateAction(formId, operation) {
-            var form = document.getElementById(formId);
-            form.action = '{% url 'Saving:saveOperation' '0' %}'.replace('0', operation);
+                // Check if at least one checkbox is checked before allowing form submission
+                var checkboxes = form.querySelectorAll('.checkbox');
+                var checked = Array.prototype.slice.call(checkboxes).some(function(checkbox) {
+                    return checkbox.checked;
+                });
 
-            // Check if at least one checkbox is checked before allowing form submission
-            var checkboxes = form.querySelectorAll('.checkbox');
-            var checked = Array.prototype.slice.call(checkboxes).some(function (checkbox) {
-                return checkbox.checked;
-            });
+                if (!checked) {
+                    alert('Please check at least one checkbox before submitting.');
+                    // You can also prevent the form submission by returning false
+                    form.method = "get"
+                    form.action = '{% url 'Saving:savePage' %}'
+                }
 
-            if (!checked) {
-                alert('Please check at least one checkbox before submitting.');
-                // You can also prevent the form submission by returning false
-                form.method = "get"
-                form.action = '{% url 'Saving:savePage' %}'
             }
 
-        }
-    </script>
-
-</head>
-
-<body>
-    <div class="container">
-    <div class="elevateme">ElevateMe</div>
-    <div class="buttons">
-        <a href="{% url 'homepage:home' %}"><input class="button1" type="button" value="Home" /></a>
-        <a href="#"><input class="button-clicked" type="button" value="Saved" /></a>
-        <input class="button1" type="button" value="List" />
-        <input class="button1" type="button" value="5-Whys" />
-    </div>
-    </div>
-    <div class="savedlist">
-        <h1> Saved List</h1>
-        <div class="vennDiagram2">
-            <h2>2 Venn Diagram List </h2>
-            <div class="outside-container">
-                <div class="vennDiagram2-container">
-                    <div class="cards-container" id="vennDiagram2Container">
-                        <form action="{% url 'Saving:saveOperation' 0 %}" id="saveForm1" method="post">
-                            {% csrf_token %}
-                            {% for instance in twoPS_data %}
-                            <div class="card" id="{{ instance.id }}">
-                                <input type="checkbox" class="checkbox" name="checkbox_group" />
-                                <div class="card-text" contenteditable="true">{{ instance.statement }} </div>
-                            </div>
-                            {% endfor %}
-                            <button class="updateVenn2" type="submit" name="update" value="button2.1" id="update2"
-                                onclick="updateAction('saveForm1', 'update')">Update</button>
-                            <button class="deleteVenn2" type="submit" name="delete" value="button2.2" id="delete2"
-                                onclick="updateAction('saveForm1', 'delete')">Delete</button>
-                        </form>
-                    </div>
-                </div>
-
-
-                <div class="vennDiagram3">
-                    <h2>3 Venn Diagram List </h2>
-                    <div class="vennDiagram3-container">
-                        <div class="cards-container" id="vennDiagram3Container">
-                            <form action="{% url 'Saving:saveOperation' 0 %}" id="saveForm2" method="post">
-                                {% csrf_token %}
-                                {% for instance in threePS_data %}
+            function updateCheckboxValue(form) {
+                var cards = form.querySelectorAll('.card');
+                cards.forEach(function(card) {
+                    var statement = card.querySelector('.card-text').innerText.trim();
+                    var checkbox = card.querySelector('.checkbox');
+                    if (checkbox) {
+                        checkbox.value = statement;
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="elevateme">ElevateMe</div>
+            <div class="buttons">
+                <a href="{% url 'homepage:home' %}"
+                    ><input class="button1" type="button" value="Home"
+                /></a>
+                <a href="#"
+                    ><input class="button-clicked" type="button" value="Saved"
+                /></a>
+                <input class="button1" type="button" value="List" />
+                <input class="button1" type="button" value="5-Whys" />
+            </div>
+        </div>
+        <div class="savedlist">
+            <h1>Saved List</h1>
+            <div class="vennDiagram2">
+                <h2>2 Venn Diagram List</h2>
+                <div class="outside-container">
+                    <div class="vennDiagram2-container">
+                        <div class="cards-container" id="vennDiagram2Container">
+                            <form
+                                action="{% url 'Saving:saveOperation' 0 %}"
+                                id="saveForm1"
+                                method="post"
+                            >
+                                {% csrf_token %} 
+                                {% for instance in twoPS_data %}
                                 <div class="card" id="{{ instance.id }}">
-                                    <input type="checkbox" class="checkbox" name="checkbox_group" />
-                                    <div class="card-text" contenteditable="true">{{ instance.statement }} </div>
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox"
+                                        name="checkbox_group"
+                                        value="{{ instance.statement }}"
+                                    />
+                                    <div
+                                        class="card-text"
+                                        contenteditable="true"
+                                    >
+                                        {{ instance.statement }}
+                                    </div>
                                 </div>
                                 {% endfor %}
-                                <button class="updateVenn3" type="submit" name="update" value="button2.1" id="update2"
-                                    onclick="updateAction('saveForm2', 'update')">Update</button>
-                                <button class="updateVenn3" type="submit" name="delete" value="button2.2" id="delete2"
-                                    onclick="updateAction('saveForm2', 'delete')">Delete</button>
+                                <button
+                                    type="submit"
+                                    name="button"
+                                    value="button2.1"
+                                    id="update2"
+                                    onclick="updateAction('saveForm1', 'update'); updateCheckboxValue(this.form)"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    type="submit"
+                                    name="button"
+                                    value="button2.2"
+                                    id="delete2"
+                                    onclick="updateAction('saveForm1', 'delete')"
+                                >
+                                    Delete
+                                </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <script src="{% static 'script/save.js' %}"></script>
-</body>
 
+            <div class="vennDiagram3">
+                <h2>3 Venn Diagram List</h2>
+                <div class="vennDiagram3-container">
+                    <div class="cards-container" id="vennDiagram3Container">
+                        <form
+                            action="{% url 'Saving:saveOperation' 0 %}"
+                            id="saveForm2"
+                            method="post"
+                        >
+                            {% csrf_token %} 
+                            {% for instance in threePS_data %}
+                            <div class="card" id="{{ instance.id }}">
+                                <input
+                                    type="checkbox"
+                                    class="checkbox"
+                                    name="checkbox_group"
+                                    value="{{ instance.statement }}"
+                                />
+                                <div class="card-text" contenteditable="true">
+                                    {{ instance.statement }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <button
+                                type="submit"
+                                name="button"
+                                value="button2.1"
+                                id="update2"
+                                onclick="updateAction('saveForm2', 'update'); updateCheckboxValue(this.form)"
+                            >
+                                Update
+                            </button>
+                            <button
+                                type="submit"
+                                name="button"
+                                value="button2.2"
+                                id="delete2"
+                                onclick="updateAction('saveForm2', 'delete')"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'script/save.js' %}"></script>
+    </body>
 </html>
