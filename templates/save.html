@@ -34,10 +34,12 @@
                         <form>
                         {% for instance in twoPS_data %}
                             <div class="card" id="{{ instance.id }}">
-                                <input type="checkbox" class="checkbox" />
+                                <input type="checkbox" class="checkbox" name="checkbox_group"/>
                                 <div class="card-text" contenteditable="true">{{ instance.statement }} </div>
                             </div>
                         {% endfor %}
+                            <button type="submit" name="Update">Update</button>
+                            <button type="submit" name="Delete">Delete</button>
                         </form>
                     </div>
                 </div>
@@ -48,12 +50,16 @@
             <h2>3 Venn Diagram List </h2>
             <div class="vennDiagram3-container">
                 <div class="cards-container" id="vennDiagram3Container">
+                <form>
                     {% for instance in threePS_data %}
                         <div class="card" id="{{ instance.id }}">
-                            <input type="checkbox" class="checkbox" />
+                            <input type="checkbox" class="checkbox" name="checkbox_group"/>
                             <div class="card-text" contenteditable="true">{{ instance.statement }} </div>
                         </div>
                     {% endfor %}
+                    <button type="submit" name="Update">Update</button>
+                    <button type="submit" name="Delete">Delete</button>
+                </form>
                 </div>
             </div>
         </div>
