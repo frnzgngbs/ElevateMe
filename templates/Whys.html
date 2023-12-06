@@ -28,26 +28,37 @@
 
     <div class="problem">
         <h1>Selected Problem Statement</h1>
-        <div class="buttonsection">
+        <div class="selectedProbStatement-container">
             <div class="selectedPScard">
-                <input type="checkbox" class="checkbox" />
+          <!--       <input type="checkbox" class="checkbox" /> -->
                 <div class="card-text" contenteditable="true">Your Text Here</div>
-        
-                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+<!-- 
+                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button> -->
+            </div>
+            <div class="genHmwButton-container">
+                <button class="generateWhys-Button"> 5-Why</button>
             </div>
         </div>
     </div>
-
+    </div>
+    <!-- Generated 5 Whys -->
     <div class="generatedWhys">
         <h1> Generated 5 - Why's</h1>
-        <p>Enumerate 5 HMW statement(s) by specifying an ACTION (what you want to achieve), a SUBJECT (to be influenced or affected), and a WHAT (outcome or what you like to achieve).</p>
-        <div class="whyCards">
-            <input type="checkbox" class="checkbox" />
-            <div class="card-text" contenteditable="true">Your Text Here</div>
-    
-            <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+        <p>Enumerate 5 HMW statement(s) by specifying an ACTION (what you want to achieve), a SUBJECT (to be influenced
+            or affected), and a WHAT (outcome or what you like to achieve).</p>
+        <div class="generatedWhys-container">
+            <div class="whyCards">
+                <input type="checkbox" class="checkbox" />
+               
+                    <div class="card-text" contenteditable="true">Your Text Here</div>
+
+                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+            </div>
+            <div class="genHmwButton-container">
+                <button class="generateHMW-Button">  Next </button>
+            </div>
         </div>
-    
+
     </div>
 
 
