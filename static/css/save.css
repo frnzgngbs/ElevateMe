@@ -9,10 +9,10 @@
         max-height: 100%;
     }
 
-    .add-button{
-        align-items: right;
-        margin-right: 20%;
-        margin-left: 85%;       
+     .updateVenn2, .updateVenn3, .deleteVenn2, .deleteVenn3{
+        align-items: left;
+     /*    margin-right: 20%;
+        margin-left: 85%;    */    
         background-color: #186f65; /* Adjust background color as needed */
         color: #ffffff; /* Adjust text color as needed */
         border: none;
