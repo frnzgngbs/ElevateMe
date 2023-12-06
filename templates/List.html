@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/List.css" />
+    <title>ElevateMe</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="elevateme">ElevateMe</div>
+
+        <div class="buttons">
+            <a href="#"><input class="button1" type="button" value="Home" /></a>
+            <a href="#"><input class="button1" type="button" value="Saved" /></a>
+            <a href="#"><input class="button-clicked" type="button" value="List" /></a>
+            <input class="button1" type="button" value="5-Whys" />
+            <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
+        </div>
+    </div>
+
+    <!-- Problem Statement List -->
+
+    <div class="problemStatementList">
+        <h1>Problem Statement List </h1>
+        
+        <!-- Add radio buttons here -->
+        <div>
+            <input type="radio" name="radioGroup" id="radio2" />
+            <label for="radio2">2</label>
+    
+            <input type="radio" name="radioGroup" id="radio3" />
+            <label for="radio3">3</label>
+        </div>
+        
+        <div class="button-section">
+            <div class="card">
+                <input type="checkbox" class="checkbox" />
+                <div class="card-text" contenteditable="true">Your Text Here</div>
+        
+                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'script/save.js' %}"></script>
+</body>
+
+</html>
+
+<!--   <button class="addbutton" onclick="showAddCardModal('vennDiagram2Container')">Add</button> -->
