@@ -43,3 +43,25 @@ class SaveProblemStatement(View):
 
             return redirect('homepage:home')
         return redirect('homepage:home')
+
+# def Save(request):
+#     return render(request, 'save.html')
+
+class Save(View):
+    def get(self, request):
+        auth = request.session.get('auth')
+        user = User.objects.get(username=auth["username"])
+
+        twoPS = TwoProblemStatement.objects.filter(user_fk=user)
+        threePS = ThreeProblemStatement.objects.filter(user_fk=user)
+
+        context = {
+            'twoPS_data': twoPS,
+            'threePS_data': threePS
+        }
+
+
+        return render(request, 'save.html', context)
+
+    def post(self, request):
+        pass
