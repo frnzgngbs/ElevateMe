@@ -23,6 +23,7 @@
             if (!checked) {
                 alert('Please check at least one checkbox before submitting.');
                 // You can also prevent the form submission by returning false
+                form.method = "get"
                 form.action = '{% url 'Saving:savePage' %}'
             }
 
@@ -31,6 +32,12 @@
 
 </head>
 <body>
+<div class="elevateme">ElevateMe</div>
+<div class="buttons">
+    <a href="{% url 'homepage:home' %}"><input class="button1" type="button" value="Home" /></a>
+    <a href="#"><input class="button-clicked" type="button" value="Saved" /></a>
+    <input class="button1" type="button" value="List" />
+    <input class="button1" type="button" value="5-Whys" />
 <div class="savedlist">
     <h1> Saved List</h1>
     <div class="vennDiagram2">
