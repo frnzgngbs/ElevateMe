@@ -1,8 +1,6 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-# Create your models here.
-
 
 class VennDiagram(models.Model):
     field1 = models.TextField()
@@ -21,7 +19,6 @@ class TwoVennDiagram(VennDiagram):
 class ThreeVennDiagram(VennDiagram):
     def __str__(self):
         return f"{self.field1} | {self.field2} | {self.field3}"
-
 
 class ProblemStatement(models.Model):
     statement = models.TextField()

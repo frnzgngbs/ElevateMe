@@ -1,8 +1,11 @@
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
 from Saving.models import TwoVennDiagram, TwoProblemStatement, ThreeProblemStatement, ThreeVennDiagram
+
+
 # Basically this class will handle the storing of venn diagram scope, and problem statement.
 class SaveProblemStatement(View):
     def get(self, request):
@@ -44,6 +47,7 @@ class SaveProblemStatement(View):
             return redirect('homepage:home')
         return redirect('homepage:home')
 
+
 # def Save(request):
 #     return render(request, 'save.html')
 
@@ -60,8 +64,30 @@ class Save(View):
             'threePS_data': threePS
         }
 
-
         return render(request, 'save.html', context)
 
     def post(self, request):
+        auth = request.session.get('auth')
+        user = User.objects.get(username=auth["username"])
+
+        twoPS = TwoProblemStatement.objects.filter(user_fk=user)
+        threePS = ThreeProblemStatement.objects.filter(user_fk=user)
+
+        context = {
+            'twoPS_data': twoPS,
+            'threePS_data': threePS
+        }
+
+        return render(request, 'save.html', context)
+
+
+class SaveOperation(View):
+    def get(self, request, operation):
         pass
+
+    def post(self, request, operation):
+        # IF OPERATION EQUALS TO UPDATE, CHECK FIRST THE BUTTON VALUE THAT SUBMITTED THE FORM
+        # IF THE VALUE IS "2.1" MEANING IT IS FROM THE 2 VENN, IF "3.1" FROM THE 3 VENN ( ALL ARE UPDATE OPERATION ).
+        return HttpResponse(operation)
+
+
