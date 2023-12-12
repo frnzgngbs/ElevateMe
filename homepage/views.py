@@ -1,13 +1,9 @@
 import openai
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 
 from django.views import View
 from django.shortcuts import render, redirect
-
-from Saving.models import TwoVennDiagram, ThreeVennDiagram, TwoProblemStatement, ThreeProblemStatement
-
 
 class VennDiagramFilter(View):
     template_name = "homepage.html"
@@ -53,6 +49,7 @@ class VennDiagramFilter(View):
                 }
 
                 return render(request, self.template_name, context)
+
             elif venn_settings == "3":
                 field1 = request.POST.get("field1")
                 field2 = request.POST.get("field2")
@@ -87,7 +84,6 @@ class GeneratePS(View):
         return render(request, "homepage.html")
 
     def post(self, request):
-
         if request.method == "POST":
             venn_diagram = request.session.get('venn_scopes')
             setting = venn_diagram["settings"]
@@ -122,7 +118,6 @@ class GeneratePS(View):
                 field4 = venn_diagram['filter']
 
                 # Perform any additional processing with the data if needed
-
                 generate_response = generateAi(field1, field2, field3, field4)
 
                 request.session['openai'] = generate_response
@@ -156,7 +151,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

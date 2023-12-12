@@ -91,20 +91,31 @@ class SaveOperation(View):
 
         if request.method == "POST":
             button_value = request.POST.get('button')
-            print(button_value)
+
+            listOfHiddenValue = request.POST.getlist('hiddenValue')
+            listOfStatement = request.POST.getlist('checkbox_group')
+
             if button_value == "button2.1":
-                for value in checked_checkboxes:
-                    print(value)
+                # PERFORM SAVE
+                for pk, statement in zip(listOfHiddenValue, listOfStatement):
+                    twoPS = TwoProblemStatement.objects.get(id=pk)
+                    twoPS.statement = statement
+                    twoPS.save()
 
             elif button_value == "button2.2":
-                # PERFORM DELETE
-                print()
+                for pk, statement in zip(listOfHiddenValue, listOfStatement):
+                    twoPS = TwoProblemStatement.objects.get(id=pk)
+                    twoPS.delete()
+
             elif button_value == "button3.1":
-                # PERFORM UPDATE
-                print()
+                for pk, statement in zip(listOfHiddenValue, listOfStatement):
+                    threePS = ThreeProblemStatement.objects.get(id=pk)
+                    threePS.statement = statement
+                    threePS.save()
             elif button_value == "button3.2":
-                # PERFORM DELETE
-                print()
+                for pk, statement in zip(listOfHiddenValue, listOfStatement):
+                    threePS = ThreeProblemStatement.objects.get(id=pk)
+                    threePS.delete()
 
         return HttpResponse(operation)
 

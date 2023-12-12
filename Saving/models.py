@@ -11,6 +11,9 @@ class VennDiagram(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return f"{self.field1} | {self.field2} | {self.field3} | {self.user_fk}"
+
 class TwoVennDiagram(VennDiagram):
     pass
     def __str__(self):
@@ -22,18 +25,19 @@ class ThreeVennDiagram(VennDiagram):
 
 class ProblemStatement(models.Model):
     statement = models.TextField()
+    user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return f"{self.statement} | {self.user_fk}"
 class TwoProblemStatement(ProblemStatement):
-    user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
     venn_fk = models.ForeignKey(TwoVennDiagram, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.statement
 
 class ThreeProblemStatement(ProblemStatement):
-    user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
     venn_fk = models.ForeignKey(ThreeVennDiagram, on_delete=models.CASCADE)
     def __str__(self):
         return self.statement
