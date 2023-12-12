@@ -55,7 +55,7 @@
         <div class="buttons">
             <a href="{% url 'homepage:home' %} "><input class="button-clicked" type="button" value="Home" /></a>
             <a href="{% url 'Saving:savePage' %}"><input class="button1" type="button" value="Saved" /></a>
-            <a href="#"><input class="button1" type="button" value="Ranking" /></a>
+            <a href="{% url 'Ranking:ranking' %}"><input class="button1" type="button" value="Ranking" /></a>
             <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Whys" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
         </div>

@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+# This method is only use for redirecting to that page
+def ranking(request):
+    return render(request, "Ranking.html")

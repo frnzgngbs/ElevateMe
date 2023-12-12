@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include("authenticate.urls")),
     path('', include("homepage.urls")),
     path('', include("Saving.urls")),
-    path('', include("Whys.urls"))
+    path('', include("Whys.urls")),
+    path('', include("Ranking.urls"))
 ]
 
