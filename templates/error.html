@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/css/error.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content-container">
+                <h1>Oops! Something went wrong.</h1>
+                <p>
+                    It appears somethent went wrong. Please proceed to our
+                    homepage.
+                </p>
+                <img src="/static/media/error.svg" />
+                <a href="{% url 'homepage:home' %}"><button>Go home</button></a>
+            </div>
+        </div>
+    </body>
+</html>

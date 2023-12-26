@@ -125,7 +125,8 @@ SESSION_COOKIE_SECURE = False
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR, "static",
-                    BASE_DIR, "script"]
+                    BASE_DIR, "script",
+                    BASE_DIR, "static/media"]
 
 
 # Default primary key field type

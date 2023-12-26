@@ -94,10 +94,12 @@ class GeneratePS(View):
                 field3 = "None"
                 field4 = venn_diagram['filter']
 
+                try:
+                    generate_response = generateAi(field1, field2, field3, field4)
+                except Exception as e:
+                    return redirect('homepage:errorPage')
+
                 # Perform any additional processing with the data if needed
-
-                generate_response = generateAi(field1, field2, field3, field4)
-
                 request.session['openai'] = generate_response
 
                 # Pass the fields to the template
@@ -116,7 +118,10 @@ class GeneratePS(View):
                 field4 = venn_diagram['filter']
 
                 # Perform any additional processing with the data if needed
-                generate_response = generateAi(field1, field2, field3, field4)
+                try:
+                    generate_response = generateAi(field1, field2, field3, field4)
+                except Exception as e:
+                    return redirect('homepage:errorPage')
 
                 request.session['openai'] = generate_response
 
@@ -149,15 +154,15 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
         "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
-                   f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
-                   f"the problem statement. I do not need an explanation; just give me the problem statement "
-                   f"directly. Please make each problem statement unique. Apply filter: {field4}"
-
+                    f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
+                    f"the problem statement. I do not need an explanation; just give me the problem statement "
+                    f"directly. Please make each problem statement unique. Apply filter: {field4}"
+                    f"Take note not to include the fields that we're passed in the generated problem statements."
     }])
     print(completion)
     response_list = completion.choices[0].message.content.split('\n')
@@ -170,3 +175,6 @@ def generateAi(field1, field2, field3, field4):
         questions_dict[i] = question_without_number
 
     return questions_dict
+
+def errorPage(request):
+    return render(request, 'error.html')
