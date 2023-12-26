@@ -53,5 +53,7 @@ class LoginForm(View):
 
 
 def signOut(request):
+    request.session.delete()
+
     logout(request)
     return redirect('authenticate:login')

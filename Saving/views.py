@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-from Saving.models import TwoVennDiagram, TwoProblemStatement, ThreeProblemStatement, ThreeVennDiagram
+from .models import TwoVennDiagram, TwoProblemStatement, ThreeProblemStatement, ThreeVennDiagram
 
 
 # Basically this class will handle the storing of venn diagram scope, and problem statement.
@@ -83,8 +83,8 @@ class SaveOperation(View):
 
     def post(self, request, operation):
         auth = request.session.get('auth')
-        user = User.objects.get(username=auth["username"])
-        checked_checkboxes = request.POST.getlist('checkbox_group')
+        # user = User.objects.get(username=auth["username"])
+        # checked_checkboxes = request.POST.getlist('checkbox_group')
 
         # IF OPERATION EQUALS TO UPDATE, CHECK FIRST THE BUTTON VALUE THAT SUBMITTED THE FORM
         # IF THE VALUE IS "2.1" MEANING IT IS FROM THE 2 VENN, IF "3.1" FROM THE 3 VENN ( ALL ARE UPDATE OPERATION ).

@@ -12,7 +12,7 @@ class VennDiagramFilter(View):
     def get(self, request, venn_settings):
         venn_diagram = request.session.get('venn_scopes')
         generate_response = request.session.get('openai')
-
+            
         context = {
             "venn_scopes": venn_diagram,
             "generate_response": generate_response
@@ -40,8 +40,6 @@ class VennDiagramFilter(View):
                 request.session['venn_scopes'] = venn_scopes
 
                 generate_response = request.session.get('openai')
-
-                request.session['venn_scopes'] = venn_scopes
 
                 context = {
                     "venn_scopes": venn_scopes,
@@ -72,9 +70,10 @@ class VennDiagramFilter(View):
                     "venn_scopes": venn_scopes,
                     "generate_response": generate_response
                 }
+                
 
                 return render(request, self.template_name, context)
-
+    
         return redirect("homepage:home")
 
 
@@ -90,7 +89,6 @@ class GeneratePS(View):
 
             # 2 VENN DIAGRAM SETTING
             if setting == "2":
-
                 field1 = venn_diagram['field1']
                 field2 = venn_diagram['field2']
                 field3 = "None"
@@ -151,7 +149,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
