@@ -109,11 +109,19 @@
         background-color: #186f65; /* Adjust background color as needed */
         color: #ffffff; /* Adjust text color as needed */
         border: none;
-        border-radius: 15px; /* Adjust border-radius for rounded corners */
+        border-radius: 25px;
         padding: 8px 15px; /* Adjust padding as needed */
+        width: 80px;
+        height: 40px;
         cursor: pointer;
+        float: right;
     }
 
+    .edit-button {
+        color: black;
+        background-color: #ffffff;
+        border: 2px solid #186f65;
+    }
     .vennDiagram2 h2{
         text-align: left;
         margin-left: 150px;
@@ -156,6 +164,7 @@
         background-color: #186f65;
         color: #ffffff;
         margin: 0 50px 0 0;
+        cursor:pointer;
     }
 
     .button1 {
@@ -166,6 +175,7 @@
         background-color: #ffffff;
         color: black;
         margin: 0 50px 0 0;
+        cursor:pointer;
     }
 
     .psg {
@@ -194,6 +204,7 @@
         border-radius: 25px;
         border: 2px;
         background-color: #448a81;
+        cursor:pointer;
     }
     /* Add this to your existing CSS or create a new CSS file */
     /* Add this to your existing CSS or create a new CSS file */
@@ -382,5 +393,6 @@
             justify-content: center;
             align-items: center;
             margin-top: 20px;
+            cursor:pointer;
         }
     }

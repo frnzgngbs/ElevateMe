@@ -5,6 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/static/css/error.css" />
         <title>Document</title>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var homepageButton = document.getElementById("homepage")
+
+                homepageButton.addEventListener("click", function() {
+                    window.location.href = {% url 'homepage:home' %}
+                })
+            })
+        </script>
     </head>
     <body>
         <div class="container">
@@ -15,7 +24,7 @@
                     homepage.
                 </p>
                 <img src="/static/media/error.svg" />
-                <a href="{% url 'homepage:home' %}"><button>Go home</button></a>
+                <button class="homepage-button" id="homepage" >Go home</button>
             </div>
         </div>
     </body>

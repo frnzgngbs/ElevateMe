@@ -16,7 +16,6 @@
                 var form = document.getElementById(formId);
                 form.action = '{% url 'Saving:saveOperation' '0' %}'.replace('0', operation);
 
-                // Check if at least one checkbox is checked before allowing form submission
                 var checkboxes = form.querySelectorAll('.checkbox');
                 var checked = Array.prototype.slice.call(checkboxes).some(function(checkbox) {
                     return checkbox.checked;
@@ -24,7 +23,6 @@
 
                 if (!checked) {
                     alert('Please check at least one checkbox before submitting.');
-                    // You can also prevent the form submission by returning false
                     form.method = "get"
                     form.action = '{% url 'Saving:savePage' %}'
                 }
