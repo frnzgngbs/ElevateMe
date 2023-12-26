@@ -1,4 +1,3 @@
-from MySQLdb import IntegrityError
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -29,24 +28,37 @@ class SaveProblemStatement(View):
 
             setting = venn_diagram['settings']
             if setting == "2":
+                existing_venn = TwoVennDiagram.objects.filter(field1=field1, field2=field2, field3=field3,
+                                                              user_fk=user).first()
 
-                two_venn = TwoVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
-                two_venn.save()
+                if not existing_venn:
+                    two_venn = TwoVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
+                    two_venn.save()
+                else:
+                    # Use the existing instance
+                    two_venn = existing_venn
 
                 # Do something with the checked checkboxes
                 for checkbox_value in checked_checkboxes:
                     problem_statement = TwoProblemStatement(statement=checkbox_value, user_fk=user, venn_fk=two_venn)
                     problem_statement.save()
 
-
             elif setting == "3":
-                three_ven = ThreeVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
-                three_ven.save()
+                existing_venn = ThreeVennDiagram.objects.filter(field1=field1, field2=field2, field3=field3,
+                                                                user_fk=user).first()
+
+                if not existing_venn:
+                    three_ven = ThreeVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
+                    three_ven.save()
+
+                else:
+                    three_ven = existing_venn
 
                 for checkbox_value in checked_checkboxes:
                     problem_statement = ThreeProblemStatement(statement=checkbox_value, user_fk=user, venn_fk=three_ven)
                     problem_statement.save()
         return redirect('homepage:home')
+
 
 class Save(View):
     def get(self, request):
@@ -119,5 +131,3 @@ class SaveOperation(View):
                     threePS.delete()
 
         return HttpResponse(operation)
-
-
