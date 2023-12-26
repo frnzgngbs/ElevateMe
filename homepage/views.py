@@ -85,7 +85,13 @@ class GeneratePS(View):
     def post(self, request):
         if request.method == "POST":
             venn_diagram = request.session.get('venn_scopes')
-            setting = venn_diagram["settings"]
+
+            checked_checkboxes = request.session.get('checked_checkboxes')
+
+            try:
+                setting = venn_diagram["settings"]
+            except Exception as e:
+                return redirect('homepage:errorPage')
 
             # 2 VENN DIAGRAM SETTING
             if setting == "2":
@@ -106,7 +112,8 @@ class GeneratePS(View):
                 return render(request, 'homepage.html',
                               {
                                   "generate_response": generate_response,
-                                  "venn_scopes": venn_diagram
+                                  "venn_scopes": venn_diagram,
+                                  "checked": checked_checkboxes
                               })
 
             # 3 VENN DIAGRAM SETTING
@@ -129,7 +136,8 @@ class GeneratePS(View):
                 return render(request, 'homepage.html',
                               {
                                   "generate_response": generate_response,
-                                  "venn_scopes": venn_diagram
+                                  "venn_scopes": venn_diagram,
+                                  "checked": checked_checkboxes
                               })
 
         return redirect('homepage:home')
@@ -142,10 +150,12 @@ class Homepage(View):
     def get(self, request):
         generate_response = request.session.get('openai')
         venn_diagram = request.session.get('venn_scopes')
+        checked_checkboxes = request.session.get('checked_checkboxes')
 
         context = {
             "venn_scopes": venn_diagram,
-            "generate_response": generate_response
+            "generate_response": generate_response,
+            "checked": checked_checkboxes
         }
         return render(request, self.template_name, context)
 
@@ -154,7 +164,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
