@@ -157,6 +157,7 @@ class Homepage(View):
             "generate_response": generate_response,
             "checked": checked_checkboxes
         }
+
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -164,7 +165,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
