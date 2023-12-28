@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from .models import TwoVennDiagram, TwoProblemStatement, ThreeProblemStatement, ThreeVennDiagram
@@ -8,6 +10,8 @@ from .models import TwoVennDiagram, TwoProblemStatement, ThreeProblemStatement, 
 
 # Basically this class will handle the storing of venn diagram scope, and problem statement.
 class SaveProblemStatement(View):
+
+    @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
         pass
 
@@ -75,6 +79,7 @@ class SaveProblemStatement(View):
 
 
 class Save(View):
+    @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
         auth = request.session.get('auth')
         user = User.objects.get(username=auth["username"])
@@ -105,6 +110,7 @@ class Save(View):
 
 
 class SaveOperation(View):
+    @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request, operation):
         pass
 
@@ -181,4 +187,4 @@ class SaveOperation(View):
 
                         request.session['checked_checkboxes'] = lists_checked_checkboxes
 
-        return HttpResponse(operation)
+        return redirect('Saving:savePage')
