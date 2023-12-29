@@ -153,6 +153,63 @@ function showAddCardModal(containerId) {
     // document.getElementById('newCardText').placeholder = "Enter Problem Statement Here";
 }
 
+
+
+//show history popup
+function showPopupVenn2() {
+    document.getElementById('showHistoryPopupVenn2').style.display = 'block';
+}
+function showPopupVenn3() {
+    document.getElementById('showHistoryPopupVenn3').style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('showHistoryPopupVenn3').style.display = 'none';
+    document.getElementById('showHistoryPopupVenn2').style.display = 'none';
+}
+
+function savePopupData() {
+    // You can access the input values and perform actions here
+    var input1Value = document.getElementById('input1').value;
+    var input2Value = document.getElementById('input2').value;
+    var input3Value = document.getElementById('input3').value;
+    var input4Value = document.getElementById('input4').value;
+
+    // Perform actions with the input values (e.g., send to server)
+
+    // Close the popup
+    closePopup();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Additional functions or modifications can be added as needed
 /* mogana nani ang mga functions but need siya unique IDs para eh pasapasa pang edit og pang delete. Let me know if naa sayup
 */
