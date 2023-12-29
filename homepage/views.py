@@ -40,10 +40,13 @@ class VennDiagramFilter(View):
                 request.session['venn_scopes'] = venn_scopes
 
                 generate_response = request.session.get('openai')
+                checked_checkboxes = request.session.get('checked_checkboxes')
+
 
                 context = {
                     "venn_scopes": venn_scopes,
-                    "generate_response": generate_response
+                    "generate_response": generate_response,
+                    "checked": checked_checkboxes
                 }
 
                 return render(request, self.template_name, context)
@@ -66,9 +69,12 @@ class VennDiagramFilter(View):
 
                 request.session['venn_scopes'] = venn_scopes
 
+                checked_checkboxes = request.session.get('checked_checkboxes')
+
                 context = {
                     "venn_scopes": venn_scopes,
-                    "generate_response": generate_response
+                    "generate_response": generate_response,
+                    "checked": checked_checkboxes
                 }
                 
 

@@ -123,11 +123,13 @@ class SaveOperation(View):
 
             list_statement = []
             lists_checked_checkboxes = []
+            store_statement = ""
 
             if button_value == "button2.1":
 
                 # PERFORM SAVE
                 twoPS = TwoProblemStatement.objects.get(id=pk)
+                store_statement = twoPS.statement
                 twoPS.statement = statement
                 twoPS.save()
 
@@ -142,7 +144,8 @@ class SaveOperation(View):
                 if session_checked:
                     lists_checked_checkboxes.extend(session_checked)
 
-                    lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
+                    if store_statement != statement:
+                        lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
 
                     request.session['checked_checkboxes'] = lists_checked_checkboxes
 
@@ -163,6 +166,7 @@ class SaveOperation(View):
             elif button_value == "button3.1":
                 threePS = ThreeProblemStatement.objects.get(id=pk)
                 threePS.statement = statement
+                store_statement = threePS.statement
                 threePS.save()
 
                 session_checked = request.session.get('checked_checkboxes')
@@ -170,7 +174,8 @@ class SaveOperation(View):
                 if session_checked:
                     lists_checked_checkboxes.extend(session_checked)
 
-                    lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
+                    if store_statement != statement:
+                        lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
 
                     request.session['checked_checkboxes'] = lists_checked_checkboxes
             elif button_value == "button3.2":
