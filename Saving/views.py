@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -18,9 +18,6 @@ class SaveProblemStatement(View):
     # So if the user attempts to Saving, Saving the venn diagram and then the problem statement.
     def post(self, request):
 
-        # 1
-        # 2 3
-        #
         venn_diagram = request.session.get('venn_scopes')
         checked_checkboxes = request.POST.getlist('checkbox_group')
 
@@ -116,32 +113,31 @@ class SaveOperation(View):
 
     def post(self, request, operation):
         auth = request.session.get('auth')
-        # user = User.objects.get(username=auth["username"])
-        # checked_checkboxes = request.POST.getlist('checkbox_group')
-
-        # IF OPERATION EQUALS TO UPDATE, CHECK FIRST THE BUTTON VALUE THAT SUBMITTED THE FORM
-        # IF THE VALUE IS "2.1" MEANING IT IS FROM THE 2 VENN, IF "3.1" FROM THE 3 VENN ( ALL ARE UPDATE OPERATION ).
 
         if request.method == "POST":
             button_value = request.POST.get('button')
 
-            listOfHiddenValue = request.POST.getlist('hiddenValue')
-            listOfStatement = request.POST.getlist('checkbox_group')
+            statement = request.POST.get('radiobutton_group')
 
+            pk = int(operation)
+
+            list_statement = []
+            lists_checked_checkboxes = []
 
             if button_value == "button2.1":
 
-                list_statement = []
                 # PERFORM SAVE
-                for pk, statement in zip(listOfHiddenValue, listOfStatement):
-                    twoPS = TwoProblemStatement.objects.get(id=pk)
-                    list_statement.append(twoPS.statement)
-                    twoPS.statement = statement
-                    twoPS.save()
+                twoPS = TwoProblemStatement.objects.get(id=pk)
+                twoPS.statement = statement
+                twoPS.save()
+
+                list_statement.append(twoPS.statement)
+
+                print(list_statement)
 
                 session_checked = request.session.get('checked_checkboxes')
 
-                lists_checked_checkboxes = []
+                print(session_checked)
 
                 if session_checked:
                     lists_checked_checkboxes.extend(session_checked)
@@ -151,40 +147,43 @@ class SaveOperation(View):
                     request.session['checked_checkboxes'] = lists_checked_checkboxes
 
             elif button_value == "button2.2":
-                for pk, statement in zip(listOfHiddenValue, listOfStatement):
-                    twoPS = TwoProblemStatement.objects.get(id=pk)
-                    twoPS.delete()
 
-                    session_checked = request.session.get('checked_checkboxes')
+                twoPS = TwoProblemStatement.objects.get(id=pk)
+                twoPS.delete()
 
-                    lists_checked_checkboxes = []
+                session_checked = request.session.get('checked_checkboxes')
 
-                    if session_checked:
-                        lists_checked_checkboxes.extend(session_checked)
 
-                        lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in listOfStatement]]
+                if session_checked:
+                    lists_checked_checkboxes.extend(session_checked)
 
-                        request.session['checked_checkboxes'] = lists_checked_checkboxes
+
+                    request.session['checked_checkboxes'] = lists_checked_checkboxes
 
             elif button_value == "button3.1":
-                for pk, statement in zip(listOfHiddenValue, listOfStatement):
-                    threePS = ThreeProblemStatement.objects.get(id=pk)
-                    threePS.statement = statement
-                    threePS.save()
+                threePS = ThreeProblemStatement.objects.get(id=pk)
+                threePS.statement = statement
+                threePS.save()
+
+                session_checked = request.session.get('checked_checkboxes')
+
+                if session_checked:
+                    lists_checked_checkboxes.extend(session_checked)
+
+                    lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
+
+                    request.session['checked_checkboxes'] = lists_checked_checkboxes
             elif button_value == "button3.2":
-                for pk, statement in zip(listOfHiddenValue, listOfStatement):
-                    threePS = ThreeProblemStatement.objects.get(id=pk)
-                    threePS.delete()
+                threePS = ThreeProblemStatement.objects.get(id=pk)
+                threePS.delete()
 
-                    session_checked = request.session.get('checked_checkboxes')
+                session_checked = request.session.get('checked_checkboxes')
 
-                    lists_checked_checkboxes = []
+                if session_checked:
+                    lists_checked_checkboxes.extend(session_checked)
 
-                    if session_checked:
-                        lists_checked_checkboxes.extend(session_checked)
+                    lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
 
-                        lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in listOfStatement]]
-
-                        request.session['checked_checkboxes'] = lists_checked_checkboxes
+                    request.session['checked_checkboxes'] = lists_checked_checkboxes
 
         return redirect('Saving:savePage')

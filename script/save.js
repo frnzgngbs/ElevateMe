@@ -156,17 +156,10 @@ function showAddCardModal(containerId) {
 
 
 //show history popup
-function showPopupVenn2() {
-    document.getElementById('showHistoryPopupVenn2').style.display = 'block';
-}
-function showPopupVenn3() {
-    document.getElementById('showHistoryPopupVenn3').style.display = 'block';
-}
-
-function closePopup() {
-    document.getElementById('showHistoryPopupVenn3').style.display = 'none';
-    document.getElementById('showHistoryPopupVenn2').style.display = 'none';
-}
+    function closePopup() {
+        document.getElementById('showHistoryPopupVenn3').style.display = 'none';
+        document.getElementById('showHistoryPopupVenn2').style.display = 'none';
+    }
 
 /* function savePopupData() {
     // You can access the input values and perform actions here
