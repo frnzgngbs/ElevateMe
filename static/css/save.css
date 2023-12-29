@@ -598,9 +598,12 @@ h2 {
     margin-left: 30px;
     margin-right: 5px;
     width: 90%;
-    background-color: hsla(0, 0%, 80%, 0.5);
+    
     resize: none;
 
+}
+#filterVenn3, #filterVenn2{
+    background-color: hsla(0, 0%, 80%, 0.5);
 }
 .popup textarea.filter1{
     height: 40px;
@@ -609,4 +612,5 @@ h2 {
 #showHistoryPopupVenn3 #filterVenn3 {
     height: 50px;
 }
+
 

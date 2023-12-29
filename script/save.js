@@ -168,7 +168,7 @@ function closePopup() {
     document.getElementById('showHistoryPopupVenn2').style.display = 'none';
 }
 
-function savePopupData() {
+/* function savePopupData() {
     // You can access the input values and perform actions here
     var input1Value = document.getElementById('input1').value;
     var input2Value = document.getElementById('input2').value;
@@ -179,7 +179,7 @@ function savePopupData() {
 
     // Close the popup
     closePopup();
-}
+} */
 
 
 
