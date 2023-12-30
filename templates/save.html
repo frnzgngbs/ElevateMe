@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/css/save.css" />
     <title>ElevateMe</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{% static 'script/save.js' %}"></script>
     <script>
         function updateAction(form) {
             var radioButtons = form.querySelectorAll('input[name="radiobutton_group"]:checked');
@@ -37,12 +39,77 @@
             });
         }
 
-        function showPopupVenn2() {
-            document.getElementById('showHistoryPopupVenn2').style.display = 'block';
+        function showPopupVenn2(button) {
+            var popup = document.getElementById('showHistoryPopupVenn2');
+
+            if (popup) {
+                popup.style.display = 'block';
+
+                var buttonValue = button.value;
+
+                $.ajax({
+                    url: `/two_show_popup_venn/${buttonValue}/`,
+                    type: 'POST',  // Change to POST method
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',  // Include the CSRF token
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+
+
+                        document.getElementById('venn1').textContent = data.field1;
+                        document.getElementById('venn2').textContent = data.field2;
+
+                        document.getElementById('field1').value = data.field1;
+                        document.getElementById('field2').value = data.field2;
+
+                        // Update your popup or do whatever you need with the data
+                    },
+                    error: function (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            } else {
+                console.error('Popup element not found');
+            }
         }
 
-        function showPopupVenn3() {
-            document.getElementById('showHistoryPopupVenn3').style.display = 'block';
+
+        function showPopupVenn3(button) {
+            var popup = document.getElementById('showHistoryPopupVenn3');
+
+            if (popup) {
+                popup.style.display = 'block';
+
+                var buttonValue = button.value;
+
+                $.ajax({
+                    url: `/three_show_popup_venn/${buttonValue}/`,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',  // Include the CSRF token
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+
+                        console.log(data);
+
+                        document.getElementById('venn3.1').textContent = data.field1;
+                        document.getElementById('venn3.2').textContent = data.field2;
+                        document.getElementById('venn3.3').textContent = data.field3;
+
+                        document.getElementById('fieldVenn3.1').value = data.field1;
+                        document.getElementById('fieldVenn3.2').value = data.field2;
+                        document.getElementById('fieldVenn3.3').value = data.field3;
+
+                    },
+                    error: function (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            } else {
+                console.error('Popup element not found');
+            }
         }
 
     </script>
@@ -79,7 +146,7 @@
                                 </div>
                                 <!-- pop up show History button -->
                                 <button class="buttonTheme1" type="button" name="show-button" value="{{ instance.id }}" id="showButton1"
-                                    onclick="showPopupVenn2()">
+                                    onclick="showPopupVenn2(this)">
                                     show
                                 </button>
 
@@ -98,11 +165,11 @@
                                 <!-- Venn Diagram 2 circle drawing -->
                                 <div class="venn-diagram-container">
                                     <div class="venn-circle1">
-                                        <span class="circle-label1">Label 1</span>
+                                        <span class="circle-label1" id="venn1">Label 1</span>
                                     </div>
 
                                     <div class="venn-circle2">
-                                        <span class="circle-label2">Label 2</span>
+                                        <span class="circle-label2" id="venn2">Label 2</span>
                                     </div>
                                 </div>
                                 <!-- Venn Diagram Settings -->
@@ -141,15 +208,14 @@
                         {% csrf_token %}
                         {% for instance in threePS_data %}
                         <div class="card" id="{{ instance.id }}">
-                            <input type="hidden" name="hiddenValue" value="{{ instance.id }}" />
-                            <input type="checkbox" class="checkbox" name="checkbox_group"
+                            <input type="radio" class="checkbox" name="radiobutton_group" id="{{ instance.id }}"
                                 value="{{ instance.statement }}" />
                             <div class="card-text" contenteditable="true">
                                 {{ instance.statement }}
                             </div>
                               <!-- pop up show History button -->
-                              <button class="buttonTheme1" type="button" name="button" value="button3.1" id="showButton2"
-                              onclick="showPopupVenn3()">
+                              <button class="buttonTheme1" type="button" name="button" value="{{ instance.id }}" id="showButton2"
+                              onclick="showPopupVenn3(this)">
                               show
                           </button>
 
@@ -169,14 +235,14 @@
                             <!-- Venn Diagram 3 circle drawing -->
                             <div class="venn-diagram-container" id="venn-diagram-container3">
                                 <div class="venn-circle1">
-                                    <span class="circle-label1">Label 1</span>
+                                    <span class="circle-label1" id="venn3.1">Label 1</span>
                                 </div>
 
                                 <div class="venn-circle2">
-                                    <span class="circle-label2">Label 2</span>
+                                    <span class="circle-label2" id="venn3.2">Label 2</span>
                                 </div>
                                 <div class="venn-circle3">
-                                    <span class="circle-label3">Label 3</span>
+                                    <span class="circle-label3" id="venn3.3">Label 3</span>
                                 </div>
                             </div>
                             <!-- Venn Diagram Settings -->

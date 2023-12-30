@@ -192,3 +192,31 @@ class SaveOperation(View):
                     request.session['checked_checkboxes'] = lists_checked_checkboxes
 
         return redirect('Saving:savePage')
+
+
+def TwoPopUpVenn(request, instance_id):
+    pk = int(instance_id)
+    twoPS = TwoProblemStatement.objects.get(id=pk)
+    venn = twoPS.venn_fk
+
+    data = {
+        'field1': venn.field1,
+        'field2': venn.field2,
+        # Add other fields as needed
+    }
+
+    return JsonResponse(data)
+
+def ThreePopUpVenn(request, instance_id):
+    pk = int(instance_id)
+    threePS = ThreeProblemStatement.objects.get(id=pk)
+    venn = threePS.venn_fk
+
+    data = {
+        'field1': venn.field1,
+        'field2': venn.field2,
+        'field3': venn.field3,
+        # Add other fields as needed
+    }
+
+    return JsonResponse(data)
