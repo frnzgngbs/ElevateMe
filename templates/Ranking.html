@@ -16,41 +16,241 @@
         <div class="elevateme">ElevateMe</div>
 
         <div class="buttons">
-            <a href="#"><input class="button1" type="button" value="Home" /></a>
-            <a href="#"><input class="button1" type="button" value="Saved" /></a>
-            <a href="#"><input class="button-clicked" type="button" value="List" /></a>
-            <input class="button1" type="button" value="5-Whys" />
+            <a href="{% url 'homepage:home' %} "><input class="button1" type="button" value="Home" /></a>
+            <a href="{% url 'Saving:savePage' %}"><input class="button1" type="button" value="Saved" /></a>
+            <a href="{% url 'Ranking:ranking' %}"><input class="button-clicked" type="button" value="Ranking" /></a>
+            <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Whys" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
         </div>
     </div>
 
     <!-- Problem Statement List -->
-
     <div class="problemStatementList">
         <h1>Problem Statement List </h1>
-        
+
         <!-- Add radio buttons here -->
-        <div>
-            <input type="radio" name="radioGroup" id="radio2" />
-            <label for="radio2">2</label>
-    
-            <input type="radio" name="radioGroup" id="radio3" />
-            <label for="radio3">3</label>
+        <div class="rbuttons">
+            <input type="radio" name="radioGroup" id="radio2" value="2" checked/>
+            <label class="venn2" for="radio2">2</label>
+
+            <input type="radio" name="radioGroup" id="radio3" value="3"/>
+            <label class="venn3" for="radio3">3</label>
         </div>
-        
-        <div class="button-section">
+
+        <!--
+            <div class="button-section">
             <div class="card">
                 <input type="checkbox" class="checkbox" />
                 <div class="card-text" contenteditable="true">Your Text Here</div>
-        
+
                 <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+            </div>
+            <div class="rankBUtton">
+                <button class="rank-button">Rank</button>
+            </div>
+        </div> ----->
+
+        <div class="savedlist">
+            <div class="vennDiagram2" id="venn2">
+                <h2>2 Venn Diagram List</h2>
+                <div class="outside-container">
+                    <div class="vennDiagram2-container">
+                        <div class="cards-container" id="vennDiagram2Container">
+                            <form
+                                action="{% url 'Saving:saveOperation' 0 %}"
+                                id="saveForm1"
+                                method="post"
+                            >
+                                {% csrf_token %}
+                                {% for instance in twoPS_data %}
+                                <div class="card" id="{{ instance.id }}">
+                                    <input
+                                            type="hidden"
+                                            name="hiddenValue"
+                                            value="{{ instance.id }}"
+                                    />
+                                    <input
+                                        type="checkbox"
+                                        class="checkbox"
+                                        name="checkbox_group"
+                                        id="{{ instance.id }}"
+                                        value="{{ instance.statement }}"
+                                    />
+                                    <div
+                                        class="card-text"
+                                        contenteditable="true"
+                                    >
+                                        {{ instance.statement }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <button
+                                        class="edit-button"
+                                    type="submit"
+                                    name="button"
+                                    value="button2.1"
+                                    id="update2"
+                                    onclick="updateAction('saveForm1', 'update'); updateCheckboxValue(this.form)"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                        class="delete-button"
+                                    type="submit"
+                                    name="button"
+                                    value="button2.2"
+                                    id="delete2"
+                                    onclick="updateAction('saveForm1', 'delete')"
+                                >
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vennDiagram3" id="venn3">
+                <h2>3 Venn Diagram List</h2>
+                <div class="vennDiagram3-container">
+                    <div class="cards-container" id="vennDiagram3Container">
+                        <form
+                            action="{% url 'Saving:saveOperation' 0 %}"
+                            id="saveForm2"
+                            method="post"
+                        >
+                            {% csrf_token %}
+                            {% for instance in threePS_data %}
+                            <div class="card" id="{{ instance.id }}">
+                                <input
+                                        type="hidden"
+                                        name="hiddenValue"
+                                        value="{{ instance.id }}"
+                                />
+                                <input
+                                    type="checkbox"
+                                    class="checkbox"
+                                    name="checkbox_group"
+                                    value="{{ instance.statement }}"
+                                />
+                                <div class="card-text" contenteditable="true">
+                                    {{ instance.statement }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <button
+                                type="submit"
+                                class="edit-button"
+                                name="button"
+                                value="button3.1"
+                                id="update2"
+                                onclick="updateAction('saveForm2', 'update'); updateCheckboxValue(this.form)"
+                            >
+                                Update
+                            </button>
+                            <button
+                                    class="delete-button"
+                                type="submit"
+                                name="button"
+                                value="button3.2"
+                                id="delete2"
+                                onclick="updateAction('saveForm2', 'delete')"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="{% static 'script/save.js' %}"></script>
+    <div class="psRanking">
+        <div class="psText"><h1>Problem Statement Ranking</h1></div>
+        <div class="criteria">
+            <p>Impact -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The problem has a significant impact on various stakeholders, such as individuals, groups, organizations, and the environment.</p>
+            <p>Capability -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The problem solver has the ability to effectively address and solve this problem based on your skills, resources, and expertise.</p>
+            <p>Development Cost -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The potential solution is feasible to develop considering potential costs, investments, and financial resources required.</p>
+            <p>Urgency -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is urgent to find a solution for this problem in terms of time constraints, market demands, or immediate needs.</p>
+            <p>Innovation Opportunity -&nbsp;&nbsp;&nbsp;&nbsp;The problem has the potential to present innovative solutions or new approaches that could lead to unique outcomes or competitive advantages.</p>
+            <p>Market Size -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Potential market is large enough to make the solution a viable business.</p>
+        </div>
+
+        <table class="psRubrics">
+            <tr>
+            <th><p class="rub1">Problem Statement</p></th>
+            <th><p class="rub2">Impact</p></th>
+            <th><p class="rub3">Capability</p></th>
+            <th><p class="rub4">Dev Cost</p></th>
+            <th><p class="rub5">Urgency Of Needs</p></th>
+            <th><p class="rub6">Innovation Opportunity</p></th>
+            <th><p class="rub7">Market Size</p></th>
+            <th><p class="rub8">Total</p></th>
+            <th><p class="rub9">Rank</p></th>
+            </tr>
+        </table>
+
+            <div class="chkTable">
+                <table class="cardTable">
+                    <tr>
+                        <td><p class="ps">Problem Statement</p></td>
+                        <td><select id="impact" class="impact">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select></td>
+                        <td><select id="capability" class="capability">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select></td>
+                        <td><select id="devcost" class="devcost">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select></td>
+                        <td><select id="needs" class="needs">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select></td>
+                        <td><select id="innovation" class="innovation">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select></td>
+                        <td><select id="marketsize" class="marketsize">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select></td>
+                        <td><p class="total">Total</p></td>
+                        <td><p class="rank">Rank</p></td>
+                        <input type="checkbox" class="chkbox" />
+                    </tr>
+                </table>
+                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+
+                <div class="rkBUtton">
+                    <button class="rank-button">Rank</button>
+                </div>
+            </div>
+
+    </div>
+
+    <script src="{% static 'script/Ranking.js' %}"></script>
 </body>
 
 </html>
-
-<!--   <button class="addbutton" onclick="showAddCardModal('vennDiagram2Container')">Add</button> -->
