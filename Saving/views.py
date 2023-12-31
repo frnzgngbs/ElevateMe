@@ -123,29 +123,31 @@ class SaveOperation(View):
 
             list_statement = []
             lists_checked_checkboxes = []
-            store_statement = ""
 
             if button_value == "button2.1":
 
                 # PERFORM SAVE
                 twoPS = TwoProblemStatement.objects.get(id=pk)
-                store_statement = twoPS.statement
                 twoPS.statement = statement
                 twoPS.save()
 
                 list_statement.append(twoPS.statement)
 
-                print(list_statement)
-
                 session_checked = request.session.get('checked_checkboxes')
 
-                print(session_checked)
-
                 if session_checked:
-                    lists_checked_checkboxes.extend(session_checked)
 
-                    if store_statement != statement:
-                        lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
+                    # ["FRANZ","AJIE"] -> PROBLEM SAVED
+                    # ["FRANZ"] -> ATTEMPTED TO UPDATE
+
+                    # [ "FRANZ", "AJIE" ]
+                    # [" FRANS "]
+
+                    for i in lists_checked_checkboxes:
+                        query = TwoProblemStatement.objects.get(statement=i)
+                        if query.id == pk and query.statement != statement:
+                            lists_checked_checkboxes.remove(i)
+                            print("TRUE")
 
                     request.session['checked_checkboxes'] = lists_checked_checkboxes
 
@@ -220,3 +222,6 @@ def ThreePopUpVenn(request, instance_id):
     }
 
     return JsonResponse(data)
+
+def VennInput(request, venn_setting):
+    pass

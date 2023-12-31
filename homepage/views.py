@@ -26,7 +26,7 @@ class VennDiagramFilter(View):
             if venn_settings == "2":
                 field1 = request.POST.get("field1")
                 field2 = request.POST.get("field2")
-                field3 = "none"
+                field3 = ""
                 field4 = request.POST.get("filter")
 
                 venn_scopes = {
@@ -103,7 +103,7 @@ class GeneratePS(View):
             if setting == "2":
                 field1 = venn_diagram['field1']
                 field2 = venn_diagram['field2']
-                field3 = "None"
+                field3 = ""
                 field4 = venn_diagram['filter']
 
                 try:
@@ -171,7 +171,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

@@ -56,7 +56,6 @@ function toggleDiagram(diagramId) {
     const field3 = document.getElementById("field3_head");
     if (diagramId === "venn-2") {
         field3Input.disabled = true;
-        field3Input.value = "";
         field3Input.hidden = true;
         field3.hidden = true;
     } else if (diagramId === "venn-3") {

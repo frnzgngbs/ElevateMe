@@ -120,7 +120,7 @@
         <div class="elevateme">ElevateMe</div>
         <div class="buttons">
             <a href="{% url 'homepage:home' %}"><input class="button1" type="button" value="Home" /></a>
-            <a href="{% url 'Ranking:ranking' %}"><input class="button-clicked" type="button" value="Saved" /></a>
+            <a href="{% url 'Saving:savePage' %}"><input class="button-clicked" type="button" value="Saved" /></a>
             <a href="{% url 'Ranking:ranking' %}"><input class="button1" type="button" value="Ranking" /></a>
             <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Whys" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
@@ -133,8 +133,6 @@
             <div class="outside-container">
                 <div class="vennDiagram2-container">
                     <div class="cards-container" id="vennDiagram2Container">
-
-
                         <form action="{% url 'Saving:saveOperation' '0' %}" id="saveForm1" method="post">
                             {% csrf_token %}
                             {% for instance in twoPS_data %}
@@ -149,8 +147,6 @@
                                     onclick="showPopupVenn2(this)">
                                     show
                                 </button>
-
-
                             </div>
                             {% endfor %}
                             <button class="edit-button" type="submit" name="button" value="button2.1" id="update2"
@@ -161,49 +157,46 @@
                                 onclick="updateAction(this.form)">
                                 Delete
                             </button>
-                            <div id="showHistoryPopupVenn2" class="popup">
-                                <!-- Venn Diagram 2 circle drawing -->
-                                <div class="venn-diagram-container">
-                                    <div class="venn-circle1">
-                                        <span class="circle-label1" id="venn1">Label 1</span>
-                                    </div>
-
-                                    <div class="venn-circle2">
-                                        <span class="circle-label2" id="venn2">Label 2</span>
-                                    </div>
+                        </form>
+                        <div id="showHistoryPopupVenn2" class="popup">
+                            <!-- Venn Diagram 2 circle drawing -->
+                            <div class="venn-diagram-container">
+                                <div class="venn-circle1">
+                                    <span class="circle-label1" id="venn1">Label 1</span>
                                 </div>
-                                <!-- Venn Diagram Settings -->
-                                <div class="vennSettings">
-                                    <h2>Venn Diagram Settings</h2>
-                                    <form id="popupForm1">
-                                        <label for="field1">Field 1:</label>
-                                        <textarea id="field1" name="field1" placeholder="Input scope here..."></textarea><br>
 
-                                        <label for="field2">Field 2</label>
-                                        <textarea id="field2" name="field2" placeholder="Input scope here..."></textarea><br>
-
-                                        <label for="filter"> Filter: </label>
-                                        <textarea id="filterVenn2" name="filter" rows="5"></textarea><br>
-
-                                        <button class="buttonTheme1" type="submit" id="inputVenn2"
-                                            onclick="savePopupData()">Input</button>
-                                        <button class="button-input" type="button" id="close"
-                                            onclick="closePopup()">Close</button>
-                                    </form>
+                                <div class="venn-circle2">
+                                    <span class="circle-label2" id="venn2">Label 2</span>
                                 </div>
                             </div>
-                        </form>
+                            <!-- Venn Diagram Settings -->
+                            <div class="vennSettings">
+                                <h2>Venn Diagram Settings</h2>
+                                <form id="popupForm1" action="{% url 'homepage:filter' '2' %}" method="post">
+                                    {% csrf_token %}
+                                    <label for="field1">Field 1:</label>
+                                    <textarea id="field1" name="field1" placeholder="Input scope here..."></textarea><br>
+
+                                    <label for="field2">Field 2</label>
+                                    <textarea id="field2" name="field2" placeholder="Input scope here..."></textarea><br>
+
+                                    <label for="filter"> Filter: </label>
+                                    <textarea id="filter" name="filter" rows="5"></textarea><br>
+
+                                    <button class="buttonTheme1" type="submit" id="inputVenn2">Input</button>
+                                    <button class="button-input" type="button" id="close"
+                                            onclick="closePopup()">Close</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="vennDiagram3">
             <h2>3 Venn Diagram List</h2>
             <div class="vennDiagram3-container">
                 <div class="cards-container" id="vennDiagram3Container">
-
-
                     <form action="{% url 'Saving:saveOperation' 0 %}" id="saveForm2" method="post">
                         {% csrf_token %}
                         {% for instance in threePS_data %}
@@ -218,11 +211,8 @@
                               onclick="showPopupVenn3(this)">
                               show
                           </button>
-
-
                         </div>
                         {% endfor %}
-
                         <button type="submit" class="edit-button" name="button" value="button3.1" id="update2"
                             onclick="updateAction(this.form); updateCheckboxValue(this.form)">
                             Update
@@ -231,46 +221,45 @@
                             onclick="updateAction(this.form)">
                             Delete
                         </button>
-                        <div id="showHistoryPopupVenn3" class="popup">
-                            <!-- Venn Diagram 3 circle drawing -->
-                            <div class="venn-diagram-container" id="venn-diagram-container3">
-                                <div class="venn-circle1">
-                                    <span class="circle-label1" id="venn3.1">Label 1</span>
-                                </div>
-
-                                <div class="venn-circle2">
-                                    <span class="circle-label2" id="venn3.2">Label 2</span>
-                                </div>
-                                <div class="venn-circle3">
-                                    <span class="circle-label3" id="venn3.3">Label 3</span>
-                                </div>
-                            </div>
-                            <!-- Venn Diagram Settings -->
-                            <div class="vennSettings">
-                                <h2>Venn Diagram Settings</h2>
-                                <form id="popupForm2">
-                                    <label for="field1">Field 1:</label>
-                                    <textarea id="fieldVenn3.1" name="fieldVenn3" placeholder="Input scope here..."></textarea><br>
-
-                                    <label for="field2">Field 2</label>
-                                    <textarea id="fieldVenn3.2" name="fieldVenn3.2" placeholder="Input scope here..."></textarea><br>
-
-                                    <label for="field3">Field 3</label>
-                                    <textarea id="fieldVenn3.3" name="fieldVenn3.3" placeholder="Input scope here..."></textarea><br>
-
-
-                                    <label for="filter"> Filter: </label>
-                                    <textarea id="filterVenn3" name="filterVenn3" rows="3"></textarea><br>
-
-                                    <button class="buttonTheme1" type="submit" id="inputVenn3"
-                                        onclick="savePopupData()">Input</button>
-                                    <button class="button-input" type="button" id="close"
-                                        onclick="closePopup()">Close</button>
-                                </form>
-                            </div>
-
-                        </div>
                     </form>
+                    <div id="showHistoryPopupVenn3" class="popup">
+                        <!-- Venn Diagram 3 circle drawing -->
+                        <div class="venn-diagram-container" id="venn-diagram-container3">
+                            <div class="venn-circle1">
+                                <span class="circle-label1" id="venn3.1">Label 1</span>
+                            </div>
+
+                            <div class="venn-circle2">
+                                <span class="circle-label2" id="venn3.2">Label 2</span>
+                            </div>
+                            <div class="venn-circle3">
+                                <span class="circle-label3" id="venn3.3">Label 3</span>
+                            </div>
+                        </div>
+                        <!-- Venn Diagram Settings -->
+                        <div class="vennSettings">
+                            <h2>Venn Diagram Settings</h2>
+                            <form id="popupForm2" action="{% url 'homepage:filter' '3' %}" method="post">
+                                {% csrf_token %}
+                                <label for="field1">Field 1:</label>
+                                <textarea id="fieldVenn3.1" name="field1" placeholder="Input scope here..."></textarea><br>
+
+                                <label for="field2">Field 2</label>
+                                <textarea id="fieldVenn3.2" name="field2" placeholder="Input scope here..."></textarea><br>
+
+                                <label for="field3">Field 3</label>
+                                <textarea id="fieldVenn3.3" name="field3" placeholder="Input scope here..."></textarea><br>
+
+
+                                <label for="filter"> Filter: </label>
+                                <textarea id="filterVenn3" name="filterVenn3" rows="3"></textarea><br>
+
+                                <button class="buttonTheme1" type="submit" id="inputVenn3">Input</button>
+                                <button class="button-input" type="button" id="close"
+                                        onclick="closePopup()">Close</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
