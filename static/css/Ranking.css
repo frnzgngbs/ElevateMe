@@ -162,7 +162,7 @@ html {
     text-align: left;
 }
 
-.edit-button {
+.delete-button, .edit-button {
     margin-right: 10px;
     background-color: #186f65; /* Adjust background color as needed */
     color: #ffffff; /* Adjust text color as needed */
@@ -170,6 +170,8 @@ html {
     border-radius: 15px; /* Adjust border-radius for rounded corners */
     padding: 8px 15px; /* Adjust padding as needed */
     cursor: pointer;
+}
+.edit-button{
     position: relative;
     top: 50%;
     left: calc(93% - 30px);
