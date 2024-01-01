@@ -113,3 +113,42 @@ radioButton2.addEventListener('click', showVenn);
 
 // Initial load
 showVenn();
+
+/*window.onload = function () {
+    const thElements = document.querySelectorAll('.psRubrics th');
+    const cardTable = document.querySelector('.cardTable');
+    const tdElements = cardTable.querySelectorAll('td');
+
+    const getColumnMaxWidths = () => {
+        const columnMaxWidths = Array.from({ length: thElements.length }, () => 0);
+
+        tdElements.forEach((td, index) => {
+            const columnIndex = index % thElements.length;
+            const tdWidth = td.clientWidth;
+            const padding = parseInt(window.getComputedStyle(td).getPropertyValue('padding-left')) + parseInt(window.getComputedStyle(td).getPropertyValue('padding-right'));
+            const border = parseInt(window.getComputedStyle(td).getPropertyValue('border-left-width')) + parseInt(window.getComputedStyle(td).getPropertyValue('border-right-width'));
+            const totalWidth = tdWidth + padding + border;
+
+            if (totalWidth > columnMaxWidths[columnIndex]) {
+                columnMaxWidths[columnIndex] = totalWidth;
+            }
+        });
+
+        return columnMaxWidths;
+    };
+
+    const columnWidths = getColumnMaxWidths();
+
+    thElements.forEach((th, index) => {
+        const padding = parseInt(window.getComputedStyle(th).getPropertyValue('padding-left')) + parseInt(window.getComputedStyle(th).getPropertyValue('padding-right'));
+        th.style.width = `${columnWidths[index] - padding}px`;
+    });
+
+    tdElements.forEach((td, index) => {
+        const columnIndex = index % thElements.length;
+        const padding = parseInt(window.getComputedStyle(td).getPropertyValue('padding-left')) + parseInt(window.getComputedStyle(td).getPropertyValue('padding-right'));
+        td.style.width = `${columnWidths[columnIndex] - padding}px`;
+    });
+};*/
+
+

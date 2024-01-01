@@ -57,7 +57,7 @@ html {
         padding: 20px; /* Add padding for content inside the container */
         margin: 20px auto; /* Adjust top and bottom margin as needed */
 
-        max-height: 400px; /* Increase the maximum height as needed */
+        max-height: 300px; /* Increase the maximum height as needed */
         max-width: 1700px; /* Set a maximum width for the container */
         overflow-y: auto;
 
@@ -182,6 +182,7 @@ html {
     top: 700px;
     left: 90px;
     padding: 0 0 20px 0;
+    overflow-x: auto;
 }
 p{
     font-size: 15px;
@@ -191,37 +192,36 @@ p{
     color: #186f65;
 }
 .psRubrics{
-    width: 100%;
+    width: max-content;
     height: 50px;
     background-color: #d9d9d9;
     border-radius: 20px;
     table-layout: fixed;
     border-collapse: collapse;
+    margin: 40px 0 20px 0;
 }
 
 .chkTable{
-    width: 100%;
-    margin: 20px 0 0 0;
+    width: max-content;
     color:#186f65;
 }
 .cardTable{
-    table-layout: fixed;
-    width: 100%;
+    width: max-content;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border: 1px solid #e0e0e0;
     border-radius: 25px;
-    padding: 10px 10px 10px 20px;
     margin-bottom: 10px;
     background-color: #d9d9d9;
+    table-layout: fixed;
+    border-collapse: collapse;
+
 }
 .cardTable select, .cardTable p{
-    width: 100%; /* Adjust width considering padding */
-    height: 20px;
+    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     border: none; /* Remove default textarea border */
     background-color: #d9d9d9;
     font-weight: bold;
@@ -229,52 +229,68 @@ p{
 .cardTable select:focus{
     outline: none;
 }
-.ps{
-    position: relative;
-    left: 5%;
+.rub1{
+    padding: 10px 10px 10px 300px;
+}
+.rub2{
+    padding: 10px 10px 10px 215px;
+}
+.rub3{
+    padding: 10px 10px 10px 75px;
+}
+.rub4{
+    padding: 10px 10px 10px 75px;
+}
+.rub5{
+    padding: 10px 10px 10px 65px;
+}
+.rub6{
+    padding: 10px 10px 10px 35px;
+}
+.rub7{
+    padding: 10px 10px 10px 40px;
+}
+.rub8{
+    padding: 10px 10px 10px 80px;
+}
+.rub9{
+    padding: 10px 10px 10px 95px;
 }
 .impact{
-    position: relative;
-    left: 40%;
+    padding: 10px 10px 10px 160px;
 }
 .capability{
-    position: relative;
-    left: 350%;
+    padding: 10px 10px 10px 190px;
 }
 .devcost{
-    position: relative;
-    left: 650%;
+    padding: 10px 10px 10px 200px;
 }
 .needs{
-    position: relative;
-    left: 970%;
+    padding: 10px 10px 10px 220px;
 }
 .innovation{
-    position: relative;
-    left: 1280%;
+    padding: 10px 10px 10px 200px;
 }
 .marketsize{
-    position: relative;
-    left: 1600%;
+    padding: 10px 10px 10px 95px;
 }
 .total{
-    position: relative;
-    left: 1565%;
+    padding: 10px 10px 10px 90px;
 }
 .rank{
-    position: relative;
-    left: 1730%;
+    padding: 10px 10px 10px 93px;
 }
-.psRubrics th,
-    .psRubrics td,
-    .cardTable td,
-    .cardTable p{
-        text-align: center; /* Align text to the left */
-}
-.psRubrics th, .cardTable td{
-    padding: 10px 10px 10px 50px;
+.ps{
+    padding: 10px 10px 10px 30px;
 }
 
+.cardTable td{
+    box-sizing: border-box;
+}
+.ps{
+    width: 1000px;
+    word-wrap: break-word;
+}
 .chkbox{
     flex-shrink: 0;
     width: 20px; /* Set the width of the checkbox */
@@ -284,12 +300,11 @@ p{
     border-radius: 50%; /* Make the checkbox circular */
     border: 2px solid #186f65; /* Set the default border color */
     position: relative;
-    top: 63px;
-    left: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin: 0 0 0 30px;
 }
 .chkbox:checked {
     background-color: #186f65; /* Set the background color when selected */

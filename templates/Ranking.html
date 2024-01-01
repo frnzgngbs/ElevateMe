@@ -74,15 +74,15 @@
 
         <table class="psRubrics">
             <tr>
-            <th><p class="rub1">Problem Statement</p></th>
-            <th><p class="rub2">Impact</p></th>
-            <th><p class="rub3">Capability</p></th>
-            <th><p class="rub4">Dev Cost</p></th>
-            <th><p class="rub5">Urgency Of Needs</p></th>
-            <th><p class="rub6">Innovation Opportunity</p></th>
-            <th><p class="rub7">Market Size</p></th>
-            <th><p class="rub8">Total</p></th>
-            <th><p class="rub9">Rank</p></th>
+            <th class="rub1"><p id="rub1" class="rub1">Problem Statement</p></th>
+            <th class="rub2"><p id="rub2" class="rub2">Impact</p></th>
+            <th class="rub3"><p id="rub3" class="rub3">Capability</p></th>
+            <th class="rub4"><p id="rub4" class="rub4">Dev Cost</p></th>
+            <th class="rub5"><p id="rub5" class="rub5">Urgency Of Needs</p></th>
+            <th class="rub6"><p id="rub6" class="rub6">Innovation Opportunity</p></th>
+            <th class="rub7"><p id="rub7" class="rub7">Market Size</p></th>
+            <th class="rub8"><p id="rub8" class="rub8">Total</p></th>
+            <th class="rub9"><p id="rub9" class="rub9">Rank</p></th>
             </tr>
         </table>
 
@@ -91,52 +91,52 @@
                 <table class="cardTable">
                     {% for i in context %}
                         <tr>
-                            <td><p class="ps">{{ i }}</p></td>
-                            <td><select id="impact" class="impact">
+                            <td><input type="checkbox" class="chkbox" /></td>
+                            <td class="ps"><p>{{ i }}</p></td>
+                            <td  class="impact"><select id="impact">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select></td>
-                            <td><select id="capability" class="capability">
+                            <td class="capability"><select id="capability">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select></td>
-                            <td><select id="devcost" class="devcost">
+                            <td class="devcost"><select id="devcost">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select></td>
-                            <td><select id="needs" class="needs">
+                            <td class="needs"><select id="needs">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select></td>
-                            <td><select id="innovation" class="innovation">
+                            <td class="innovation"><select id="innovation">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select></td>
-                            <td><select id="marketsize" class="marketsize">
+                            <td class="marketsize"><select id="marketsize" class="marketsize">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select></td>
-                            <td><p class="total">Total</p></td>
-                            <td><p class="rank">Rank</p></td>
-                            <input type="checkbox" class="chkbox" />
+                            <td class="total"><p class="total">Total</p></td>
+                            <td class="rank"><p class="rank">Rank</p></td>
                         </tr>
                     {% endfor %}
                 </table>
