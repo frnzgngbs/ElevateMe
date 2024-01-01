@@ -141,12 +141,14 @@
                     {% endfor %}
                 </table>
                     <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+                    <div class="rkBUtton">
+                        <button class="rank-button"
+                        {% if context is None %}
+                            disabled
+                                style = "background-color: black"
+                        {% endif %}>Rank</button>
+                    </div>
                 </form>
-
-
-                <div class="rkBUtton">
-                    <button class="rank-button">Rank</button>
-                </div>
             </div>
 
     </div>
