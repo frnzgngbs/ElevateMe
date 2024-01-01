@@ -5,11 +5,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="/static/css/Homepage.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="/static/css/Ranking.css" />
         <title>ElevateMe</title>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -85,12 +82,12 @@
                                 id="field1_text"
                                 readonly
                             >
-                                {% if field1 is not None %}
-                                    {{ field1 }}
-                                {% elif venn_scopes.field1 is not None%}
-                                    {{ venn_scopes.field1 }}
-                                {% endif %}
-                                </textarea
+                    {% if field1 is not None %}
+                        {{ field1 }}
+                    {% elif venn_scopes.field1 is not None%}
+                        {{ venn_scopes.field1 }}
+                    {% endif %}
+                </textarea
                             >
                         </div>
                         <div class="circle2_2venn">
@@ -100,12 +97,13 @@
                                 id="field2_text"
                                 readonly
                             >
-                                {% if field2 is not None %}
-                                    {{ field2 }}
-                                {% elif venn_scopes.field2 is not None%}
-                                    {{ venn_scopes.field2 }}
-                                {% endif %}
-                            </textarea>
+                    {% if field2 is not None %}
+                        {{ field2 }}
+                    {% elif venn_scopes.field2 is not None%}
+                        {{ venn_scopes.field2 }}
+                    {% endif %}
+                </textarea
+                            >
                         </div>
                         {% endif %}
                     </div>
@@ -118,12 +116,12 @@
                                 id="field1_text"
                                 readonly
                             >
-                                        {% if field1 is not None %}
-                                            {{ field1 }}
-                                        {% elif venn_scopes.field1 is not None%}
-                                            {{ venn_scopes.field1 }}
-                                        {% endif %}
-                                    </textarea
+                            {% if field1 is not None %}
+                                {{ field1 }}
+                            {% elif venn_scopes.field1 is not None%}
+                                {{ venn_scopes.field1 }}
+                            {% endif %}
+                        </textarea
                             >
                         </div>
                         <div class="circle2">
@@ -156,7 +154,6 @@
                         </div>
                         {% endif %}
                     </div>
-
                     <input
                         class="generate-button"
                         id="generate-button"
@@ -267,9 +264,9 @@
                             name="field2"
                             type="text"
                             id="field2"
-                            {% if field2 is not None %}
+                            {%if field2 is not None%}
                             value="{{ field2}}"
-                            {% elif venn_scopes.field2 %}
+                            {%elif venn_scopes.field2 %}
                             value="{{ venn_scopes.field2 }}"
                             {%endif%}
                             placeholder="Input scope here..."
@@ -282,7 +279,7 @@
                             id="field3"
                             {% if field3 is not None%}
                             value="{{ field3 }}"
-                            {% elif venn_scopes.field3%}
+                            {% elif venn_scopes.field3 %}
                             value="{{ venn_scopes.field3 }}"
                             {% endif %}
                             placeholder="Input scope here..."
@@ -316,15 +313,13 @@
                         {% for key, value in generate_response.items %}
                         <tr>
                             <td>
-                                <input
-                                    type="checkbox"
-                                    name="checkbox_group"
-                                    value="{{ value }}"
-                                    {% for c in checked %}
-                                        {% if c == value %}
-                                            disabled
-                                        {% endif %}
-                                    {% endfor %}
+                                <input type="checkbox" name="checkbox_group"
+                                value="{{ value }}"
+                                        {% for c in checked %}
+                                            {% if c == value %}
+                                       disabled
+                                            {% endif %}
+                                        {% endfor %}
                                 />{{ value }}
                             </td>
                         </tr>
