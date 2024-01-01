@@ -162,7 +162,7 @@ html {
     text-align: left;
 }
 
-.delete-button, .edit-button {
+.delete-button, .add-button {
     margin-right: 10px;
     background-color: #186f65; /* Adjust background color as needed */
     color: #ffffff; /* Adjust text color as needed */

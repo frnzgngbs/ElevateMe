@@ -6,8 +6,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/css/Ranking.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>ElevateMe</title>
 </head>
 
@@ -28,7 +30,10 @@
         <h1>Problem Statement List </h1>
 
         <div class="rbuttons">
-            <input type="radio" name="radioGroup" id="radio2" value="2" checked/>
+
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+            <input type="radio" name="radioGroup" id="radio2" value="2" />
             <label class="venn2" for="radio2">2</label>
 
             <input type="radio" name="radioGroup" id="radio3" value="3"/>
@@ -47,19 +52,11 @@
                                 method="post"
                             >
                                 {% csrf_token %}
-                                {% for instance in twoPS_data %}
                                 <div class="card" id="{{ instance.id }}">
-                                    <input
-                                            type="hidden"
-                                            name="hiddenValue"
-                                            value="{{ instance.id }}"
-                                    />
                                     <input
                                         type="checkbox"
                                         class="checkbox"
                                         name="checkbox_group"
-                                        id="{{ instance.id }}"
-                                        value="{{ instance.statement }}"
                                     />
                                     <div
                                         class="card-text"
@@ -67,18 +64,15 @@
                                     >
                                         {{ instance.statement }}
                                     </div>
+                                    <button
+                                            class="add-button"
+                                            type="submit"
+                                            name="button"
+                                            value="button2.1"
+                                    >
+                                        Add
+                                    </button>
                                 </div>
-                                {% endfor %}
-                                <button
-                                        class="edit-button"
-                                    type="submit"
-                                    name="button"
-                                    value="button2.1"
-                                    id="update2"
-                                    onclick="updateAction('saveForm1', 'update'); updateCheckboxValue(this.form)"
-                                >
-                                    Add
-                                </button>
                             </form>
                         </div>
                     </div>
@@ -86,7 +80,7 @@
             </div>
 
             <div class="vennDiagram3" id="venn3">
-                <h2>3 Venn Diagram List</h2>
+                <h2 >3 Venn Diagram List</h2>
                 <div class="vennDiagram3-container">
                     <div class="cards-container" id="vennDiagram3Container">
                         <form
@@ -98,32 +92,29 @@
 
                             {% for instance in threePS_data %}
                             <div class="card" id="{{ instance.id }}">
-                                <input
-                                        type="hidden"
-                                        name="hiddenValue"
-                                        value="{{ instance.id }}"
-                                />
+
                                 <input
                                     type="checkbox"
                                     class="checkbox"
                                     name="checkbox_group"
                                     value="{{ instance.statement }}"
+                                    id="{{ instance.id }}"
                                 />
                                 <div class="card-text" contenteditable="true">
                                     {{ instance.statement }}
                                 </div>
+                                <button
+                                        type="submit"
+                                        class="edit-button"
+                                        name="button"
+                                        value="button3.1"
+                                        id="{{ instance.id }}"
+                                        onclick="updateAction('saveForm2', 'update'); updateCheckboxValue(this.form)"
+                                >
+                                    Add
+                                </button>
                             </div>
                             {% endfor %}
-                            <button
-                                type="submit"
-                                class="edit-button"
-                                name="button"
-                                value="button3.1"
-                                id="update2"
-                                onclick="updateAction('saveForm2', 'update'); updateCheckboxValue(this.form)"
-                            >
-                                Add
-                            </button>
                         </form>
                     </div>
                 </div>
