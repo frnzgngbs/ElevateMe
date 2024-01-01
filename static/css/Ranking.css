@@ -171,6 +171,11 @@ html {
     padding: 8px 15px; /* Adjust padding as needed */
     cursor: pointer;
 }
+.edit-button{
+    position: relative;
+    top: 50%;
+    left: calc(93% - 30px);
+}
 .psRanking{
     width: calc(100% - 90px);
     position: absolute;
