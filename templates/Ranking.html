@@ -84,37 +84,32 @@
                 <div class="vennDiagram3-container">
                     <div class="cards-container" id="vennDiagram3Container">
                         <form
-                            action="{% url 'Saving:saveOperation' 0 %}"
-                            id="saveForm2"
-                            method="post"
+                                action="{% url 'Saving:saveOperation' 0 %}"
+                                id="saveForm2"
+                                method="post"
                         >
                             {% csrf_token %}
-
-                            {% for instance in threePS_data %}
                             <div class="card" id="{{ instance.id }}">
-
                                 <input
-                                    type="checkbox"
-                                    class="checkbox"
-                                    name="checkbox_group"
-                                    value="{{ instance.statement }}"
-                                    id="{{ instance.id }}"
+                                        type="checkbox"
+                                        class="checkbox"
+                                        name="checkbox_group"
                                 />
-                                <div class="card-text" contenteditable="true">
+                                <div
+                                        class="card-text"
+                                        contenteditable="true"
+                                >
                                     {{ instance.statement }}
                                 </div>
                                 <button
+                                        class="add-button"
                                         type="submit"
-                                        class="edit-button"
                                         name="button"
                                         value="button3.1"
-                                        id="{{ instance.id }}"
-                                        onclick="updateAction('saveForm2', 'update'); updateCheckboxValue(this.form)"
                                 >
                                     Add
                                 </button>
                             </div>
-                            {% endfor %}
                         </form>
                     </div>
                 </div>

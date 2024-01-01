@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from Saving.models import TwoProblemStatement
+from Saving.models import TwoProblemStatement, ThreeProblemStatement
 
 
 # This method is only use for redirecting to that page
@@ -16,22 +16,7 @@ def ranking(request):
 class ShowLists(View):
     @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request, setting):
-        global data
-        if request.method == "GET":
-            if setting == 2:
-                auth = request.session.get('auth')
-                user = User.objects.get(username=auth["username"])
-
-                twoPS = TwoProblemStatement.objects.filter(user_fk=user)
-
-                data = {
-                    'twoPS_data': twoPS,
-                }
-            else:
-                pass
-
-
-        return JsonResponse(data)
+        pass
 
     def post(self, request, setting):
         global data
@@ -42,8 +27,7 @@ class ShowLists(View):
 
                 twoPS = TwoProblemStatement.objects.filter(user_fk=user)
 
-                # Convert QuerySet to list of dictionaries
-                twoPS_data = [
+                data = [
                     {
                         'id': ps.id,
                         'statement': ps.statement,
@@ -52,13 +36,24 @@ class ShowLists(View):
                     }
                     for ps in twoPS
                 ]
+                data = {'data': data}
+                return JsonResponse(data)
+            elif setting == 3:
+                auth = request.session.get('auth')
+                user = User.objects.get(username=auth["username"])
 
-                data = {'twoPS': twoPS_data}
+                threePS = ThreeProblemStatement.objects.filter(user_fk=user)
+                data = [
+                    {
+                        'id': ps.id,
+                        'statement': ps.statement,
+                        'user_fk': ps.user_fk.id,
+                        'venn_fk': ps.venn_fk.id if ps.venn_fk else None,
+                    }
+                    for ps in threePS
+                ]
+
+                data = {'data': data}
                 return JsonResponse(data)
 
         return HttpResponse("FAILED")
-
-
-
-
-
