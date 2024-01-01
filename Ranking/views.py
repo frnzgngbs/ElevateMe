@@ -57,3 +57,18 @@ class ShowLists(View):
                 return JsonResponse(data)
 
         return HttpResponse("FAILED")
+
+class AddToTable(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        if request.method == "POST":
+            selected_checkboxes = request.POST.getlist('checkbox_group')
+
+            print(selected_checkboxes)
+
+            return render(request, 'Ranking.html', {
+                'context': selected_checkboxes
+            })
+        return HttpResponse("No")

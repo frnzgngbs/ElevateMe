@@ -46,34 +46,6 @@
                 <div class="outside-container">
                     <div class="vennDiagram2-container">
                         <div class="cards-container" id="vennDiagram2Container">
-                            <form
-                                action="{% url 'Saving:saveOperation' 0 %}"
-                                id="saveForm1"
-                                method="post"
-                            >
-                                {% csrf_token %}
-                                <div class="card" id="{{ instance.id }}">
-                                    <input
-                                        type="checkbox"
-                                        class="checkbox"
-                                        name="checkbox_group"
-                                    />
-                                    <div
-                                        class="card-text"
-                                        contenteditable="true"
-                                    >
-                                        {{ instance.statement }}
-                                    </div>
-                                    <button
-                                            class="add-button"
-                                            type="submit"
-                                            name="button"
-                                            value="button2.1"
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -83,34 +55,6 @@
                 <h2 >3 Venn Diagram List</h2>
                 <div class="vennDiagram3-container">
                     <div class="cards-container" id="vennDiagram3Container">
-                        <form
-                                action="{% url 'Saving:saveOperation' 0 %}"
-                                id="saveForm2"
-                                method="post"
-                        >
-                            {% csrf_token %}
-                            <div class="card" id="{{ instance.id }}">
-                                <input
-                                        type="checkbox"
-                                        class="checkbox"
-                                        name="checkbox_group"
-                                />
-                                <div
-                                        class="card-text"
-                                        contenteditable="true"
-                                >
-                                    {{ instance.statement }}
-                                </div>
-                                <button
-                                        class="add-button"
-                                        type="submit"
-                                        name="button"
-                                        value="button3.1"
-                                >
-                                    Add
-                                </button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -143,57 +87,62 @@
         </table>
 
             <div class="chkTable">
+                <form>
                 <table class="cardTable">
-                    <tr>
-                        <td><p class="ps">Problem Statement</p></td>
-                        <td><select id="impact" class="impact">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select></td>
-                        <td><select id="capability" class="capability">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select></td>
-                        <td><select id="devcost" class="devcost">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select></td>
-                        <td><select id="needs" class="needs">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select></td>
-                        <td><select id="innovation" class="innovation">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select></td>
-                        <td><select id="marketsize" class="marketsize">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select></td>
-                        <td><p class="total">Total</p></td>
-                        <td><p class="rank">Rank</p></td>
-                        <input type="checkbox" class="chkbox" />
-                    </tr>
+                    {% for i in context %}
+                        <tr>
+                            <td><p class="ps">{{ i }}</p></td>
+                            <td><select id="impact" class="impact">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
+                            <td><select id="capability" class="capability">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
+                            <td><select id="devcost" class="devcost">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
+                            <td><select id="needs" class="needs">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
+                            <td><select id="innovation" class="innovation">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
+                            <td><select id="marketsize" class="marketsize">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select></td>
+                            <td><p class="total">Total</p></td>
+                            <td><p class="rank">Rank</p></td>
+                            <input type="checkbox" class="chkbox" />
+                        </tr>
+                    {% endfor %}
                 </table>
-                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+                    <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
+                </form>
+
 
                 <div class="rkBUtton">
                     <button class="rank-button">Rank</button>

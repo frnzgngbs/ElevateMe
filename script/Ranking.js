@@ -16,77 +16,57 @@ function getCSRFToken() {
 function updateFormElements(data, value) {
     var containerElement = value === "2" ? document.getElementById('vennDiagram2Container') : document.getElementById('vennDiagram3Container');
 
-    // Clear existing content
     containerElement.innerHTML = '';
 
     if (data.data) {
         console.log('twoPS data exists:', data.data);
-        if (value === "2") {
-            data.data.forEach(function (item) {
-                // Create new elements for each item
-                var cardDiv = document.createElement('div');
-                cardDiv.classList.add('card');
-                cardDiv.id = item.id;
 
-                var checkboxInput = document.createElement('input');
-                checkboxInput.type = 'checkbox';
-                checkboxInput.classList.add('checkbox');
-                checkboxInput.name = 'checkbox_group';
+        var csrfToken = getCSRFToken();
 
-                var cardTextDiv = document.createElement('div');
-                cardTextDiv.classList.add('card-text');
-                cardTextDiv.contentEditable = true;
-                cardTextDiv.textContent = item.statement;
+        var formElement = document.createElement('form');
+        formElement.action = "/add-to-table/";
+        formElement.method = "post";
+        formElement.id = "form";
 
-                var addButton = document.createElement('button');
-                addButton.classList.add('add-button');
-                addButton.type = 'submit';
-                addButton.name = 'button';
-                addButton.value = item.id;
-                addButton.textContent = 'Add';
+        var csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'csrfmiddlewaretoken';
+        csrfInput.value = csrfToken;
+        formElement.appendChild(csrfInput);
 
-                // Append elements to the container
-                cardDiv.appendChild(checkboxInput);
-                cardDiv.appendChild(cardTextDiv);
-                cardDiv.appendChild(addButton);
+        data.data.forEach(function (item) {
+            // Create new elements for each item
+            var cardDiv = document.createElement('div');
+            cardDiv.classList.add('card');
+            cardDiv.id = item.id;
 
-                containerElement.appendChild(cardDiv);
-            });
-        }
-        else if(value === "3") {
-            data.data.forEach(function (item) {
-                // Create new elements for each item
-                var cardDiv = document.createElement('div');
-                cardDiv.classList.add('card');
-                cardDiv.id = item.id;
+            var checkboxInput = document.createElement('input');
+            checkboxInput.type = 'checkbox';
+            checkboxInput.classList.add('checkbox');
+            checkboxInput.name = 'checkbox_group';
+            checkboxInput.value = item.statement;
 
-                var checkboxInput = document.createElement('input');
-                checkboxInput.type = 'checkbox';
-                checkboxInput.classList.add('checkbox');
-                checkboxInput.name = 'checkbox_group';
+            var cardTextDiv = document.createElement('div');
+            cardTextDiv.classList.add('card-text');
+            cardTextDiv.contentEditable = true;
+            cardTextDiv.textContent = item.statement;
 
-                var cardTextDiv = document.createElement('div');
-                cardTextDiv.classList.add('card-text');
-                cardTextDiv.contentEditable = true;
-                cardTextDiv.textContent = item.statement;
+            cardDiv.appendChild(checkboxInput);
+            cardDiv.appendChild(cardTextDiv);
 
-                var addButton = document.createElement('button');
-                addButton.classList.add('add-button');
-                addButton.type = 'submit';
-                addButton.name = 'button';
-                addButton.value = item.id;
-                addButton.textContent = 'Add';
+            formElement.appendChild(cardDiv);
+        });
 
-                // Append elements to the container
-                cardDiv.appendChild(checkboxInput);
-                cardDiv.appendChild(cardTextDiv);
-                cardDiv.appendChild(addButton);
+        var submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.textContent = 'Submit';
+        submitButton.className = "add-button"
+        formElement.appendChild(submitButton);
 
-                containerElement.appendChild(cardDiv);
-            });
-        }
+        containerElement.appendChild(formElement);
     }
 }
+
 
 function fetchAndPopulateData(value) {
     var csrfToken = getCSRFToken();
