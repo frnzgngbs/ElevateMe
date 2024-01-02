@@ -1,4 +1,3 @@
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
@@ -13,11 +12,13 @@ from Saving.models import TwoProblemStatement, ThreeProblemStatement
 def ranking(request):
     context = request.session.get('selected_checkboxes_table')
 
+    print(context)
     return render(request, "Ranking.html", {
         "context": context,
         "ranking_setting": request.session.get('ranking_setting'),
         "valid": request.session.get('valid')
     })
+
 
 class ShowLists(View):
     @method_decorator(login_required(login_url="authenticate:login"))
@@ -66,14 +67,24 @@ class ShowLists(View):
 
         return HttpResponse("FAILED")
 
+
 class AddToTable(View):
     def get(self, request):
         pass;
+
     def post(self, request):
         if request.method == "POST":
             selected_checkboxes = request.POST.getlist('checkbox_group')
 
-            request.session['selected_checkboxes_table'] = selected_checkboxes
+            new_context = {
+                'items': [
+                    {'id': str(index + 1), 'statement': statement}
+                    for index, statement in enumerate(selected_checkboxes)
+                ]
+            }
+
+
+            request.session['selected_checkboxes_table'] = new_context
             request.session['valid'] = True if len(selected_checkboxes) > 2 else False
 
             print(selected_checkboxes)

@@ -92,10 +92,10 @@
             <div class="chkTable">
                 <form>
                 <table class="cardTable">
-                    {% for i in context %}
-                        <tr>
-                            <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i }}"/></td>
-                            <td class="ps"><p>{{ i }}</p></td>
+                    {% for i in context.items %}
+                        <tr id="{{ i.id }}">
+                            <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}"/></td>
+                            <td class="ps"><p>{{ i.statement }}</p></td>
                             <td  class="impact">
                                 <select id="impact" required>
                                 <option value="0" selected hidden></option>

@@ -64,6 +64,8 @@ function updateFormElements(data, value) {
         formElement.appendChild(submitButton);
 
         containerElement.appendChild(formElement);
+
+        sessionStorage.clear();
     }
 }
 
@@ -109,7 +111,6 @@ function showVenn() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to calculate and update the total for a row
     function updateTotal(row) {
         var impact = getSelectedValue('impact', row);
         var capability = getSelectedValue('capability', row);
@@ -120,41 +121,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var total = impact + capability + devcost + needs + innovation + marketsize;
 
-        // Update the total cell in the row
         row.querySelector('.total p').textContent = total;
 
         return total; // Return the total for ranking
     }
 
-    // Function to get the selected value from a dropdown
     function getSelectedValue(dropdownId, row) {
         var dropdown = row.querySelector('#' + dropdownId);
         return parseInt(dropdown.options[dropdown.selectedIndex].value, 10);
     }
 
-    // Function to update the rank for a specific row
     function updateRank(row, total, allRows) {
         var rankCell = row.querySelector('.rank p');
 
-        // Count the number of rows with a higher total
-        var higherTotalCount = allRows.reduce(function (count, otherRow) {
-            // Skip the current row
-            if (otherRow !== row) {
-                var otherTotal = updateTotal(otherRow);
-                if (otherTotal > total) {
-                    count++;
-                } else if (otherTotal === total && allRows.indexOf(otherRow) < allRows.indexOf(row)) {
-                    count++;
+        setTimeout(function () {
+            var higherTotalCount = allRows.reduce(function (count, otherRow) {
+                // Skip the current row
+                if (otherRow !== row) {
+                    var otherTotal = updateTotal(otherRow);
+                    if (otherTotal > total) {
+                        count++;
+                    } else if (otherTotal === total && allRows.indexOf(otherRow) < allRows.indexOf(row)) {
+                        count++;
+                    }
                 }
-            }
-            return count;
-        }, 0);
+                return count;
+            }, 0);
 
-        // Set the rank based on the count
-        rankCell.textContent = higherTotalCount + 1;
+            rankCell.textContent = higherTotalCount + 1;
+        }, 0); // Delay of 0 milliseconds
     }
 
-    // Function to update session data with the current table state
     function updateSessionData() {
         var table = document.querySelector('.cardTable');
         var rows = Array.from(table.querySelectorAll('tr'));
@@ -162,16 +159,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // Create an array to store table data
         var tableData = [];
 
-        // Iterate through each row to collect data
         rows.forEach(function (currentRow, index) {
             var rowData = {};
 
-            // Skip the header row
-            if (index > 0) {
+            if (index >= 0) {
                 rowData.total = updateTotal(currentRow);
                 rowData.rank = parseInt(currentRow.querySelector('.rank p').textContent, 10);
 
-                // Collect selected values from the row's dropdowns
                 var dropdowns = Array.from(currentRow.querySelectorAll('select'));
                 rowData.dropdownValues = dropdowns.map(function (dropdown) {
                     return {
@@ -182,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 tableData.push(rowData);
             }
+
         });
 
         // Update session data
@@ -194,17 +189,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (tableDataString) {
             var tableData = JSON.parse(tableDataString);
 
-            // Iterate through each row to apply stored data
+            console.log(tableData);
             var rows = document.querySelector('.cardTable').querySelectorAll('tr');
 
             tableData.forEach(function (data, index) {
-                var row = rows[index]; // Remove the adjustment to skip header row
+                if (index < rows.length) {
+                    var row = rows[index];
 
-                // Log information for debugging
-                console.log('Processing row:', row, 'Data:', data);
+                    console.log("DATA: ", data);
 
-                if (row) {
-                    // Set the selected values for each dropdown
                     data.dropdownValues.forEach(function (dropdownData) {
                         var dropdown = row.querySelector('#' + dropdownData.id);
                         if (dropdown) {
@@ -212,22 +205,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                    // Update total and rank
                     var totalCell = row.querySelector('.total p');
                     var rankCell = row.querySelector('.rank p');
 
                     if (totalCell && rankCell) {
+                        console.log("TOTAL = ",data.total);
+                        console.log("DATA = ", data.rank);
                         totalCell.textContent = data.total;
                         rankCell.textContent = data.rank;
-                    } else {
-                        console.error('Total and Rank cells not found for row:', row);
                     }
-                } else {
-                    console.error('Row not found for index:', index);
                 }
             });
+            console.log("STOP");
         }
     }
+
 
     restoreTableData();
 
@@ -237,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var row = dropdown.closest('tr');
         var total = updateTotal(row);
 
-        // Rank rows after each dropdown change
         var allRows = Array.from(document.querySelectorAll('.cardTable tr'));
         allRows.forEach(function (otherRow) {
             updateTotal(otherRow);
@@ -248,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
             updateRank(otherRow, otherTotal, allRows);
         });
 
-        // Update session data when rank is updated
         updateSessionData();
     }
 
@@ -258,38 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dropdown.addEventListener('change', handleDropdownChange);
     });
 
-    // Check if session data exists and apply it to the table
-    var tableDataString = sessionStorage.getItem('tableData');
-    if (tableDataString) {
-        var tableData = JSON.parse(tableDataString);
 
-        // Iterate through each row to apply stored data
-        tableData.forEach(function (data, index) {
-            var row = document.querySelector('.cardTable').querySelectorAll('tr')[index + 1];
-
-            // Update the total and rank
-            row.querySelector('.total p').textContent = data.total;
-            row.querySelector('.rank p').textContent = data.rank;
-
-            // Update the dropdowns with stored values
-            Object.keys(data).forEach(function (columnName) {
-                if (columnName !== 'total' && columnName !== 'rank') {
-                    var cell = row.querySelector('.' + columnName);
-                    if (cell) {
-                        if (cell.classList.contains('total') || cell.classList.contains('rank')) {
-                            // Do nothing for total and rank cells
-                        } else if (cell.classList.contains('chkbox')) {
-                            // Update the radio button if it's a checkbox cell
-                            cell.checked = data[columnName];
-                        } else {
-                            // Update the cell content for other cells
-                            cell.textContent = data[columnName];
-                        }
-                    }
-                }
-            });
-        });
-    }
 });
 
 
@@ -298,4 +257,3 @@ radioButton2.addEventListener('click', showVenn);
 
 // Initial load
 showVenn();
-
