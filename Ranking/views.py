@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -11,7 +11,13 @@ from Saving.models import TwoProblemStatement, ThreeProblemStatement
 
 # This method is only use for redirecting to that page
 def ranking(request):
-    return render(request, "Ranking.html")
+    context = request.session.get('selected_checkboxes_table')
+
+    return render(request, "Ranking.html", {
+        "context": context,
+        "ranking_setting": request.session.get('ranking_setting'),
+        "valid": request.session.get('valid')
+    })
 
 class ShowLists(View):
     @method_decorator(login_required(login_url="authenticate:login"))
@@ -21,6 +27,8 @@ class ShowLists(View):
     def post(self, request, setting):
         global data
         if request.method == "POST":
+            request.session['ranking_setting'] = setting
+
             if setting == 2:
                 auth = request.session.get('auth')
                 user = User.objects.get(username=auth["username"])
@@ -60,15 +68,15 @@ class ShowLists(View):
 
 class AddToTable(View):
     def get(self, request):
-        pass
-
+        pass;
     def post(self, request):
         if request.method == "POST":
             selected_checkboxes = request.POST.getlist('checkbox_group')
 
+            request.session['selected_checkboxes_table'] = selected_checkboxes
+            request.session['valid'] = True if len(selected_checkboxes) > 2 else False
+
             print(selected_checkboxes)
 
-            return render(request, 'Ranking.html', {
-                'context': selected_checkboxes
-            })
+            return redirect('Ranking:ranking')
         return HttpResponse("No")

@@ -108,47 +108,178 @@ function showVenn() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to calculate and update the total for a row
+    function updateTotal(row) {
+        var impact = getSelectedValue('impact', row);
+        var capability = getSelectedValue('capability', row);
+        var devcost = getSelectedValue('devcost', row);
+        var needs = getSelectedValue('needs', row);
+        var innovation = getSelectedValue('innovation', row);
+        var marketsize = getSelectedValue('marketsize', row);
+
+        var total = impact + capability + devcost + needs + innovation + marketsize;
+
+        // Update the total cell in the row
+        row.querySelector('.total p').textContent = total;
+
+        return total; // Return the total for ranking
+    }
+
+    // Function to get the selected value from a dropdown
+    function getSelectedValue(dropdownId, row) {
+        var dropdown = row.querySelector('#' + dropdownId);
+        return parseInt(dropdown.options[dropdown.selectedIndex].value, 10);
+    }
+
+    // Function to update the rank for a specific row
+    function updateRank(row, total, allRows) {
+        var rankCell = row.querySelector('.rank p');
+
+        // Count the number of rows with a higher total
+        var higherTotalCount = allRows.reduce(function (count, otherRow) {
+            // Skip the current row
+            if (otherRow !== row) {
+                var otherTotal = updateTotal(otherRow);
+                if (otherTotal > total) {
+                    count++;
+                } else if (otherTotal === total && allRows.indexOf(otherRow) < allRows.indexOf(row)) {
+                    count++;
+                }
+            }
+            return count;
+        }, 0);
+
+        // Set the rank based on the count
+        rankCell.textContent = higherTotalCount + 1;
+    }
+
+    // Function to update session data with the current table state
+    function updateSessionData() {
+        var table = document.querySelector('.cardTable');
+        var rows = Array.from(table.querySelectorAll('tr'));
+
+        // Create an array to store table data
+        var tableData = [];
+
+        // Iterate through each row to collect data
+        rows.forEach(function (currentRow, index) {
+            var rowData = {};
+
+            // Skip the header row
+            if (index > 0) {
+                rowData.total = updateTotal(currentRow);
+                rowData.rank = parseInt(currentRow.querySelector('.rank p').textContent, 10);
+
+                // Collect selected values from the row's dropdowns
+                var dropdowns = Array.from(currentRow.querySelectorAll('select'));
+                rowData.dropdownValues = dropdowns.map(function (dropdown) {
+                    return {
+                        id: dropdown.id,
+                        value: getSelectedValue(dropdown.id, currentRow),
+                    };
+                });
+
+                tableData.push(rowData);
+            }
+        });
+
+        // Update session data
+        sessionStorage.setItem('tableData', JSON.stringify(tableData));
+    }
+
+    // Function to restore table data from sessionStorage during page load
+    function restoreTableData() {
+        var tableDataString = sessionStorage.getItem('tableData');
+        if (tableDataString) {
+            var tableData = JSON.parse(tableDataString);
+
+            // Iterate through each row to apply stored data
+            tableData.forEach(function (data, index) {
+                var row = document.querySelector('.cardTable').querySelectorAll('tr')[index + 1];
+
+                // Set the selected values for each dropdown
+                data.dropdownValues.forEach(function (dropdownData) {
+                    var dropdown = row.querySelector('#' + dropdownData.id);
+                    dropdown.value = dropdownData.value;
+                });
+
+                // Update total and rank
+                row.querySelector('.total p').textContent = data.total;
+                row.querySelector('.rank p').textContent = data.rank;
+            });
+        }
+    }
+
+    // Call the restoreTableData function during page load
+    restoreTableData();
+
+
+    // Function to be called when the dropdown changes
+    function handleDropdownChange(event) {
+        var dropdown = event.target;
+        var row = dropdown.closest('tr');
+        var total = updateTotal(row);
+
+        // Rank rows after each dropdown change
+        var allRows = Array.from(document.querySelectorAll('.cardTable tr'));
+        allRows.forEach(function (otherRow) {
+            updateTotal(otherRow);
+        });
+
+        allRows.forEach(function (otherRow) {
+            var otherTotal = updateTotal(otherRow);
+            updateRank(otherRow, otherTotal, allRows);
+        });
+
+        // Update session data when rank is updated
+        updateSessionData();
+    }
+
+    // Attach the event listeners to all dropdowns
+    var dropdowns = document.querySelectorAll('.cardTable select');
+    dropdowns.forEach(function (dropdown) {
+        dropdown.addEventListener('change', handleDropdownChange);
+    });
+
+    // Check if session data exists and apply it to the table
+    var tableDataString = sessionStorage.getItem('tableData');
+    if (tableDataString) {
+        var tableData = JSON.parse(tableDataString);
+
+        // Iterate through each row to apply stored data
+        tableData.forEach(function (data, index) {
+            var row = document.querySelector('.cardTable').querySelectorAll('tr')[index + 1];
+
+            // Update the total and rank
+            row.querySelector('.total p').textContent = data.total;
+            row.querySelector('.rank p').textContent = data.rank;
+
+            // Update the dropdowns with stored values
+            Object.keys(data).forEach(function (columnName) {
+                if (columnName !== 'total' && columnName !== 'rank') {
+                    var cell = row.querySelector('.' + columnName);
+                    if (cell) {
+                        if (cell.classList.contains('total') || cell.classList.contains('rank')) {
+                            // Do nothing for total and rank cells
+                        } else if (cell.classList.contains('chkbox')) {
+                            // Update the radio button if it's a checkbox cell
+                            cell.checked = data[columnName];
+                        } else {
+                            // Update the cell content for other cells
+                            cell.textContent = data[columnName];
+                        }
+                    }
+                }
+            });
+        });
+    }
+});
+
+
 radioButton1.addEventListener('click', showVenn);
 radioButton2.addEventListener('click', showVenn);
 
 // Initial load
 showVenn();
-
-/*window.onload = function () {
-    const thElements = document.querySelectorAll('.psRubrics th');
-    const cardTable = document.querySelector('.cardTable');
-    const tdElements = cardTable.querySelectorAll('td');
-
-    const getColumnMaxWidths = () => {
-        const columnMaxWidths = Array.from({ length: thElements.length }, () => 0);
-
-        tdElements.forEach((td, index) => {
-            const columnIndex = index % thElements.length;
-            const tdWidth = td.clientWidth;
-            const padding = parseInt(window.getComputedStyle(td).getPropertyValue('padding-left')) + parseInt(window.getComputedStyle(td).getPropertyValue('padding-right'));
-            const border = parseInt(window.getComputedStyle(td).getPropertyValue('border-left-width')) + parseInt(window.getComputedStyle(td).getPropertyValue('border-right-width'));
-            const totalWidth = tdWidth + padding + border;
-
-            if (totalWidth > columnMaxWidths[columnIndex]) {
-                columnMaxWidths[columnIndex] = totalWidth;
-            }
-        });
-
-        return columnMaxWidths;
-    };
-
-    const columnWidths = getColumnMaxWidths();
-
-    thElements.forEach((th, index) => {
-        const padding = parseInt(window.getComputedStyle(th).getPropertyValue('padding-left')) + parseInt(window.getComputedStyle(th).getPropertyValue('padding-right'));
-        th.style.width = `${columnWidths[index] - padding}px`;
-    });
-
-    tdElements.forEach((td, index) => {
-        const columnIndex = index % thElements.length;
-        const padding = parseInt(window.getComputedStyle(td).getPropertyValue('padding-left')) + parseInt(window.getComputedStyle(td).getPropertyValue('padding-right'));
-        td.style.width = `${columnWidths[columnIndex] - padding}px`;
-    });
-};*/
-
 
