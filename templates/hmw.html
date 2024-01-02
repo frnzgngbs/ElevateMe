@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{% static 'script/Whys.js' %}"></script>
-    <link rel="stylesheet" href="/static/css/Whys.css" />
+    <link rel="stylesheet" href="/static/css/hmw.css" />
     <title>ElevateMe</title>
 </head>
 
@@ -21,39 +21,35 @@
             <a href="{% url 'homepage:home' %}"><input class="button1" type="button" value="Home" /></a>
             <a href="{% url 'Saving:savePage' %}"><input class="button1" type="button" value="Saved" /></a>
             <a href="{% url 'Ranking:ranking' %}"><input class="button1" type="button" value="Ranking" /></a>
-            <a href="{% url 'Whys:5-whys' %}"><input class="button-clicked" type="button" value="5-Why's" /></a>
-            <a href="{% url 'HMW:5-hmw' %}"><input class="button1" type="button" value="5-HMW" /></a>
+            <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Why's" /></a>
+            <a href="{% url 'HMW:5-hmw' %}"><input class="button-clicked" type="button" value="5-HMW" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
         </div>
     </div>
 
 
     <div class="problem">
-        <h1>Selected Problem Statement</h1>
-        <p>Now subject the selected problem statement to a 5-Why analysis. Ask "why" five times to uncover the underlying issue behind the problem.</p>
-        <div class="selectedProbStatement-container">
-            {% if rankedPS is not None %}
-            <div class="selectedPScard">
-                <div class="card-text" >{{ rankedPS }}</div>
-            </div>
-            {% else %}
-                <div class="selectedPScard">
+        <h1>Potential Root Problem</h1>
+        <p>The last answer from 5-Whys above will serve as the potential root problem that the how-might-we statements will be generated from.</p>
+        <div class="potentialProblem-container">
+
+                <div class="potentialRootcard">
                     <div class="card-text" >Selected Problem Statement Upon ranking.</div>
                 </div>
-            {% endif %}
+     
             <div class="genHmwButton-container">
-                <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-Why</button>
+                <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-HMW</button> <!-- Generate 5 HMW Statement Button -->
             </div>
         </div>
     </div>
     <div class="generatedWhys">
-        <h1> Generated 5 - Why's</h1>
-
-        <div class="generatedWhys-container">
+        <h1>Generated 5 HMW Statement</h1>
+        <p>Now subject the top problem above to a 5-Why analysis. In 5-Whys, you ask "why" five times to uncover the underlying issue behind a problem. Make sure to add NA for unapplicable fields to avoid an incomplete status</p>
+        <div class="generatedHMW-container">
             {% if fiveWhys is not None %}
             <form>
-            {% for items in fiveWhys %}
-                 <div class="whyCards" id="whysID">
+            {% for items in fiveHMW %}
+                 <div class="hmwCards" id="hmwID">
                     <input type="checkbox" class="checkbox" />
 
                     <div class="card-text" contenteditable="true">{{ items.statement }}</div>
@@ -61,7 +57,7 @@
                     <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
                 </div>
                 <div class="genHmwButton-container">
-                    <button class="generateHMW-Button">  Next </button>
+                    <button class="generateHMW-Button">Next</button>   <!-- Elevator Pitch Button -->
                 </div>
             {% endfor %}
             </form>
@@ -70,7 +66,7 @@
         {% endif %}
 
     </div>
-    <script src="{% static 'script/save.js' %}"></script>
+    <script src="{% static 'script/hmw.js' %}"></script>
 </body>
 
 </html>
