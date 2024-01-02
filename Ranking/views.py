@@ -12,11 +12,15 @@ from Saving.models import TwoProblemStatement, ThreeProblemStatement
 def ranking(request):
     context = request.session.get('selected_checkboxes_table')
 
-    print(context)
+    store = request.session.get('ranked_problem')
+
+    print(store)
+
     return render(request, "Ranking.html", {
         "context": context,
         "ranking_setting": request.session.get('ranking_setting'),
-        "valid": request.session.get('valid')
+        "valid": request.session.get('valid'),
+        "root_problem": request.session.get('ranked_problem')
     })
 
 

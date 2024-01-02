@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     // Function to get CSRF token
     function getCSRFToken() {
@@ -14,11 +15,22 @@ document.addEventListener('DOMContentLoaded', function () {
         var whysContainer = document.querySelector(".generatedWhys-container");
         whysContainer.innerHTML = '';
 
+        var csrfToken = getCSRFToken();
         if (data.fiveWhys) {
             var formElement = document.createElement('form');
-            var whysID = 1;
+            formElement.action = "/root-problem/";
+            formElement.method = "post";
+            formElement.id = "form";
+
+            var csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = csrfToken;
+            formElement.appendChild(csrfInput);
 
             data.fiveWhys.forEach(function (item) {
+                let whysID = 0;
+
                 var whyCardDiv = document.createElement('div');
                 whyCardDiv.classList.add('whyCards');
                 whyCardDiv.id = whysID;
@@ -49,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             genHmwButtonContainer.classList.add('genHmwButton-container');
 
             var nextButton = document.createElement('button');
-            nextButton.type = 'button';
+            nextButton.type = 'submit';
             nextButton.classList.add('generateHMW-Button');
             nextButton.textContent = 'Next';
 
@@ -57,6 +69,10 @@ document.addEventListener('DOMContentLoaded', function () {
             formElement.appendChild(genHmwButtonContainer);
 
             whysContainer.appendChild(formElement);
+
+            console.log(data.fiveWhys)
+
+
         }
     }
 
@@ -66,15 +82,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $.ajax({
             url: `/generate-5-whys/${value}/`,
-            type: 'GET',
+            type: 'post',
             headers: {
                 'X-CSRFToken': csrfToken,
             },
             dataType: 'json',
             success: function (data) {
                 // Save the retrieved data to local storage
-                localStorage.setItem('fiveWhysData', JSON.stringify(data));
+                console.log(data)
                 displayFiveWhys(data);
+
+                var formElement = document.getElementById('form');
+                var formInputs = formElement.querySelectorAll('.checkbox');
+                formInputs.forEach(function (input) {
+                    let ctr = 0;
+                    data[ctr++].statement = input.value;
+                    console.log(data[ctr].statement);
+                });
+
+                sessionStorage.setItem('fiveWhysData', JSON.stringify(data));
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
@@ -88,8 +114,10 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchAndPopulateData(contextValue);
     });
 
-    var savedData = localStorage.getItem('fiveWhysData');
+
+    var savedData = sessionStorage.getItem('fiveWhysData');
     if (savedData) {
         displayFiveWhys(JSON.parse(savedData));
     }
+
 });

@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include("homepage.urls")),
     path('', include("Saving.urls")),
     path('', include("Whys.urls")),
-    path('', include("Ranking.urls"))
+    path('', include("Ranking.urls")),
+    path('', include("HMW.urls"))
 ]
 

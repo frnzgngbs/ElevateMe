@@ -22,7 +22,7 @@
             <a href="{% url 'Saving:savePage' %}"><input class="button1" type="button" value="Saved" /></a>
             <a href="{% url 'Ranking:ranking' %}"><input class="button1" type="button" value="Ranking" /></a>
             <a href="{% url 'Whys:5-whys' %}"><input class="button-clicked" type="button" value="5-Why's" /></a>
-            <a href="{% url 'HMW:5-hmw' %}"><input class="button1" type="button" value="5-HMW" /></a>
+            <a href="{% url 'HMW:HMW' %}"><input class="button1" type="button" value="5-HMW" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
         </div>
     </div>
@@ -35,39 +35,23 @@
             {% if rankedPS is not None %}
             <div class="selectedPScard">
                 <div class="card-text" >{{ rankedPS }}</div>
+                <div class="genHmwButton-container">
+                    <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-Why</button>
+                </div>
             </div>
             {% else %}
                 <div class="selectedPScard">
                     <div class="card-text" >Selected Problem Statement Upon ranking.</div>
                 </div>
             {% endif %}
-            <div class="genHmwButton-container">
-                <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-Why</button>
-            </div>
+
         </div>
     </div>
     <div class="generatedWhys">
         <h1> Generated 5 - Why's</h1>
 
         <div class="generatedWhys-container">
-            {% if fiveWhys is not None %}
-            <form>
-            {% for items in fiveWhys %}
-                 <div class="whyCards" id="whysID">
-                    <input type="checkbox" class="checkbox" />
-
-                    <div class="card-text" contenteditable="true">{{ items.statement }}</div>
-
-                    <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
-                </div>
-                <div class="genHmwButton-container">
-                    <button class="generateHMW-Button">  Next </button>
-                </div>
-            {% endfor %}
-            </form>
         </div>
-            </form>
-        {% endif %}
 
     </div>
     <script src="{% static 'script/save.js' %}"></script>

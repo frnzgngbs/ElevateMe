@@ -48,7 +48,7 @@ function updateFormElements(data, value) {
 
             var cardTextDiv = document.createElement('div');
             cardTextDiv.classList.add('card-text');
-            cardTextDiv.contentEditable = true;
+            cardTextDiv.contentEditable = false;
             cardTextDiv.textContent = item.statement;
 
             cardDiv.appendChild(checkboxInput);
@@ -177,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     };
                 });
 
-                console.log("YAWA: ", rowData.rank)
                 tableData.push(rowData);
             }
 
@@ -248,7 +247,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+// Define a flag variable to track form submission
+var formSubmitted = false;
+
 function validateForm() {
+    // Check if the form has already been submitted
+    if (formSubmitted) {
+        // You can show a message or take appropriate action
+        clearLocalStorage();
+        alert('Form has already been submitted.');
+        return true;
+    }
+
     var rows = document.querySelectorAll('.cardTable tr');
 
     for (var i = 0; i < rows.length; i++) {
@@ -262,8 +272,19 @@ function validateForm() {
             }
         }
     }
-    return true;
+
+    // Clear local storage
+    clearLocalStorage();
+
+    formSubmitted = true;
+
+    return formSubmitted;
 }
+
+function clearLocalStorage() {
+    sessionStorage.removeItem('fiveWhysData');
+}
+
 
 radioButton1.addEventListener('click', showVenn);
 radioButton2.addEventListener('click', showVenn);

@@ -23,7 +23,7 @@
             <a href="{% url 'Saving:savePage' %}"><input class="button1" type="button" value="Saved" /></a>
             <a href="{% url 'Ranking:ranking' %}"><input class="button-clicked" type="button" value="Ranking" /></a>
             <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Whys" /></a>
-            <a href="{% url 'HMW:5-hmw' %}"><input class="button1" type="button" value="5-HMW" /></a>
+            <a href="{% url 'HMW:HMW' %}"><input class="button1" type="button" value="5-HMW" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
         </div>
     </div>
@@ -91,12 +91,13 @@
         </table>
 
             <div class="chkTable">
-                <form action="{% url 'Whys:ranked-problem-statement' %}" method="post" onsubmit="return validateForm()">
+                <form action="{% url 'Whys:ranked-problem-statement' %}" method="post" onsubmit="return validateForm()" id="formID">
                 {% csrf_token %}
                 <table class="cardTable">
                     {% for i in context.items %}
                         <tr id="{{ i.id }}">
-                            <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}"/></td>
+                            <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}"
+                            {% if i.statement == root_problem %} checked {% endif %}/></td>
                             <td class="ps"><p>{{ i.statement }}</p></td>
                             <td  class="impact">
                                 <select id="impact">
@@ -152,7 +153,6 @@
                         </tr>
                     {% endfor %}
                 </table>
-                    <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button>
                     <div class="rkBUtton">
                         <button class="rank-button"
                                 type="submit"

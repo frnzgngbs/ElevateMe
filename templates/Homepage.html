@@ -52,7 +52,7 @@
             <a href="{% url 'Saving:savePage' %}"><input class="button1" type="button" value="Saved" /></a>
             <a href="{% url 'Ranking:ranking' %}"><input class="button1" type="button" value="Ranking" /></a>
             <a href="{% url 'Whys:5-whys' %}"><input class="button1" type="button" value="5-Whys" /></a>
-            <a href="{% url 'HMW:5-hmw' %}"><input class="button1" type="button" value="5-HMW" /></a>
+            <a href="{% url 'HMW:HMW' %}"><input class="button1" type="button" value="5-HMW" /></a>
             <a href="{% url 'authenticate:signout' %}"><input class="button1" type="button" value="Sign Out" /></a>
         </div>
     </div>
@@ -187,8 +187,8 @@
                     {% for key, value in generate_response.items %}
                     <tr>
                         <td>
-                            <input type="checkbox" name="checkbox_group" value="{{ value }}" {% for c in checked %} {%
-                                if c==value %} disabled {% endif %} {% endfor %} />{{ value }}
+                            <input type="checkbox" name="checkbox_group" value="{{ value }}"
+                    {% for c in checked %}{%if c == value %} disabled {% endif %} {% endfor %} />{{ value }}
                         </td>
                     </tr>
                     {% endfor %}

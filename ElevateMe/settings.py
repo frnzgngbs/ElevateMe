@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'homepage',
     'Saving',
     'Whys',
-    'Ranking'
+    'Ranking',
+    'HMW',
 ]
 
 MIDDLEWARE = [
