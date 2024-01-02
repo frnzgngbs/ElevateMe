@@ -65,7 +65,6 @@ function updateFormElements(data, value) {
 
         containerElement.appendChild(formElement);
 
-        sessionStorage.clear();
     }
 }
 
@@ -134,23 +133,22 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateRank(row, total, allRows) {
         var rankCell = row.querySelector('.rank p');
 
-        setTimeout(function () {
-            var higherTotalCount = allRows.reduce(function (count, otherRow) {
-                // Skip the current row
-                if (otherRow !== row) {
-                    var otherTotal = updateTotal(otherRow);
-                    if (otherTotal > total) {
-                        count++;
-                    } else if (otherTotal === total && allRows.indexOf(otherRow) < allRows.indexOf(row)) {
-                        count++;
-                    }
+        var higherTotalCount = allRows.reduce(function (count, otherRow) {
+            // Skip the current row
+            if (otherRow !== row) {
+                var otherTotal = updateTotal(otherRow);
+                if (otherTotal > total) {
+                    count++;
+                } else if (otherTotal === total && allRows.indexOf(otherRow) < allRows.indexOf(row)) {
+                    count++;
                 }
-                return count;
-            }, 0);
+            }
+            return count;
+        }, 0);
 
-            rankCell.textContent = higherTotalCount + 1;
-        }, 0); // Delay of 0 milliseconds
+        rankCell.textContent = higherTotalCount + 1;
     }
+
 
     function updateSessionData() {
         var table = document.querySelector('.cardTable');
@@ -165,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (index >= 0) {
                 rowData.total = updateTotal(currentRow);
                 rowData.rank = parseInt(currentRow.querySelector('.rank p').textContent, 10);
+                console.log("RANKy", + (index+1), + "= " + rowData.rank)
 
                 var dropdowns = Array.from(currentRow.querySelectorAll('select'));
                 rowData.dropdownValues = dropdowns.map(function (dropdown) {
@@ -174,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     };
                 });
 
+                console.log("YAWA: ", rowData.rank)
                 tableData.push(rowData);
             }
 
@@ -189,15 +189,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (tableDataString) {
             var tableData = JSON.parse(tableDataString);
 
-            console.log(tableData);
             var rows = document.querySelector('.cardTable').querySelectorAll('tr');
 
             tableData.forEach(function (data, index) {
                 if (index < rows.length) {
                     var row = rows[index];
-
-                    console.log("DATA: ", data);
-
                     data.dropdownValues.forEach(function (dropdownData) {
                         var dropdown = row.querySelector('#' + dropdownData.id);
                         if (dropdown) {
@@ -209,17 +205,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     var rankCell = row.querySelector('.rank p');
 
                     if (totalCell && rankCell) {
-                        console.log("TOTAL = ",data.total);
-                        console.log("DATA = ", data.rank);
                         totalCell.textContent = data.total;
                         rankCell.textContent = data.rank;
                     }
                 }
             });
-            console.log("STOP");
+            updateSessionData();
+
         }
     }
-
 
     restoreTableData();
 
@@ -242,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSessionData();
     }
 
-    // Attach the event listeners to all dropdowns
     var dropdowns = document.querySelectorAll('.cardTable select');
     dropdowns.forEach(function (dropdown) {
         dropdown.addEventListener('change', handleDropdownChange);
@@ -250,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
-
 
 radioButton1.addEventListener('click', showVenn);
 radioButton2.addEventListener('click', showVenn);
