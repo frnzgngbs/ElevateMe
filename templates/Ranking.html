@@ -90,14 +90,15 @@
         </table>
 
             <div class="chkTable">
-                <form>
+                <form action="{% url 'Whys:ranked-problem-statement' %}" method="post">
+                {% csrf_token %}
                 <table class="cardTable">
                     {% for i in context.items %}
                         <tr id="{{ i.id }}">
                             <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}"/></td>
                             <td class="ps"><p>{{ i.statement }}</p></td>
                             <td  class="impact">
-                                <select id="impact" required>
+                                <select id="impact">
                                 <option value="0" selected hidden></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>

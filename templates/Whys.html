@@ -27,15 +27,21 @@
     <div class="problem">
         <h1>Selected Problem Statement</h1>
         <div class="selectedProbStatement-container">
+            {% if context is not None %}
             <div class="selectedPScard">
-          <!--       <input type="checkbox" class="checkbox" /> -->
-                <div class="card-text" contenteditable="true">Your Text Here</div>
-<!-- 
-                <button class="delete-button" onclick="deleteCard('vennDiagram3Container', 'card')">Delete</button> -->
+                <div class="card-text" >{{ context }}</div>
             </div>
             <div class="genHmwButton-container">
                 <button class="generateWhys-Button"> 5-Why</button>
             </div>
+            {% else %}
+                <div class="selectedPScard">
+                    <div class="card-text" >Selected Problem Statement Upon ranking.</div>
+                </div>
+                <div class="genHmwButton-container">
+                    <button class="generateWhys-Button"> 5-Why</button>
+                </div>
+            {% endif %}
         </div>
     </div>
     </div>
@@ -45,6 +51,7 @@
         <p>Enumerate 5 HMW statement(s) by specifying an ACTION (what you want to achieve), a SUBJECT (to be influenced
             or affected), and a WHAT (outcome or what you like to achieve).</p>
         <div class="generatedWhys-container">
+            <form>
             <div class="whyCards">
                 <input type="checkbox" class="checkbox" />
                
@@ -55,6 +62,7 @@
             <div class="genHmwButton-container">
                 <button class="generateHMW-Button">  Next </button>
             </div>
+            </form>
         </div>
 
     </div>

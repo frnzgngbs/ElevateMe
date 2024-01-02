@@ -63,6 +63,10 @@ function updateFormElements(data, value) {
         submitButton.className = "add-button"
         formElement.appendChild(submitButton);
 
+        formElement.addEventListener('submit', function(event) {
+            sessionStorage.clear()
+        });
+
         containerElement.appendChild(formElement);
 
     }
