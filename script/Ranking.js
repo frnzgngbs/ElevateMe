@@ -248,6 +248,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+function validateForm() {
+    var rows = document.querySelectorAll('.cardTable tr');
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var selects = row.querySelectorAll('select');
+
+        for (var j = 0; j < selects.length; j++) {
+            if (selects[j].value === '0') {
+                alert('Please select values for all dropdowns in each row before submitting.');
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 radioButton1.addEventListener('click', showVenn);
 radioButton2.addEventListener('click', showVenn);
 

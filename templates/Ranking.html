@@ -90,7 +90,7 @@
         </table>
 
             <div class="chkTable">
-                <form action="{% url 'Whys:ranked-problem-statement' %}" method="post">
+                <form action="{% url 'Whys:ranked-problem-statement' %}" method="post" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <table class="cardTable">
                     {% for i in context.items %}
