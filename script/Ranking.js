@@ -195,25 +195,41 @@ document.addEventListener('DOMContentLoaded', function () {
             var tableData = JSON.parse(tableDataString);
 
             // Iterate through each row to apply stored data
+            var rows = document.querySelector('.cardTable').querySelectorAll('tr');
+
             tableData.forEach(function (data, index) {
-                var row = document.querySelector('.cardTable').querySelectorAll('tr')[index + 1];
+                var row = rows[index]; // Remove the adjustment to skip header row
 
-                // Set the selected values for each dropdown
-                data.dropdownValues.forEach(function (dropdownData) {
-                    var dropdown = row.querySelector('#' + dropdownData.id);
-                    dropdown.value = dropdownData.value;
-                });
+                // Log information for debugging
+                console.log('Processing row:', row, 'Data:', data);
 
-                // Update total and rank
-                row.querySelector('.total p').textContent = data.total;
-                row.querySelector('.rank p').textContent = data.rank;
+                if (row) {
+                    // Set the selected values for each dropdown
+                    data.dropdownValues.forEach(function (dropdownData) {
+                        var dropdown = row.querySelector('#' + dropdownData.id);
+                        if (dropdown) {
+                            dropdown.value = dropdownData.value;
+                        }
+                    });
+
+                    // Update total and rank
+                    var totalCell = row.querySelector('.total p');
+                    var rankCell = row.querySelector('.rank p');
+
+                    if (totalCell && rankCell) {
+                        totalCell.textContent = data.total;
+                        rankCell.textContent = data.rank;
+                    } else {
+                        console.error('Total and Rank cells not found for row:', row);
+                    }
+                } else {
+                    console.error('Row not found for index:', index);
+                }
             });
         }
     }
 
-    // Call the restoreTableData function during page load
     restoreTableData();
-
 
     // Function to be called when the dropdown changes
     function handleDropdownChange(event) {
