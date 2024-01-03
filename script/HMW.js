@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var csrfToken = getCSRFToken();
 
+        var checkboxes = [];
+
+
         if (data.fiveHMWs) {
             var formElement = document.createElement('form');
             formElement.action = "/generate-elevator-pitch/";
@@ -40,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 checkboxInput.classList.add('checkbox');
                 checkboxInput.name = 'checkbox_group';
                 checkboxInput.value = item.statement;
+                checkboxes.push(checkboxInput)
 
                 var cardTextDiv = document.createElement('div');
                 cardTextDiv.classList.add('card-text');
@@ -62,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var generateElevatorbutton = document.createElement('button');
             generateElevatorbutton.type = 'submit';
+            generateElevatorbutton.name = "checkbox_group"
             generateElevatorbutton.classList.add('generateElevatorPitch-button');
             generateElevatorbutton.textContent = 'Elevator Pitch';
 

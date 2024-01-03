@@ -51,7 +51,7 @@ def GenerateFiveWhys(request, value):
 
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -73,12 +73,3 @@ def openAiFiveWhy(value):
         questions_dict[i] = question_without_number
 
     return questions_dict
-
-
-class GenerateElevatorPitch(View):
-    def get(self, request):
-        pass
-
-    def post(self, request):
-        return redirect('Whys:5-whys')
-
