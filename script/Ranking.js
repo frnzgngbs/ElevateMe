@@ -64,7 +64,18 @@ function updateFormElements(data, value) {
         formElement.appendChild(submitButton);
 
         formElement.addEventListener('submit', function(event) {
-            sessionStorage.clear()
+            var selectedCheckboxes = formElement.querySelectorAll('input[type="checkbox"]:checked');
+
+            if (selectedCheckboxes.length > 5 ) {
+                alert('You cannot rank with more than 5 selected problems.');
+                event.preventDefault();
+            } else if(selectedCheckboxes.length <= 2) {
+                alert('You cannot rank with lesser than 3 selected problems.');
+                event.preventDefault();
+            }
+            else {
+                sessionStorage.clear();
+            }
         });
 
         containerElement.appendChild(formElement);
@@ -280,6 +291,7 @@ function validateForm() {
 
     return formSubmitted;
 }
+
 
 function clearLocalStorage() {
     sessionStorage.removeItem('fiveWhysData');
