@@ -408,3 +408,13 @@ h2 {
     text-align: center;
     margin: 0 0 5px 0 ;
 }
+.elevator-table div[contenteditable="true"] {
+    text-align: left;
+    background-color: #f2f2f2; /* Highlight editable cells */
+    border-radius: 15px; /* Add border-radius to editable cells */
+    color: #3e3e3e;
+}
+.elevator-table tr:first-child td {
+    background-color: #d0cece; /* Change this to your desired background color */
+    border-radius: 10px;
+}
