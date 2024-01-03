@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
             csrfInput.value = csrfToken;
             formElement.appendChild(csrfInput);
 
+            let whysID = 0;
             data.fiveHMWs.forEach(function (item) {
-                let whysID = 0;
 
                 var hmwCardDiv = document.createElement('div');
                 hmwCardDiv.classList.add('hmwCards');
@@ -97,8 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
             hmwContainer.appendChild(showButtonContainer);
         }
     }
-
-
 
     function fetchAndPopulateData(value) {
         var csrfToken = getCSRFToken();
