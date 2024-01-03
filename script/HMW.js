@@ -109,3 +109,41 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // ... (existing code)
+
+    var generateHMWsButton = document.querySelector('.generateWhys-Button');
+    generateHMWsButton.addEventListener('click', function () {
+        var contextValue = generateHMWsButton.getAttribute('data-context');
+        alert("Button Clicked");
+        fetchAndPopulateData(contextValue);
+    });
+
+    var savedData = sessionStorage.getItem('fiveHMWsData');
+    if (savedData) {
+        displayFiveHMWs(JSON.parse(savedData));
+    }
+
+});
+
+function showPopup() {
+    var popupContainer = document.getElementById('popupContainer');
+    popupContainer.style.display = 'block';
+}
+
+function hidePopup() {
+    var popupContainer = document.getElementById('popupContainer');
+    popupContainer.style.display = 'none';
+}
+
+document.addEventListener('click', function (event) {
+    var popupContainer = document.getElementById('popupContainer');
+    var generateHMWsButton = document.querySelector('.generateHMW-Button');
+
+    if (!popupContainer.contains(event.target) && event.target !== generateHMWsButton) {
+        popupContainer.style.display = 'none';
+    }
+});

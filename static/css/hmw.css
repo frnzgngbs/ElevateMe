@@ -355,3 +355,54 @@ h2 {
         margin-top: 20px;
     }
 }
+
+.elevator-table {
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+
+.elevator-table th,
+.elevator-table td {
+    border: 3px solid #ffffff; 
+    padding: 12px;
+    text-align: center;
+    border-radius: 20px; /* Adjust the border-radius value for more or less curvature */
+    border-spacing: 10px;
+}
+
+.elevator-table th {
+    background-color: #f2f2f2;
+}
+.elevator-table tr {
+    background-color: #d0cece; /* Change this to your desired background color */
+    border-radius: 10px;
+}
+
+.elevator-table td[contenteditable="true"] {
+    text-align: left;
+    background-color: #f2f2f2; /* Highlight editable cells */
+    border-radius: 15px; /* Add border-radius to editable cells */
+    color: #777777;
+}
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* Adjust the border-radius value for more or less curvature */
+}
+
+#closeButton, #saveButton {
+    float: right;
+    margin-top: 10px; /* Adjust the margin-top value */
+}
+.popup-container h1{
+    text-align: center;
+    margin: 0 0 5px 0 ;
+}
