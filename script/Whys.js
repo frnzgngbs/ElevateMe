@@ -72,10 +72,15 @@ document.addEventListener('DOMContentLoaded', function () {
             genHmwButtonContainer.appendChild(nextButton);
             formElement.appendChild(genHmwButtonContainer);
 
+            // Add form submit event listener
             formElement.addEventListener('submit', function (event) {
+                // Check if at least one checkbox is checked
                 if (!checkboxes.some(checkbox => checkbox.checked)) {
+                    // If none is checked, prevent form submission
                     event.preventDefault();
                     alert('Please select at least one checkbox.');
+                } else {
+                    clearLocalStorage()
                 }
             });
 
@@ -122,4 +127,8 @@ document.addEventListener('DOMContentLoaded', function () {
         displayFiveWhys(JSON.parse(savedData));
     }
 
-});
+})
+
+function clearLocalStorage() {
+    sessionStorage.removeItem('fiveHMWsData');
+}

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (data.fiveHMWs) {
             var formElement = document.createElement('form');
-            formElement.action = "/elevator-pitch/";
+            formElement.action = "/generate-elevator-pitch/";
             formElement.method = "post";
             formElement.id = "form";
 
@@ -60,19 +60,40 @@ document.addEventListener('DOMContentLoaded', function () {
             let genHmwButtonContainer = document.createElement('div');
             genHmwButtonContainer.classList.add('genHmwButton-container');
 
-            let nextButton = document.createElement('button');
-            nextButton.type = 'submit';
-            nextButton.classList.add('generateHMW-Button');
-            nextButton.textContent = 'Elevator Pitch';
+            var generateElevatorbutton = document.createElement('button');
+            generateElevatorbutton.type = 'submit';
+            generateElevatorbutton.classList.add('generateElevatorPitch-button');
+            generateElevatorbutton.textContent = 'Elevator Pitch';
 
-            genHmwButtonContainer.appendChild(nextButton);
+            genHmwButtonContainer.appendChild(generateElevatorbutton);
             formElement.appendChild(genHmwButtonContainer);
 
             hmwContainer.appendChild(formElement);
 
+            var showButton = document.createElement('button');
+            showButton.classList.add('showElevator-button'); // Adjust the class name as needed
+            showButton.textContent = 'Show Button';
 
+            showButton.addEventListener('click', function () {
+                showPopup()
+            });
+
+            let showButtonContainer = document.createElement('div');
+            showButtonContainer.classList.add('genHmwButton-container'); // Corrected class name here
+            showButtonContainer.appendChild(showButton)
+
+            formElement.addEventListener('submit', function (event) {
+                if (!checkboxes.some(checkbox => checkbox.checked)) {
+                    event.preventDefault();
+                    alert('Please select at least one checkbox.');
+                }
+            });
+
+            hmwContainer.appendChild(showButtonContainer);
         }
     }
+
+
 
     function fetchAndPopulateData(value) {
         var csrfToken = getCSRFToken();
@@ -99,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var generateHMWsButton = document.querySelector('.generateWhys-Button');
     generateHMWsButton.addEventListener('click', function () {
         var contextValue = generateHMWsButton.getAttribute('data-context');
-        alert("Button Clicked");
         fetchAndPopulateData(contextValue);
     });
 
@@ -108,42 +128,15 @@ document.addEventListener('DOMContentLoaded', function () {
         displayFiveHMWs(JSON.parse(savedData));
     }
 
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // ... (existing code)
-
-    var generateHMWsButton = document.querySelector('.generateWhys-Button');
-    generateHMWsButton.addEventListener('click', function () {
-        var contextValue = generateHMWsButton.getAttribute('data-context');
-        alert("Button Clicked");
-        fetchAndPopulateData(contextValue);
-    });
-
-    var savedData = sessionStorage.getItem('fiveHMWsData');
-    if (savedData) {
-        displayFiveHMWs(JSON.parse(savedData));
+    function showPopup() {
+        var popupContainer = document.getElementById('popupContainer');
+        popupContainer.style.display = 'block';
     }
 
-});
-
-function showPopup() {
-    var popupContainer = document.getElementById('popupContainer');
-    popupContainer.style.display = 'block';
-}
-
-function hidePopup() {
-    var popupContainer = document.getElementById('popupContainer');
-    popupContainer.style.display = 'none';
-}
-
-document.addEventListener('click', function (event) {
-    var popupContainer = document.getElementById('popupContainer');
-    var generateHMWsButton = document.querySelector('.generateHMW-Button');
-
-    if (!popupContainer.contains(event.target) && event.target !== generateHMWsButton) {
+    var close_button = document.getElementById('closeButton')
+    close_button.addEventListener('click', function () {
         popupContainer.style.display = 'none';
-    }
+    })
+
+
 });

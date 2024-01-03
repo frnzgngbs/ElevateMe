@@ -142,7 +142,7 @@ label {
     cursor: pointer;
 }
 
-.generateHMW-Button {
+.generateHMW-Button, .generateElevatorPitch-button, .showElevator-button {
     margin-right: 17px;
     background-color: #186f65;
     color: #ffffff; 

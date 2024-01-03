@@ -53,17 +53,16 @@
                  <div class="hmwCards" id="hmwID">
                 </div>
                 <div class="genHmwButton-container">
-                    <button class="generateHMW-Button" onclick="showPopup()">Next</button> <!-- Elevator Pitch Button -->
                 </div>
         </div>
-        
+
     </div>
      <!-- Popup container with table -->
      <div id="popupContainer" class="popup-container">
         <table class="elevator-table">
             <h1>Elevator Pitch</h1>
             <tr>
-                <td><strong>For</strong></td> 
+                <td><strong>For</strong></td>
                 <td contenteditable="true">Row 2, Col 2</td>
             </tr>
             <tr>
@@ -94,15 +93,11 @@
                 <td><strong>That</strong></td>
                 <td contenteditable="true">Row 1, assdasdasddddddddddddddddddddddddddddddddddd</td>
             </tr>
-            
+
         </table>
-        <button class="generateHMW-Button" type="submit" id="saveButton" >Save</button>
-        <button class="generateHMW-Button"onclick="hidePopup()" id="closeButton" >Close</button>
-       
+        <button class="generateHMW-Button" onclick="hidePopup()" id="closeButton" >Close</button>
+
     </div>
     <script src="{% static 'script/hmw.js' %}"></script>
 </body>
-
 </html>
-
-<!--   <button class="addbutton" onclick="showAddCardModal('vennDiagram2Container')">Add</button> -->

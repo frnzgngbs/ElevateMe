@@ -7,4 +7,5 @@ urlpatterns = [
     path('5-whys/', views.FiveWhys, name="5-whys"),
     path('ranked-problems-statement/', views.RootProblemStatement.as_view(), name="ranked-problem-statement"),
     path('generate-5-whys/<str:value>/', views.GenerateFiveWhys, name="generate-5-whys"),
+    path('generate-elevator-pitch/', views.GenerateElevatorPitch.as_view(), name="elevator-pitch")
 ]

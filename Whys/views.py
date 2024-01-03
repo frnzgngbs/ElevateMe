@@ -73,3 +73,12 @@ def openAiFiveWhy(value):
         questions_dict[i] = question_without_number
 
     return questions_dict
+
+
+class GenerateElevatorPitch(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        return redirect('Whys:5-whys')
+
