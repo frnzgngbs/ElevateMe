@@ -27,7 +27,7 @@ class GeneratePotentialRootProblem(View):
 
 
 def openAiFiveWhys(listOfWhys):
-    openai.api_key = "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"
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
                f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
@@ -70,7 +70,7 @@ class GenerateFiveHMW(View):
         return HttpResponse("ASDAD")
 
 def openAIFiveHMWs(root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
