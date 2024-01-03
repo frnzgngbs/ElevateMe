@@ -97,7 +97,7 @@
                     {% for i in context.items %}
                         <tr id="{{ i.id }}">
                             <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}"
-                            {% if i.statement == root_problem %} checked {% endif %}/></td>
+                            {% if i.statement == root_problem %} checked {% endif %} required/></td>
                             <td class="ps"><p>{{ i.statement }}</p></td>
                             <td  class="impact">
                                 <select id="impact">

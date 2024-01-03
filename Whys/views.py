@@ -29,10 +29,7 @@ class RootProblemStatement(View):
 
 
 def GenerateFiveWhys(request, value):
-    global data
     if request.method == "POST":
-
-
         generated_five_whys = openAiFiveWhy(value)
 
         data = [
@@ -54,13 +51,13 @@ def GenerateFiveWhys(request, value):
 
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
-        "content": f"Now subject the {value} to a 5-Why analysis. "
-                   f"Generate five whys  to uncover the underlying issue behind {value}."
-                   f"Please dont include any explanation just generate all the whys statement. "
+        "content": f"Subject the {value} to a 5-Why analysis. "
+                   f"Generate five whys to uncover the underlying issue behind {value}. Make it relevant to the {value} and understandable."
+                   f"Please dont include any explanation just generate all the whys statement."
 
     }])
 

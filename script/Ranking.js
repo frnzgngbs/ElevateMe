@@ -255,7 +255,6 @@ function validateForm() {
     if (formSubmitted) {
         // You can show a message or take appropriate action
         clearLocalStorage();
-        alert('Form has already been submitted.');
         return true;
     }
 
@@ -271,6 +270,7 @@ function validateForm() {
                 return false;
             }
         }
+
     }
 
     // Clear local storage

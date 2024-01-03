@@ -22,15 +22,17 @@ document.addEventListener('DOMContentLoaded', function () {
             formElement.method = "post";
             formElement.id = "form";
 
+            let whysID = 0;
+
             var csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';
             csrfInput.name = 'csrfmiddlewaretoken';
             csrfInput.value = csrfToken;
             formElement.appendChild(csrfInput);
 
-            data.fiveWhys.forEach(function (item) {
-                let whysID = 0;
+            var checkboxes = []; // Array to store checkbox elements
 
+            data.fiveWhys.forEach(function (item) {
                 var whyCardDiv = document.createElement('div');
                 whyCardDiv.classList.add('whyCards');
                 whyCardDiv.id = whysID;
@@ -40,6 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 checkboxInput.classList.add('checkbox');
                 checkboxInput.name = 'checkbox_group';
                 checkboxInput.value = item.statement;
+
+                checkboxes.push(checkboxInput); // Add checkbox to the array
 
                 var cardTextDiv = document.createElement('div');
                 cardTextDiv.classList.add('card-text');
@@ -68,13 +72,19 @@ document.addEventListener('DOMContentLoaded', function () {
             genHmwButtonContainer.appendChild(nextButton);
             formElement.appendChild(genHmwButtonContainer);
 
+            formElement.addEventListener('submit', function (event) {
+                if (!checkboxes.some(checkbox => checkbox.checked)) {
+                    event.preventDefault();
+                    alert('Please select at least one checkbox.');
+                }
+            });
+
             whysContainer.appendChild(formElement);
 
-            console.log(data.fiveWhys)
-
-
+            console.log(data.fiveWhys);
         }
     }
+
 
     // Function to fetch and populate data
     function fetchAndPopulateData(value) {
