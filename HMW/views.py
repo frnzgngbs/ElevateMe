@@ -31,7 +31,7 @@ class GeneratePotentialRootProblem(View):
 
 
 def openAiFiveWhys(listOfWhys):
-    openai.api_key = "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"
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
                f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
@@ -78,7 +78,7 @@ class GenerateFiveHMW(View):
         return HttpResponse("ASDAD")
 
 def openAIFiveHMWs(root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -137,7 +137,7 @@ class GenerateElevatorPitch(View):
 
 
 def openAIElevatorPitch(HMW, root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
     hmw_combined = ", ".join(HMW)
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{

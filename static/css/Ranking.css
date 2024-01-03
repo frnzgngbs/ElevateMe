@@ -206,7 +206,7 @@ p{
     color:#186f65;
 }
 .cardTable{
-    width: max-content;
+    width: 2935px;
     display: flex;
     align-items: center;
     border: 1px solid #e0e0e0;
@@ -275,10 +275,10 @@ p{
     padding: 10px 10px 10px 95px;
 }
 .total{
-    padding: 10px 10px 10px 90px;
+    padding: 10px 10px 10px 95px;
 }
 .rank{
-    padding: 10px 10px 10px 93px;
+    padding: 10px 10px 10px 110px;
 }
 .ps{
     padding: 10px 10px 10px 30px;

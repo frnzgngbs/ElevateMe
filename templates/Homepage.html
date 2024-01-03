@@ -180,14 +180,20 @@
         <div class="Problem-Statement">
             {% if generate_response is not None %}
             <p class="ps-form" id="ps-form">Problem Statement</p>
-            <form class="generate-form" id="generate-form" action="{% url 'Saving:saveModel' %}" method="post">
+            <form class="ps-container" id="generate-form" action="{% url 'Saving:saveModel' %}" method="post">
                 {% csrf_token %}
                 <table>
                     {% for key, value in generate_response.items %}
                     <tr>
                         <td>
-                            <input type="checkbox" name="checkbox_group" value="{{ value }}"
-                    {% for c in checked %}{%if c == value %} disabled {% endif %} {% endfor %} />{{ value }}
+                        <div class="card" id="{{ instance.id }}">
+                        <input type="checkbox" class="checkbox" name="checkbox_group" value="{{ value }}"/>
+                            <div class="card-text" contenteditable="true">
+                                    {{ instance.statement }}
+                                {% for c in checked %}{%if c == value %} {% endif %} {% endfor %}
+                            {{ value }}
+                            </div>
+                        </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -201,5 +207,6 @@
         <script src="{% static 'script/Homepage.js' %}"></script>
     </div>
 </body>
+
 
 </html>
