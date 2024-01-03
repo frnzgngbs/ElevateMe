@@ -152,16 +152,16 @@ class SaveOperation(View):
             elif button_value == "button2.2":
 
                 twoPS = TwoProblemStatement.objects.get(id=pk)
+                statement = twoPS.statement
                 twoPS.delete()
 
                 session_checked = request.session.get('checked_checkboxes')
 
-
                 if session_checked:
-                    lists_checked_checkboxes.extend(session_checked)
+                    if statement in session_checked:
+                        session_checked.remove(statement)
 
-
-                    request.session['checked_checkboxes'] = lists_checked_checkboxes
+                request.session['checked_checkboxes'] = session_checked
 
             elif button_value == "button3.1":
                 threePS = ThreeProblemStatement.objects.get(id=pk)
@@ -186,13 +186,16 @@ class SaveOperation(View):
                             request.session['checked_checkboxes'] = session_checked
             elif button_value == "button3.2":
                 threePS = ThreeProblemStatement.objects.get(id=pk)
+                statement = threePS.statement
                 threePS.delete()
 
                 session_checked = request.session.get('checked_checkboxes')
 
                 if session_checked:
-                    session_checked.remove
+                    if statement in session_checked:
+                        session_checked.remove(statement)
 
+                request.session['checked_checkboxes'] = session_checked
         return redirect('Saving:savePage')
 
 
