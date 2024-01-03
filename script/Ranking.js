@@ -283,6 +283,7 @@ function validateForm() {
 
 function clearLocalStorage() {
     sessionStorage.removeItem('fiveWhysData');
+    sessionStorage.removeItem('fiveHMWsdData');
 }
 
 

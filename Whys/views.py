@@ -32,6 +32,7 @@ def GenerateFiveWhys(request, value):
     global data
     if request.method == "POST":
 
+
         generated_five_whys = openAiFiveWhy(value)
 
         data = [
@@ -53,7 +54,7 @@ def GenerateFiveWhys(request, value):
 
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

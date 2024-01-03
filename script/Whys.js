@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var nextButton = document.createElement('button');
             nextButton.type = 'submit';
             nextButton.classList.add('generateHMW-Button');
-            nextButton.textContent = 'Next';
+            nextButton.textContent = 'Potential Root';
 
             genHmwButtonContainer.appendChild(nextButton);
             formElement.appendChild(genHmwButtonContainer);
@@ -91,14 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Save the retrieved data to local storage
                 console.log(data)
                 displayFiveWhys(data);
-
-                var formElement = document.getElementById('form');
-                var formInputs = formElement.querySelectorAll('.checkbox');
-                formInputs.forEach(function (input) {
-                    let ctr = 0;
-                    data[ctr++].statement = input.value;
-                    console.log(data[ctr].statement);
-                });
 
                 sessionStorage.setItem('fiveWhysData', JSON.stringify(data));
             },

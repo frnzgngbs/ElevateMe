@@ -1,5 +1,5 @@
 import openai
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -19,20 +19,20 @@ class GeneratePotentialRootProblem(View):
         if request.method == "POST":
             listOfWhys = request.POST.getlist("checkbox_group")
 
-            root_problem = openAiFiveHMW(listOfWhys)
+            root_problem = openAiFiveWhys(listOfWhys)
 
             request.session['root_problem'] = root_problem
         return redirect("HMW:HMW")
 
 
-def openAiFiveHMW(listOfWhys):
-    openai.api_key = "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"
+def openAiFiveWhys(listOfWhys):
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
-               f"idea of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
+               f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
                f"The potential root problem generated should contain the affected people or groups and their impact."
-               f"Summarized the whole point of the generated potential root problem and if it is too long. I suggest"
-               f"to have it in 1-sentence format and give it directly, as it should not be in question form.")
+               f"Summarized the generated potential root problem and don't make it too long I suggest"
+               f"to have it in 1-sentence format, as it should not be in question form.")
 
     print(message)
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
@@ -47,3 +47,46 @@ def openAiFiveHMW(listOfWhys):
         return cut_parts[1]
     else:
         return completion.choices[0].message.content
+
+class GenerateFiveHMW(View):
+    def get(self, request):
+        pass
+
+    def post(self, request, value):
+        if request.method == "POST":
+
+            listOfHMWs = openAIFiveHMWs(value)
+
+            data = [
+                {
+                    'statement': ps
+                }
+                for ps in listOfHMWs.values()
+            ]
+
+            return JsonResponse({"fiveHMWs": data})
+
+        return HttpResponse("ASDAD")
+
+def openAIFiveHMWs(root_problem):
+    openai.api_key = "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"
+
+    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
+        "role": "user",
+        "content": (f"Given the potential root problem which is {root_problem}, understand the idea of the given "
+                    f"root potential problem, and generate 5-How Might We statement. Take note that you should only "
+                    f"generate 5-HMWs and nothing else.")
+    }])
+
+    print(completion)
+
+    response_list = completion.choices[0].message.content.split('\n')
+
+    questions_dict = {}
+
+    for i, question in enumerate(response_list, start=1):
+        # Split each question and take the second part (after the dot)
+        question_without_number = question.split('. ', 1)[1].strip()
+        questions_dict[i] = question_without_number
+
+    return questions_dict
