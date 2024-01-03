@@ -11,6 +11,20 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="/static/css/hmw.css" />
     <title>ElevateMe</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var contentEditableDivs = document.querySelectorAll('div[contenteditable="true"]');
+
+            contentEditableDivs.forEach(function (div) {
+                div.addEventListener('input', function () {
+                    var newValue = div.innerText.trim();
+
+                    var hiddenInput = div.previousElementSibling;
+                    hiddenInput.value = newValue;
+                });
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -59,40 +73,81 @@
     </div>
      <!-- Popup container with table -->
      <div id="popupContainer" class="popup-container">
-        <form>
+        <form method="post" action="{% url 'HMW:update-elevator-pitch' %}">
+            {% csrf_token %}
             <table class="elevator-table">
                 <h1>Elevator Pitch</h1>
                 <tr>
-                    <td><strong>For</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.0}}</td>
+                    <td><strong>FOR</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.0 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.0 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>Who</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.1}}</td>
+                    <td><strong>WHO</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.1 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.1 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>We Provide</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.2}}</td>
+                    <td><strong>WE PROVIDE</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.2 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.2 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>That</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.3}}</td>
+                    <td><strong>THAT</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.3 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.3 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>Unlike</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.4 }}</td>
+                    <td><strong>UNLIKE</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.4 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.4 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>Who</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.5 }}</td>
+                    <td><strong>WHO</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.5 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.5 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>Our Solution</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.6}}</td>
+                    <td><strong>OUR SOLUTION</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.6 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.6 }}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
-                    <td><strong>That</strong></td>
-                    <td contenteditable="true">{{ elevator_pitch.7}}</td>
+                    <td><strong>THAT</strong></td>
+                    <td>
+                        <input type="hidden" value="{{ elevator_pitch.7 }}" name="elevator_content"/>
+                        <div contenteditable="true">
+                            {{ elevator_pitch.7 }}
+                        </div>
+                    </td>
                 </tr>
             </table>
             <button class="generateHMW-Button" id="saveButton" >Save</button>

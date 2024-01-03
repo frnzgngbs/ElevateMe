@@ -154,3 +154,12 @@ def openAIElevatorPitch(HMW, root_problem):
 
 
     return completion.choices[0].message.content
+
+
+def updateElevatorPitch(request):
+
+    elevator_content = request.POST.getlist('elevator_content')
+
+    request.session['elevator_pitch'] = elevator_content
+
+    return redirect('HMW:HMW')
