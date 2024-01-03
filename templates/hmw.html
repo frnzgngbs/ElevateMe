@@ -46,13 +46,59 @@
                 {% endif %}
         </div>
     </div>
-    <div class="generatedWhys">
+    <div class="generatedWhys">     
         <h1>Generated 5 HMW Statement</h1>
         <p>Generated 5-HMWs statements from the potential root problem. </p>
         <div class="generatedHMW-container">
                  <div class="hmwCards" id="hmwID">
                 </div>
+                <div class="genHmwButton-container">
+                    <button class="generateHMW-Button" onclick="showPopup()">Next</button> <!-- Elevator Pitch Button -->
+                </div>
         </div>
+        
+    </div>
+     <!-- Popup container with table -->
+     <div id="popupContainer" class="popup-container">
+        <table class="elevator-table">
+            <h1>Elevator Pitch</h1>
+            <tr>
+                <td><strong>For</strong></td> 
+                <td contenteditable="true">Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>Who</strong></td>
+                <td contenteditable="true" >Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>We Provide</strong></td>
+                <td contenteditable="true">Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>That</strong></td>
+                <td contenteditable="true">Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>Unlike</strong></td>
+                <td contenteditable="true">Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>Who</strong></td>
+                <td contenteditable="true">Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>Our Solution</strong></td>
+                <td contenteditable="true">Row 2, Col 2</td>
+            </tr>
+            <tr>
+                <td><strong>That</strong></td>
+                <td contenteditable="true">Row 1, assdasdasddddddddddddddddddddddddddddddddddd</td>
+            </tr>
+            
+        </table>
+        <button class="generateHMW-Button" type="submit" id="saveButton" >Save</button>
+        <button class="generateHMW-Button"onclick="hidePopup()" id="closeButton" >Close</button>
+       
     </div>
     <script src="{% static 'script/hmw.js' %}"></script>
 </body>
