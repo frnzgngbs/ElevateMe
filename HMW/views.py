@@ -18,15 +18,16 @@ class GeneratePotentialRootProblem(View):
     def post(self, request):
         if request.method == "POST":
             listOfWhys = request.POST.getlist("checkbox_group")
-
-            root_problem = openAiFiveWhys(listOfWhys)
-
+            try:
+                root_problem = openAiFiveWhys(listOfWhys)
+            except Exception as e:
+                return redirect('homepage:errorPage')
             request.session['root_problem'] = root_problem
         return redirect("HMW:HMW")
 
 
 def openAiFiveWhys(listOfWhys):
-    openai.api_key = "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"
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
                f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
@@ -69,7 +70,7 @@ class GenerateFiveHMW(View):
         return HttpResponse("ASDAD")
 
 def openAIFiveHMWs(root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

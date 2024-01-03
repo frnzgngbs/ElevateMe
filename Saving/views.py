@@ -33,6 +33,7 @@ class SaveProblemStatement(View):
         else:
             request.session['checked_checkboxes'] = checked_checkboxes
 
+        print(request.session.get('checked_checkboxes'))
         auth = request.session.get('auth')
         user = User.objects.get(username=auth["username"])
 
@@ -128,28 +129,25 @@ class SaveOperation(View):
 
                 # PERFORM SAVE
                 twoPS = TwoProblemStatement.objects.get(id=pk)
+                old_statement = twoPS.statement
                 twoPS.statement = statement
                 twoPS.save()
-
-                list_statement.append(twoPS.statement)
 
                 session_checked = request.session.get('checked_checkboxes')
 
                 if session_checked:
-
-                    # ["FRANZ","AJIE"] -> PROBLEM SAVED
-                    # ["FRANZ"] -> ATTEMPTED TO UPDATE
-
-                    # [ "FRANZ", "AJIE" ]
-                    # [" FRANS "]
-
-                    for i in lists_checked_checkboxes:
-                        query = TwoProblemStatement.objects.get(statement=i)
-                        if query.id == pk and query.statement != statement:
-                            lists_checked_checkboxes.remove(i)
-                            print("TRUE")
-
-                    request.session['checked_checkboxes'] = lists_checked_checkboxes
+                    # statement is the edited statement
+                    print(old_statement in session_checked)
+                    if old_statement in session_checked:
+                        print("NI SUD ANG OLD STATEMENT")
+                        if statement not in session_checked:
+                            print("NI SUD ANG NEW STATEMENT")
+                            new_session = [item for item in session_checked if item != old_statement]
+                            request.session['checked_checkboxes'] = new_session
+                            print(new_session)
+                        else:
+                            print(session_checked)
+                            request.session['checked_checkboxes'] = session_checked
 
             elif button_value == "button2.2":
 
@@ -167,19 +165,25 @@ class SaveOperation(View):
 
             elif button_value == "button3.1":
                 threePS = ThreeProblemStatement.objects.get(id=pk)
+                old_statement = threePS.statement
                 threePS.statement = statement
-                store_statement = threePS.statement
                 threePS.save()
 
                 session_checked = request.session.get('checked_checkboxes')
 
                 if session_checked:
-                    lists_checked_checkboxes.extend(session_checked)
-
-                    if store_statement != statement:
-                        lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
-
-                    request.session['checked_checkboxes'] = lists_checked_checkboxes
+                    # statement is the edited statement
+                    print(old_statement in session_checked)
+                    if old_statement in session_checked:
+                        print("NI SUD ANG OLD STATEMENT")
+                        if statement not in session_checked:
+                            print("NI SUD ANG NEW STATEMENT")
+                            new_session = [item for item in session_checked if item != old_statement]
+                            request.session['checked_checkboxes'] = new_session
+                            print(new_session)
+                        else:
+                            print(session_checked)
+                            request.session['checked_checkboxes'] = session_checked
             elif button_value == "button3.2":
                 threePS = ThreeProblemStatement.objects.get(id=pk)
                 threePS.delete()
@@ -187,11 +191,7 @@ class SaveOperation(View):
                 session_checked = request.session.get('checked_checkboxes')
 
                 if session_checked:
-                    lists_checked_checkboxes.extend(session_checked)
-
-                    lists_checked_checkboxes = [item for item in lists_checked_checkboxes if item.lower() not in [x.lower() for x in list_statement]]
-
-                    request.session['checked_checkboxes'] = lists_checked_checkboxes
+                    session_checked.remove
 
         return redirect('Saving:savePage')
 

@@ -108,6 +108,7 @@ class GeneratePS(View):
 
                 try:
                     generate_response = generateAi(field1, field2, field3, field4)
+                    del request.session['checked_checkboxes']
                 except Exception as e:
                     return redirect('homepage:errorPage')
 
@@ -133,6 +134,7 @@ class GeneratePS(View):
                 # Perform any additional processing with the data if needed
                 try:
                     generate_response = generateAi(field1, field2, field3, field4)
+                    del request.session['checked_checkboxes']
                 except Exception as e:
                     return redirect('homepage:errorPage')
 
@@ -171,7 +173,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
