@@ -59,44 +59,45 @@
     </div>
      <!-- Popup container with table -->
      <div id="popupContainer" class="popup-container">
-        <table class="elevator-table">
-            <h1>Elevator Pitch</h1>
-            <tr>
-                <td><strong>For</strong></td>
-                <td>{{ elevator_pitch.0}}</td>
-            </tr>
-            <tr>
-                <td><strong>Who</strong></td>
-                <td>{{ elevator_pitch.1}}</td>
-            </tr>
-            <tr>
-                <td><strong>We Provide</strong></td>
-                <td>{{ elevator_pitch.2}}</td>
-            </tr>
-            <tr>
-                <td><strong>That</strong></td>
-                <td>{{ elevator_pitch.3}}</td>
-            </tr>
-            <tr>
-                <td><strong>Unlike</strong></td>
-                <td>{{ elevator_pitch.4 }}</td>
-            </tr>
-            <tr>
-                <td><strong>Who</strong></td>
-                <td>{{ elevator_pitch.5 }}</td>
-            </tr>
-            <tr>
-                <td><strong>Our Solution</strong></td>
-                <td>{{ elevator_pitch.6}}</td>
-            </tr>
-            <tr>
-                <td><strong>That</strong></td>
-                <td>{{ elevator_pitch.7}}</td>
-            </tr>
-
-        </table>
-        <button class="generateHMW-Button" id="closeButton" >Close</button>
-
+        <form>
+            <table class="elevator-table">
+                <h1>Elevator Pitch</h1>
+                <tr>
+                    <td><strong>For</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.0}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Who</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.1}}</td>
+                </tr>
+                <tr>
+                    <td><strong>We Provide</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.2}}</td>
+                </tr>
+                <tr>
+                    <td><strong>That</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.3}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Unlike</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.4 }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Who</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.5 }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Our Solution</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.6}}</td>
+                </tr>
+                <tr>
+                    <td><strong>That</strong></td>
+                    <td contenteditable="true">{{ elevator_pitch.7}}</td>
+                </tr>
+            </table>
+            <button class="generateHMW-Button" id="saveButton" >Save</button>
+        </form>
+         <button class="generateHMW-Button" id="closeButton" >Close</button>
     </div>
     <script src="{% static 'script/hmw.js' %}"></script>
 </body>

@@ -369,7 +369,9 @@ h2 {
     text-align: center;
     border-radius: 20px; /* Adjust the border-radius value for more or less curvature */
     border-spacing: 10px;
+    font-weight: bold;
 }
+
 
 .elevator-table th {
     background-color: #f2f2f2;
@@ -383,7 +385,7 @@ h2 {
     text-align: left;
     background-color: #f2f2f2; /* Highlight editable cells */
     border-radius: 15px; /* Add border-radius to editable cells */
-    color: #777777;
+    color: #000000;
 }
 
 .popup-container {

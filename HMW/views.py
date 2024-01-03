@@ -31,7 +31,7 @@ class GeneratePotentialRootProblem(View):
 
 
 def openAiFiveWhys(listOfWhys):
-    openai.api_key = "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"
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
                f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
@@ -78,13 +78,13 @@ class GenerateFiveHMW(View):
         return HttpResponse("ASDAD")
 
 def openAIFiveHMWs(root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
         "content": (f"Given the potential root problem which is {root_problem}, understand the idea of the given "
                     f"root potential problem, and generate 5-How Might We statement. Take note that you should only "
-                    f"generate 5-HMWs and nothing else.")
+                    f"generate 5 How Might We and nothing else.")
     }])
 
     print(completion)
@@ -137,18 +137,19 @@ class GenerateElevatorPitch(View):
 
 
 def openAIElevatorPitch(HMW, root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
     hmw_combined = ", ".join(HMW)
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
-        "content": f"Create an elevator pitch based on the given HMW Statement: {hmw_combined} and root potential problem {root_problem}. Use the Information "
-                   "Technology Services Marketing Association template to craft your elevator pitch. The template "
-                   "consists the; FOR [the target consumer], WHO [specific needs, requirements, demands, criteria], "
-                   "WE PROVIDE [solution/description], THAT [gives specific benefits/value to clients], UNLIKE [the "
-                   "competition], WHO [provide a solution, features, functions, benefits], OUR SOLUTION [better "
-                   "approach, solution, functions, benefits, technology], THAT [offers a better customer experience]."
-                   "In generating, Please follow on what are capitalized when given the data in generating."
+        "content": f"Generate only 1 elevator pitch based on this given How might we statements: {hmw_combined}."
+                   "Please answer each of the following capitalized word only. In generating your response,"
+                   "the capitalized word should always be in it. There are 8 capitalized words needed to be answered."
+                   "FOR [the target consumer], WHO [specific needs, requirements, demands, criteria],"
+                   "WE PROVIDE [solution or description], THAT [gives specific benefits/value to clients],"
+                   " UNLIKE [the competition], WHO [provide a solution, features, functions, benefits], "
+                   "OUR SOLUTION [better approach, solution, functions, benefits, technology], THAT [offers a "
+                   "better customer experience]."
     }])
 
 
