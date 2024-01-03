@@ -415,6 +415,9 @@ h2 {
     color: #3e3e3e;
 }
 .elevator-table tr:first-child td {
-    background-color: #d0cece; /* Change this to your desired background color */
     border-radius: 10px;
+}
+
+.first-col {
+    background-color: #f2f2f2;
 }
