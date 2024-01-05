@@ -428,7 +428,7 @@
     text-align: left;
 }
     #editCardText,
-#newCardText {
+    #newCardText {
     font-family: "Lexend Deca", sans-serif;
     /* Add this line to set the font */
     width: 80%;
@@ -442,7 +442,24 @@
     box-sizing: border-box;
     resize: none;
     /* Prevent resizing */
-}
+    }
+
+    table .checkbox[disabled] {
+        opacity: 0.5; /* or any other styles to visually indicate they are disabled */
+        /* Additional styling for disabled checkboxes */
+    }
+
+    div.card-text[contenteditable="false"] {
+        background-color: black;
+        color: #888;
+    }
+
+    .Problem-Statement {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .checkbox {
     flex-shrink: 0;
     margin-right: 10px;

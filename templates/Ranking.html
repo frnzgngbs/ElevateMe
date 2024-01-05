@@ -36,7 +36,7 @@
             <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
             <input type="radio" name="radioGroup" id="radio2" value="2"
-            {% if ranking_setting == 2 %} checked {% endif %}/>
+                {% if ranking_setting == 2 %} checked {% endif %}/>
             <label class="venn2" for="radio2">2</label>
 
             <input type="radio" name="radioGroup" id="radio3" value="3"
@@ -91,13 +91,17 @@
         </table>
 
             <div class="chkTable">
-                <form action="{% url 'Whys:ranked-problem-statement' %}" method="post" onsubmit="return validateForm()" id="formID">
+                <form action="{% url 'Whys:ranked-problem-statement' '0'%}" method="post" onsubmit="return validateForm(this)" id="formID">
                 {% csrf_token %}
                 <table class="cardTable">
                     {% for i in context.items %}
                         <tr id="{{ i.id }}">
-                            <td><input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}"
-                            {% if i.statement == root_problem %} checked {% endif %} required/></td>
+                            <td>
+                                <input type="radio" class="chkbox" name="radiobutton_group" value="{{ i.statement }}" id="{{ i.id }}"
+                                {% if i.statement == root_problem %}
+                                       checked
+                                {% endif %} required />
+                            </td>
                             <td class="ps"><p>{{ i.statement }}</p></td>
                             <td  class="impact">
                                 <select id="impact">
@@ -159,12 +163,11 @@
                         {% if not valid %}
                             disabled
                                 style = "background-color: #d9d9d9"
-                        {% endif %}>Rank
+                        {% endif %}>Next
                         </button>
                     </div>
                 </form>
             </div>
-
     </div>
 
     <script src="{% static 'script/Ranking.js' %}"></script>

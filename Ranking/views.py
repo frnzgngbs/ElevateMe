@@ -80,13 +80,23 @@ class AddToTable(View):
         if request.method == "POST":
             selected_checkboxes = request.POST.getlist('checkbox_group')
 
+            auth = request.session.get('auth')
+            user = User.objects.get(username=auth["username"])
+
+            twoPS_list = []
+
+            for checkbox_value in selected_checkboxes:
+                twoPS_instance = TwoProblemStatement.objects.filter(user_fk=user, statement=checkbox_value)
+                twoPS_list.append(twoPS_instance)
+
+
             new_context = {
                 'items': [
-                    {'id': str(index + 1), 'statement': statement}
-                    for index, statement in enumerate(selected_checkboxes)
+                    {'id': item.id, 'statement': item.statement}
+                    for queryset in twoPS_list
+                    for item in queryset
                 ]
             }
-
 
             request.session['selected_checkboxes_table'] = new_context
             request.session['valid'] = True if len(selected_checkboxes) > 2 else False

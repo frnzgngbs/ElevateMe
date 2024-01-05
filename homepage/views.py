@@ -22,7 +22,6 @@ class VennDiagramFilter(View):
 
     def post(self, request, venn_settings):
         if request.method == "POST":
-            # Use the venn_settings from the URL pattern
             if venn_settings == "2":
                 field1 = request.POST.get("field1")
                 field2 = request.POST.get("field2")
@@ -48,8 +47,6 @@ class VennDiagramFilter(View):
                     "generate_response": generate_response,
                     "checked": checked_checkboxes
                 }
-
-                return render(request, self.template_name, context)
 
             elif venn_settings == "3":
                 field1 = request.POST.get("field1")
@@ -78,8 +75,6 @@ class VennDiagramFilter(View):
                 }
                 
 
-                return render(request, self.template_name, context)
-    
         return redirect("homepage:home")
 
 
@@ -113,18 +108,10 @@ class GeneratePS(View):
                         del request.session['checked_checkboxes']
                 except Exception as e:
                     print(e)
-                    return redirect('homepage:errorPage')
+                    return redirect('homepage:errorPage')   
 
                 # Perform any additional processing with the data if needed
                 request.session['openai'] = generate_response
-
-                # Pass the fields to the template
-                return render(request, 'homepage.html',
-                              {
-                                  "generate_response": generate_response,
-                                  "venn_scopes": venn_diagram,
-                                  "checked": checked_checkboxes
-                              })
 
             # 3 VENN DIAGRAM SETTING
             elif setting == "3":
@@ -144,14 +131,6 @@ class GeneratePS(View):
                     return redirect('homepage:errorPage')
 
                 request.session['openai'] = generate_response
-
-                # Pass the fields to the template
-                return render(request, 'homepage.html',
-                              {
-                                  "generate_response": generate_response,
-                                  "venn_scopes": venn_diagram,
-                                  "checked": checked_checkboxes
-                              })
 
         return redirect('homepage:home')
 
@@ -178,7 +157,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

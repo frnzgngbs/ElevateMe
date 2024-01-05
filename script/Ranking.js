@@ -45,6 +45,7 @@ function updateFormElements(data, value) {
             checkboxInput.classList.add('checkbox');
             checkboxInput.name = 'checkbox_group';
             checkboxInput.value = item.statement;
+            checkboxInput.id = item.id;
 
             var cardTextDiv = document.createElement('div');
             cardTextDiv.classList.add('card-text');
@@ -261,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Define a flag variable to track form submission
 var formSubmitted = false;
 
-function validateForm() {
+function validateForm(form) {
     // Check if the form has already been submitted
     if (formSubmitted) {
         // You can show a message or take appropriate action
@@ -282,6 +283,23 @@ function validateForm() {
             }
         }
 
+    }
+
+    var radioButtons = form.querySelectorAll('input[name="radiobutton_group"]:checked');
+
+    if (radioButtons.length > 0) {
+        var checkedRadioButton = radioButtons[0];
+        var pk = checkedRadioButton.id;
+
+        console.log(typeof(pk))
+
+        form.action = '/ranked-problems-statement/' + pk + '/'
+        form.submit()
+
+        event.preventDefault()
+    } else {
+        alert('Please select a radio button before submitting.');
+        return false;
     }
 
     // Clear local storage

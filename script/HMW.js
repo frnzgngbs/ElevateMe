@@ -77,7 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var showButton = document.createElement('button');
             showButton.classList.add('showElevator-button'); // Adjust the class name as needed
-            showButton.textContent = 'Show Button';
+            showButton.textContent = 'Show Elevator';
+
 
             showButton.addEventListener('click', function () {
                 showPopup()

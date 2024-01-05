@@ -34,8 +34,10 @@
         <div class="selectedProbStatement-container">
             {% if rankedPS is not None %}
             <div class="selectedPScard">
+                <input type="hidden" value="{{ rankedPS }}" id=""/>
                 <div class="card-text" >{{ rankedPS }}</div>
                 <div class="genHmwButton-container">
+                    <button class="showHistory-button" data-context="{{ rankedPS }}">Show</button>
                     <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-Why</button>
                 </div>
             </div>
@@ -45,6 +47,38 @@
                 </div>
             {% endif %}
 
+        </div>
+
+        <div id="showHistoryPopupVenn2" class="popup">
+            <!-- Venn Diagram 2 circle drawing -->
+            <div class="venn-diagram-container">
+                <div class="venn-circle1">
+                    <span class="circle-label1" id="venn1">Label 1</span>
+                </div>
+
+                <div class="venn-circle2">
+                    <span class="circle-label2" id="venn2">Label 2</span>
+                </div>
+            </div>
+            <!-- Venn Diagram Settings -->
+            <div class="vennSettings">
+                <h2>Venn Diagram Settings</h2>
+                <form id="popupForm1" action="{% url 'homepage:filter' '2' %}" method="post">
+                    {% csrf_token %}
+                    <label for="field1">Field 1:</label>
+                    <textarea id="field1" name="field1" placeholder="Input scope here..."></textarea><br>
+
+                    <label for="field2">Field 2</label>
+                    <textarea id="field2" name="field2" placeholder="Input scope here..."></textarea><br>
+
+                    <label for="filter"> Filter: </label>
+                    <textarea id="filterVenn3" name="filter" rows="5"></textarea><br>
+
+                    <button class="buttonTheme1" type="submit" id="inputVenn2">Input</button>
+                    <button class="button-input" type="button" id="close"
+                            onclick="closePopup()">Close</button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="generatedWhys">
@@ -56,7 +90,9 @@
         </div>
 
     </div>
+
     <script src="{% static 'script/save.js' %}"></script>
+
 </body>
 
 </html>

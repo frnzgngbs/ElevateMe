@@ -29,16 +29,20 @@ class ProblemStatement(models.Model):
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return f"{self.statement} | {self.user_fk}"
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'statement': self.statement,
+            'user_fk': self.user_fk.username  # Assuming you want the username, change it accordingly
+        }
 class TwoProblemStatement(ProblemStatement):
     venn_fk = models.ForeignKey(TwoVennDiagram, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.statement
+        return str(self.to_dict())
 
 class ThreeProblemStatement(ProblemStatement):
     venn_fk = models.ForeignKey(ThreeVennDiagram, on_delete=models.CASCADE)
     def __str__(self):
-        return self.statement
+        return str(self.to_dict())
 

@@ -8,7 +8,6 @@ from django.views import View
 def FiveWhys(request):
     root_problem = request.session.get('ranked_problem')
 
-
     return render(request, "Whys.html",
                   {
                       "rankedPS": root_problem,
@@ -19,14 +18,16 @@ class RootProblemStatement(View):
     def get(self, request):
         pass
 
-    def post(self,request):
+    def post(self,request, pk):
         if request.method == "POST":
+
+            request.session['pk_rankedPS'] = pk
+
             root_problem = request.POST.get('radiobutton_group')
 
             request.session['ranked_problem'] = root_problem
 
             return redirect('Whys:5-whys')
-
 
 def GenerateFiveWhys(request, value):
     if request.method == "POST":
@@ -51,7 +52,7 @@ def GenerateFiveWhys(request, value):
 
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

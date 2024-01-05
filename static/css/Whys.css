@@ -132,12 +132,22 @@ label {
     padding: 8px 15px; 
     cursor: pointer;
 }
-.generateWhys-Button {
+.generateWhys-Button{
     margin-right: 17px;
     background-color: #186f65; 
     color: #ffffff; 
     border: none;
     border-radius: 17px; 
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.showHistory-button {
+    margin-right: 17px;
+    background-color: #186f65;
+    color: #ffffff;
+    border: none;
+    border-radius: 17px;
     padding: 10px 20px;
     cursor: pointer;
 }
