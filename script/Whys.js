@@ -132,3 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function clearLocalStorage() {
     sessionStorage.removeItem('fiveHMWsData');
 }
+
+
+
