@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function getProblemStatementData(value) {
+    function getOriginOfTwopProblemStatement(value) {
         var csrfToken = getCSRFToken();
 
         $.ajax({
@@ -141,18 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 alert(data.setting)
 
-                if (popup_three && data.setting === 3) {
-
-                    popup_three.style.display = "block";
-                    document.getElementById('venn3.1').textContent = data.data.field1;
-                    document.getElementById('venn3.2').textContent = data.data.field2;
-                    document.getElementById('venn3.3').textContent = data.data.field3;
-
-                    document.getElementById('fieldVenn3.1').value = data.data.field1;
-                    document.getElementById('fieldVenn3.2').value = data.data.field2;
-                    document.getElementById('fieldVenn3.3').value = data.data.field3;
-                } else if (popup_two && data.setting === 2) {
-                    alert("SETTING 2")
+                if (popup_two && data.setting === 2) {
                     popup_two.style.display = "block";
 
                     document.getElementById('venn1').textContent = data.data.field1;
@@ -162,7 +151,40 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('field2').value = data.data. field2;
                 }
 
-                sessionStorage.setItem('RankedProbleStatementData', JSON.stringify(data));
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+    function getOriginOfThreepProblemStatement(value) {
+        var csrfToken = getCSRFToken();
+
+        $.ajax({
+            url: `/three-settings-show-history/${value}/`,
+            type: 'post',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                let popup_three = document.querySelector('#showHistoryPopupVenn3');
+                let popup_two = document.querySelector('#showHistoryPopupVenn2');
+
+                if (popup_three && data.setting === 3) {
+                    popup_three.style.display = "block";
+
+                    document.getElementById('venn3.1').textContent = data.data.field1;
+                    document.getElementById('venn3.2').textContent = data.data.field2;
+                    document.getElementById('venn3.3').textContent = data.data.field3;
+
+                    document.getElementById('fieldVenn3.1').value = data.data.field1;
+                    document.getElementById('fieldVenn3.2').value = data.data.field2;
+                    document.getElementById('fieldVenn3.3').value = data.data.field3;
+
+                }
+
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
@@ -174,7 +196,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     button.addEventListener('click', function () {
         var contextValue = button.getAttribute('data-context');
-        getProblemStatementData(contextValue);
+
+        var setting = document.querySelector('#setting')
+
+        if (setting.value === "2") getOriginOfTwopProblemStatement(contextValue);
+        else getOriginOfTwopProblemStatement(contextValue);
     });
 
 })

@@ -9,13 +9,14 @@ from Saving.models import TwoProblemStatement, ThreeProblemStatement
 # Create your views here.
 def FiveWhys(request):
     root_problem = request.session.get('ranked_problem')
-
     pk = request.session.get('pk_rankedPS')
+    setting = request.session.get('ranking_setting')
 
     return render(request, "Whys.html",
                   {
                       "rankedPS": root_problem,
-                      "pk" : pk
+                      "pk": pk,
+                      "setting": setting
                   })
 
 
@@ -25,8 +26,6 @@ class RootProblemStatement(View):
 
     def post(self,request, pk):
         if request.method == "POST":
-
-            print(request.session.get('ranking_setting'))
 
             request.session['pk_rankedPS'] = pk
 

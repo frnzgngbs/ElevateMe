@@ -35,9 +35,10 @@
         {% if rankedPS is not None %}
             <div class="selectedPScard">
                 <input type="hidden" value="{{ rankedPS }}"/>
+                <input type="hidden" value="{{ setting }}" id="setting"/>
                 <div class="card-text" >{{ rankedPS }}</div>
                 <div class="genHmwButton-container">
-                    <button class="showHistory-button" data-context="{{ pk }}">Show</button>
+                    <button class="showHistory-button" data-context="{{ pk }}" >Show</button>
                     <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-Why</button>
                 </div>
             </div>
