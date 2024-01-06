@@ -65,19 +65,17 @@
             <!-- show History Whys Selected Problem Statement Row -->
             <h1>Potential Root Problem History</h1>
             <div class="selectedProbStatement"> 
-                <h2>Venn Diagram Settings</h2>  
-                <textarea id="Selectedfield1" name="field1" placeholder="Selected Problem Statement"></textarea><br>     
+                <h2>Selected Problem Statement</h2>  
+                <textarea id="selectedField1" name="field1" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." readonly></textarea><br>     
             </div>
         
             <div class="whyHistory">
-                <h2>Venn Diagram Settings</h2>
-                <form id="popupForm1" action="{% url 'homepage:filter' '2' %}" method="post">
-                    {% csrf_token %}
+                <h2>Why’s Statement</h2>
                  
-                    <textarea id="field2" name="field2" placeholder="Why's" rows="10"></textarea><br>
+                    <textarea id="field2" name="field2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." rows="10"></textarea><br>
                     <button class="button-input" type="button" id="close"
                             onclick="closePopup()">Close</button>
-                </form>
+             
             </div>
     </div>
     <div class="generatedWhys">     

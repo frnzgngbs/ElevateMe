@@ -524,3 +524,7 @@ h2 {
     overflow-y: auto;
     resize: none;
 }
+#selectedField1{
+    max-width: 300px;
+    max-height: 500px
+}
