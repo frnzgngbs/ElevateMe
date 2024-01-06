@@ -83,17 +83,23 @@ class AddToTable(View):
             auth = request.session.get('auth')
             user = User.objects.get(username=auth["username"])
 
-            twoPS_list = []
+            PS_list = []
 
-            for checkbox_value in selected_checkboxes:
-                twoPS_instance = TwoProblemStatement.objects.filter(user_fk=user, statement=checkbox_value)
-                twoPS_list.append(twoPS_instance)
+            setting = request.session.get('ranking_setting')
 
+            if setting == 2:
+                for checkbox_value in selected_checkboxes:
+                    twoPS_instance = TwoProblemStatement.objects.filter(user_fk=user, statement=checkbox_value)
+                    PS_list.append(twoPS_instance)
+            else:
+                for checkbox_value in selected_checkboxes:
+                    three_PS = ThreeProblemStatement.objects.filter(user_fk=user, statement=checkbox_value)
+                    PS_list.append(three_PS)
 
             new_context = {
                 'items': [
                     {'id': item.id, 'statement': item.statement}
-                    for queryset in twoPS_list
+                    for queryset in PS_list
                     for item in queryset
                 ]
             }
