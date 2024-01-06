@@ -313,10 +313,21 @@ h2 {
 }
 
 .popup {
-    display: none;
+    border-radius: 20px;
+    height: 400px;
+    width: 680px;
+  
     position: absolute;
-    top: 200px;
-    left: 1300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 
@@ -410,14 +421,106 @@ h2 {
 }
 .elevator-table div[contenteditable="true"] {
     text-align: left;
-    background-color: #f2f2f2; /* Highlight editable cells */
-    border-radius: 15px; /* Add border-radius to editable cells */
+    background-color: #f2f2f2;
+    border-radius: 15px; 
     color: #3e3e3e;
 }
-.elevator-table tr:first-child td {
-    border-radius: 10px;
+.elevator-table td:first-child {
+    background-color: #d0cece;
+  
+}
+.elevator-table td:nth-child(2) {
+    text-align: left;
+    background-color: #f2f2f2; 
+    border-radius: 15px; 
+    color: #3e3e3e;
+}
+.showHistory-button {
+    margin-right: 17px;
+    background-color: #186f65;
+    color: #ffffff;
+    border: none;
+    border-radius: 17px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-.first-col {
-    background-color: #f2f2f2;
+#showHistoryWhys {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+#showHistoryWhys textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.popup textarea {
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 11px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    margin-left: 30px;
+    margin-right: 5px;
+    width: 90%;
+    
+    resize: none;
+
+}
+#showHistoryWhys .selectedProbStatement,
+#showHistoryWhys .vennSettings {
+    margin-bottom: 20px;
+}
+.whyHistory {
+    position: absolute;
+    top: 68px;
+    left: 55%;
+    right: 50px;
+   
+} 
+.whyHistory button{
+  right: 5  px;
+}
+.button-input {
+    margin-right: -30px;
+    margin-top: 80px;
+    background-color: #186f65;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 15px;
+    width: 80px;
+    height: 40px;
+    cursor: pointer;
+    float: right;
+}
+
+.popup h2{
+    font-size: 20px;
+  }
+  .popup h1{
+    text-align: center;
+    margin-right: 90px;
+  }
+
+  #showHistoryWhys .whyHistory textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 150px; /* Set the desired height */
+    overflow-y: auto;
+    resize: none;
 }

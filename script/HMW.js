@@ -144,3 +144,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var showHistoryButton = document.querySelector('.showHistory-button');
+    var showHistoryPopup = document.getElementById('showHistoryWhys');
+    var closePopupButton = document.getElementById('closePopup');
+
+    showHistoryButton.addEventListener('click', function () {
+        showHistoryPopup.style.display = 'block';
+    });
+
+    closePopupButton.addEventListener('click', function () {
+        showHistoryPopup.style.display = 'none';
+    });
+});
+
+function closePopup() {
+    var popup = document.getElementById('showHistoryWhys');
+    popup.style.display = 'none';
+}
+
