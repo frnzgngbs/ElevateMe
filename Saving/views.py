@@ -8,14 +8,12 @@ from django.views import View
 from .models import TwoVennDiagram, TwoProblemStatement, ThreeProblemStatement, ThreeVennDiagram
 
 
-# Basically this class will handle the storing of venn diagram scope, and problem statement.
 class SaveProblemStatement(View):
 
     @method_decorator(login_required(login_url="authenticate:login"))
     def get(self, request):
         pass
 
-    # So if the user attempts to Saving, Saving the venn diagram and then the problem statement.
     def post(self, request):
 
         venn_diagram = request.session.get('venn_scopes')
@@ -51,7 +49,6 @@ class SaveProblemStatement(View):
                     two_venn = TwoVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
                     two_venn.save()
                 else:
-                    # Use the existing instance
                     two_venn = existing_venn
 
                 # Do something with the checked checkboxes
@@ -122,9 +119,6 @@ class SaveOperation(View):
 
             pk = int(operation)
 
-            list_statement = []
-            lists_checked_checkboxes = []
-
             if button_value == "button2.1":
 
                 # PERFORM SAVE
@@ -136,12 +130,9 @@ class SaveOperation(View):
                 session_checked = request.session.get('checked_checkboxes')
 
                 if session_checked:
-                    # statement is the edited statement
                     print(old_statement in session_checked)
                     if old_statement in session_checked:
-                        print("NI SUD ANG OLD STATEMENT")
                         if statement not in session_checked:
-                            print("NI SUD ANG NEW STATEMENT")
                             new_session = [item for item in session_checked if item != old_statement]
                             request.session['checked_checkboxes'] = new_session
                             print(new_session)
@@ -171,8 +162,11 @@ class SaveOperation(View):
 
                 session_checked = request.session.get('checked_checkboxes')
 
+                a = 5
+                b = 10
+                print(f"{a+b=}")
+
                 if session_checked:
-                    # statement is the edited statement
                     print(old_statement in session_checked)
                     if old_statement in session_checked:
                         print("NI SUD ANG OLD STATEMENT")
@@ -180,9 +174,7 @@ class SaveOperation(View):
                             print("NI SUD ANG NEW STATEMENT")
                             new_session = [item for item in session_checked if item != old_statement]
                             request.session['checked_checkboxes'] = new_session
-                            print(new_session)
                         else:
-                            print(session_checked)
                             request.session['checked_checkboxes'] = session_checked
             elif button_value == "button3.2":
                 threePS = ThreeProblemStatement.objects.get(id=pk)
@@ -203,28 +195,19 @@ def TwoPopUpVenn(request, instance_id):
     pk = int(instance_id)
     twoPS = TwoProblemStatement.objects.get(id=pk)
     venn = twoPS.venn_fk
-
     data = {
         'field1': venn.field1,
         'field2': venn.field2,
-        # Add other fields as needed
     }
-
     return JsonResponse(data)
 
 def ThreePopUpVenn(request, instance_id):
     pk = int(instance_id)
     threePS = ThreeProblemStatement.objects.get(id=pk)
     venn = threePS.venn_fk
-
-    data = {
+    data ={
         'field1': venn.field1,
         'field2': venn.field2,
         'field3': venn.field3,
-        # Add other fields as needed
     }
-
     return JsonResponse(data)
-
-def VennInput(request, venn_setting):
-    pass

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     // Function to get CSRF token
     function getCSRFToken() {
@@ -9,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('CSRF Token not found in the meta tag.');
         return null;
     }
-
-    // Function to display five whys
     function displayFiveWhys(data) {
         var whysContainer = document.querySelector(".generatedWhys-container");
         whysContainer.innerHTML = '';
@@ -30,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             csrfInput.value = csrfToken;
             formElement.appendChild(csrfInput);
 
-            var checkboxes = []; // Array to store checkbox elements
+            var checkboxes = [];
 
             data.fiveWhys.forEach(function (item) {
                 var whyCardDiv = document.createElement('div');
@@ -127,11 +124,67 @@ document.addEventListener('DOMContentLoaded', function () {
         displayFiveWhys(JSON.parse(savedData));
     }
 
+
+    function getProblemStatementData(value) {
+        var csrfToken = getCSRFToken();
+
+        $.ajax({
+            url: `/two-settings-show-history/${value}/`,
+            type: 'post',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+            dataType: 'json',
+            success: function (data) {
+                let popup_three = document.querySelector('#showHistoryPopupVenn3');
+                let popup_two = document.querySelector('#showHistoryPopupVenn2');
+
+                alert(data.setting)
+
+                if (popup_three && data.setting === 3) {
+
+                    popup_three.style.display = "block";
+                    document.getElementById('venn3.1').textContent = data.data.field1;
+                    document.getElementById('venn3.2').textContent = data.data.field2;
+                    document.getElementById('venn3.3').textContent = data.data.field3;
+
+                    document.getElementById('fieldVenn3.1').value = data.data.field1;
+                    document.getElementById('fieldVenn3.2').value = data.data.field2;
+                    document.getElementById('fieldVenn3.3').value = data.data.field3;
+                } else if (popup_two && data.setting === 2) {
+                    alert("SETTING 2")
+                    popup_two.style.display = "block";
+
+                    document.getElementById('venn1').textContent = data.data.field1;
+                    document.getElementById('venn2').textContent = data.data.field2;
+
+                    document.getElementById('field1').value = data.data.field1;
+                    document.getElementById('field2').value = data.data. field2;
+                }
+
+                sessionStorage.setItem('RankedProbleStatementData', JSON.stringify(data));
+            },
+            error: function (error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+    var button = document.querySelector('.showHistory-button');
+
+    button.addEventListener('click', function () {
+        var contextValue = button.getAttribute('data-context');
+        getProblemStatementData(contextValue);
+    });
+
 })
 
 function clearLocalStorage() {
     sessionStorage.removeItem('fiveHMWsData');
 }
+
+
+
 
 
 

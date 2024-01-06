@@ -3,14 +3,19 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
+from Saving.models import TwoProblemStatement, ThreeProblemStatement
+
 
 # Create your views here.
 def FiveWhys(request):
     root_problem = request.session.get('ranked_problem')
 
+    pk = request.session.get('pk_rankedPS')
+
     return render(request, "Whys.html",
                   {
                       "rankedPS": root_problem,
+                      "pk" : pk
                   })
 
 
@@ -20,6 +25,8 @@ class RootProblemStatement(View):
 
     def post(self,request, pk):
         if request.method == "POST":
+
+            print(request.session.get('ranking_setting'))
 
             request.session['pk_rankedPS'] = pk
 
@@ -42,6 +49,8 @@ def GenerateFiveWhys(request, value):
 
         request.session['fiveWhys'] = data
 
+        print(data)
+
         return JsonResponse({
             "fiveWhys": data
         })
@@ -49,10 +58,8 @@ def GenerateFiveWhys(request, value):
 
     return HttpResponse("POST")
 
-
-
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -61,8 +68,6 @@ def openAiFiveWhy(value):
                    f"Please dont include any explanation just generate all the whys statement."
 
     }])
-
-    print(completion)
 
     response_list = completion.choices[0].message.content.split('\n')
 
@@ -74,3 +79,51 @@ def openAiFiveWhy(value):
         questions_dict[i] = question_without_number
 
     return questions_dict
+
+
+def showTwoHistory(request, pk):
+    ranking_setting = request.session.get('ranking_setting')
+
+    new_pk = int(pk)
+    twoPS = TwoProblemStatement.objects.get(id=pk)
+    venn = twoPS.venn_fk
+
+    data = {
+        'field1': venn.field1,
+        'field2': venn.field2,
+    }
+
+    print(type(new_pk))
+
+    return JsonResponse(
+        {
+            'data': data,
+            'setting': ranking_setting
+        }
+    )
+
+
+def showThreeHistory(request, pk):
+
+    ranking_setting = request.session.get('ranking_setting')
+
+    new_pk = int(pk)
+    threePS = ThreeProblemStatement.objects.get(id=pk)
+    venn = threePS.venn_fk
+
+    data = {
+        'field1': venn.field1,
+        'field2': venn.field2,
+        'field3': venn.field3,
+
+    }
+
+    print(type(new_pk))
+
+    print("HISTORY OF THREE: ", data)
+    return JsonResponse(
+        {
+            'data': data,
+            'setting': ranking_setting
+        }
+    )

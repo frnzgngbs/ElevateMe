@@ -101,11 +101,6 @@ function getCurrentCardText(containerId, cardId) {
     const cardTextElement = document.getElementById(containerId).querySelector('#' + cardId + ' .card-text');
     return cardTextElement ? cardTextElement.innerText : '';
 }
-/* function getCurrentCardText() {
-    const containerId = document.getElementById('editCardModal').dataset.containerId;
-    const currentCardText = document.getElementById(containerId).getElementsByClassName('card-text')[0].innerText;
-    return currentCardText;
-} */
 
 function showEditCardModal(containerId, cardId) {
     const modal = document.getElementById('editCardModal');
@@ -160,19 +155,6 @@ function showAddCardModal(containerId) {
         document.getElementById('showHistoryPopupVenn3').style.display = 'none';
         document.getElementById('showHistoryPopupVenn2').style.display = 'none';
     }
-
-/* function savePopupData() {
-    // You can access the input values and perform actions here
-    var input1Value = document.getElementById('input1').value;
-    var input2Value = document.getElementById('input2').value;
-    var input3Value = document.getElementById('input3').value;
-    var input4Value = document.getElementById('input4').value;
-
-    // Perform actions with the input values (e.g., send to server)
-
-    // Close the popup
-    closePopup();
-} */
 
 
 

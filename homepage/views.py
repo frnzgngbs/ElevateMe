@@ -157,7 +157,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
