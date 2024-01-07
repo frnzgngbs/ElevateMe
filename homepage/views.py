@@ -162,10 +162,11 @@ def generateAi(field1, field2, field3, field4):
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
         "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
-                    f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
-                    f"the problem statement. I do not need an explanation; just give me the problem statement "
-                    f"directly. Please make each problem statement unique. Apply filter: {field4}"
-                    f"Take note not to include the fields that we're passed in the generated problem statements."
+                   f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
+                   f"the problem statement. I do not need an explanation; just give me the problem statement "
+                   f"directly. Please make each problem statement unique. Apply filter: {field4}"
+                   f"Take note not to include the fields that we're passed in the generated problem statements. "
+                   f"Please do not generate question type of problem statement."
     }])
     print(completion)
     response_list = completion.choices[0].message.content.split('\n')
