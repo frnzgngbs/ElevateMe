@@ -34,7 +34,7 @@ class GeneratePotentialRootProblem(View):
 
 
 def openAiFiveWhys(listOfWhys):
-    openai.api_key = "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"
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
                f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
@@ -71,7 +71,7 @@ class GenerateFiveHMW(View):
                     {
                         'statement': ps
                     }
-                    for ps in listOfHMWs.values()
+                    for ps in listOfHMWs
                 ]
                 return JsonResponse({"fiveHMWs": data})
             except Exception as e:
@@ -82,7 +82,7 @@ class GenerateFiveHMW(View):
 
 def openAIFiveHMWs(root_problem):
 
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -90,8 +90,6 @@ def openAIFiveHMWs(root_problem):
                     f"root potential problem, and generate 5-How Might We statement. Take note that you should only "
                     f"generate 5 How Might We and nothing else.")
     }])
-
-    print(completion)
 
     response_list = completion.choices[0].message.content.split('\n')
 
@@ -140,7 +138,7 @@ class GenerateElevatorPitch(View):
 
 
 def openAIElevatorPitch(HMW, root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     hmw_combined = ", ".join(HMW)
 

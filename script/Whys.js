@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     document.getElementById('field1').value = data.data.field1;
                     document.getElementById('field2').value = data.data. field2;
+                    document.getElementById('filterVenn2').value = data.data.filter;
                 }
 
             },
@@ -182,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('fieldVenn3.1').value = data.data.field1;
                     document.getElementById('fieldVenn3.2').value = data.data.field2;
                     document.getElementById('fieldVenn3.3').value = data.data.field3;
+                    document.getElementById('filterVenn3').value = data.data.filter;
 
                 }
 
