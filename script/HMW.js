@@ -196,12 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
             whyHistory.appendChild(h2Why)
 
             data.fiveWhys.forEach(function (item) {
+                console.log(item)
                 var whysTextArea = document.createElement('p');
                 whysTextArea.id = 'field2';
                 whysTextArea.name = 'field2';
-                whysTextArea.placeholder = item.statement;
+                whysTextArea.placeholder = item;
                 whysTextArea.readOnly = true;
-                whysTextArea.textContent = item.statement;
+                whysTextArea.textContent = item;
                 whyHistory .appendChild(whysTextArea);
             })
 
@@ -211,9 +212,12 @@ document.addEventListener('DOMContentLoaded', function () {
             closeButton.id = "close"
             closeButton.type = "button";
 
+            closeButton.addEventListener('click', function () {
+                showHistoryWhysContainer.style.display = "none";
+            })
+
             whyHistory.appendChild(closeButton)
         }
-
     }
 
     showHistoryButton.addEventListener('click', function () {
