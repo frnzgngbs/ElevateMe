@@ -107,7 +107,5 @@ class AddToTable(View):
             request.session['selected_checkboxes_table'] = new_context
             request.session['valid'] = True if len(selected_checkboxes) > 2 else False
 
-            print(selected_checkboxes)
-
             return redirect('Ranking:ranking')
         return HttpResponse("No")

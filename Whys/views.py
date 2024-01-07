@@ -30,10 +30,12 @@ class RootProblemStatement(View):
             request.session['pk_rankedPS'] = pk
 
             root_problem = request.POST.get('radiobutton_group')
-
+            del request.session['root_problem']
             request.session['ranked_problem'] = root_problem
 
             return redirect('Whys:5-whys')
+
+
 
 def GenerateFiveWhys(request, value):
     if request.method == "POST":
@@ -58,7 +60,7 @@ def GenerateFiveWhys(request, value):
     return HttpResponse("POST")
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -82,11 +84,9 @@ def openAiFiveWhy(value):
 
 def showTwoHistory(request, pk):
     ranking_setting = request.session.get('ranking_setting')
-
     new_pk = int(pk)
     twoPS = TwoProblemStatement.objects.get(id=pk)
     venn = twoPS.venn_fk
-
     data = {
         'field1': venn.field1,
         'field2': venn.field2,
@@ -103,9 +103,7 @@ def showTwoHistory(request, pk):
 
 
 def showThreeHistory(request, pk):
-
     ranking_setting = request.session.get('ranking_setting')
-
     new_pk = int(pk)
     threePS = ThreeProblemStatement.objects.get(id=pk)
     venn = threePS.venn_fk
@@ -117,9 +115,6 @@ def showThreeHistory(request, pk):
 
     }
 
-    print(type(new_pk))
-
-    print("HISTORY OF THREE: ", data)
     return JsonResponse(
         {
             'data': data,
