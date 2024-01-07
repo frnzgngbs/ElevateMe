@@ -30,7 +30,18 @@ class RootProblemStatement(View):
             request.session['pk_rankedPS'] = pk
 
             root_problem = request.POST.get('radiobutton_group')
-            del request.session['root_problem']
+
+            rp = request.session.get('root_problem')
+            if rp:
+                del request.session['root_problem']
+            fw = request.session.get('fiveWhys')
+            if fw:
+                del request.session['fiveWhys']
+            ranked_prob = request.session.get('ranked_problem')
+
+            if ranked_prob:
+                del request.session['ranked_problem']
+
             request.session['ranked_problem'] = root_problem
 
             return redirect('Whys:5-whys')
