@@ -75,6 +75,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             hmwContainer.appendChild(formElement);
 
+            var showButton = document.createElement('button');
+            showButton.classList.add('showElevator-button'); // Adjust the class name as needed
+            showButton.textContent = 'Show Button';
+
+            showButton.addEventListener('click', function () {
+                showPopup()
+            });
+
             let showButtonContainer = document.createElement('div');
             showButtonContainer.classList.add('genHmwButton-container'); // Corrected class name here
             showButtonContainer.appendChild(showButton)
@@ -123,6 +131,15 @@ document.addEventListener('DOMContentLoaded', function () {
         displayFiveHMWs(JSON.parse(savedData));
     }
 
+    function showPopup() {
+        var popupContainer = document.getElementById('popupContainer');
+        popupContainer.style.display = 'block';
+    }
+
+    var close_button = document.getElementById('closeButton')
+    close_button.addEventListener('click', function () {
+        popupContainer.style.display = 'none';
+    })
 
 });
 
@@ -206,6 +223,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 whyHistory .appendChild(whysTextArea);
             })
 
+            var closeButtondiv = document.createElement('div');
+            closeButtondiv.className = "closeButton-container";
+            showHistoryWhysContainer.appendChild(closeButtondiv)
+
             var closeButton = document.createElement('button');
             closeButton.textContent = 'Close';
             closeButton.className = 'button-input';
@@ -216,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showHistoryWhysContainer.style.display = "none";
             })
 
-            whyHistory.appendChild(closeButton)
+            closeButtondiv.appendChild(closeButton)
         }
     }
 
