@@ -148,8 +148,6 @@ function showAddCardModal(containerId) {
     // document.getElementById('newCardText').placeholder = "Enter Problem Statement Here";
 }
 
-
-
 //show history popup
     function closePopup() {
         document.getElementById('showHistoryPopupVenn3').style.display = 'none';

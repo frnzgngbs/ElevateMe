@@ -62,6 +62,7 @@
 
                         document.getElementById('field1').value = data.field1;
                         document.getElementById('field2').value = data.field2;
+                        document.getElementById('filterVenn2').value = data.filter;
 
                         // Update your popup or do whatever you need with the data
                     },
@@ -101,6 +102,7 @@
                         document.getElementById('fieldVenn3.1').value = data.field1;
                         document.getElementById('fieldVenn3.2').value = data.field2;
                         document.getElementById('fieldVenn3.3').value = data.field3;
+                        document.getElementById('filterVenn3').value = data.filter;
 
                     },
                     error: function (error) {
@@ -182,7 +184,7 @@
                                     <textarea id="field2" name="field2" placeholder="Input scope here..."></textarea><br>
 
                                     <label for="filter"> Filter: </label>
-                                    <textarea id="filterVenn3" name="filter" rows="5"></textarea><br>
+                                    <textarea id="filterVenn2" name="filter" rows="5"></textarea><br>
 
                                     <button class="buttonTheme1" type="submit" id="inputVenn2">Input</button>
                                     <button class="button-input" type="button" id="close"

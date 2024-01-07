@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 class VennDiagram(models.Model):
     field1 = models.TextField()
     field2 = models.TextField()
-    field3 = models.TextField(null=True, blank=True)
+    field3 = models.TextField()
+    filter = models.TextField(null=True)
     user_fk = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

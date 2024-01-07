@@ -608,7 +608,7 @@ h2 {
     resize: none;
 
 }
-#filterVenn3, #filterVenn2{
+#filterVenn3,  #filterVenn2{
     background-color: hsla(0, 0%, 80%, 0.5);
 }
 .popup textarea.filter1{

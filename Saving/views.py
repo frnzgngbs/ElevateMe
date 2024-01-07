@@ -39,14 +39,15 @@ class SaveProblemStatement(View):
             field1 = venn_diagram['field1']
             field2 = venn_diagram['field2']
             field3 = venn_diagram['field3']
+            filter = venn_diagram['filter']
 
             setting = venn_diagram['settings']
             if setting == "2":
-                existing_venn = TwoVennDiagram.objects.filter(field1=field1, field2=field2, field3=field3,
+                existing_venn = TwoVennDiagram.objects.filter(field1=field1, field2=field2, field3=field3, filter=filter,
                                                               user_fk=user).first()
 
                 if not existing_venn:
-                    two_venn = TwoVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
+                    two_venn = TwoVennDiagram(field1=field1, field2=field2, field3=field3,filter=filter, user_fk=user)
                     two_venn.save()
                 else:
                     two_venn = existing_venn
@@ -57,11 +58,11 @@ class SaveProblemStatement(View):
                     problem_statement.save()
 
             elif setting == "3":
-                existing_venn = ThreeVennDiagram.objects.filter(field1=field1, field2=field2, field3=field3,
+                existing_venn = ThreeVennDiagram.objects.filter(field1=field1, field2=field2, field3=field3,filter=filter,
                                                                 user_fk=user).first()
 
                 if not existing_venn:
-                    three_ven = ThreeVennDiagram(field1=field1, field2=field2, field3=field3, user_fk=user)
+                    three_ven = ThreeVennDiagram(field1=field1, field2=field2, field3=field3,filter=filter, user_fk=user)
                     three_ven.save()
 
                 else:
@@ -198,6 +199,7 @@ def TwoPopUpVenn(request, instance_id):
     data = {
         'field1': venn.field1,
         'field2': venn.field2,
+        'filter': venn.field3
     }
     return JsonResponse(data)
 
@@ -209,5 +211,6 @@ def ThreePopUpVenn(request, instance_id):
         'field1': venn.field1,
         'field2': venn.field2,
         'field3': venn.field3,
+        'filter': venn.filter
     }
     return JsonResponse(data)
