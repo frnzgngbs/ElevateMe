@@ -458,13 +458,13 @@ h2 {
     z-index: 1000;
 }
 
-#showHistoryWhys textarea {
+#showHistoryWhys p {
     width: 100%;
     box-sizing: border-box;
 }
 
 
-.popup textarea {
+.popup p {
     font-family: "Lexend Deca", sans-serif;
     font-size: 11px;
     padding-top: 5px;
@@ -493,7 +493,7 @@ h2 {
    
 } 
 .whyHistory button{
-  right: 5  px;
+  right: 5px;
 }
 .button-input {
     margin-right: -30px;
