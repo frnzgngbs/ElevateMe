@@ -22,6 +22,9 @@ class GeneratePotentialRootProblem(View):
     def post(self, request):
         if request.method == "POST":
             listOfWhys = request.POST.getlist("checkbox_group")
+
+            request.session['listOFWhys'] = listOfWhys
+
             try:
                 root_problem = openAiFiveWhys(listOfWhys)
             except Exception as e:
@@ -31,7 +34,7 @@ class GeneratePotentialRootProblem(View):
 
 
 def openAiFiveWhys(listOfWhys):
-    openai.api_key = "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"
+    openai.api_key = "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"
     reasons_combined = ", ".join(listOfWhys)
     message = (f"Before generating the potential root problem, summarize the whole"
                f"point of the whys, and afterwards, generate a potential root problem based on the following WHY's: {reasons_combined}"
@@ -79,7 +82,7 @@ class GenerateFiveHMW(View):
 
 def openAIFiveHMWs(root_problem):
 
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -137,7 +140,7 @@ class GenerateElevatorPitch(View):
 
 
 def openAIElevatorPitch(HMW, root_problem):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     hmw_combined = ", ".join(HMW)
 
@@ -167,7 +170,10 @@ def updateElevatorPitch(request):
 
 
 def getProblemStatementAndWhys(request):
-    fiveWhys = request.session.get('fiveWhys')
+    fiveWhys = request.session.get('listOFWhys')
+
+    print(fiveWhys)
+
     selectedPS = request.session.get('ranked_problem')
 
     return JsonResponse({
