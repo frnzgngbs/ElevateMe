@@ -39,13 +39,14 @@
                 <div class="card-text" >{{ rankedPS }}</div>
                 <div class="genHmwButton-container">
                     <button class="showHistory-button" data-context="{{ pk }}" >Show</button>
+                </div>
+                <div class="genHmwButton-container">
                     <button class="generateWhys-Button" data-context="{{ rankedPS }}"> 5-Why</button>
                 </div>
             </div>
         {% else %}
             <div class="selectedPScard">
                 <div class="card-text" >Selected Problem Statement Upon ranking.</div>
-                <button class="showHistory-button" data-context="{{ rankedPS }}" id="showHistoryWhys">Show</button>
             </div>
         {% endif %}
 
