@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var setting = document.querySelector('#setting')
 
         if (setting.value === "2") getOriginOfTwopProblemStatement(contextValue);
-        else getOriginOfTwopProblemStatement(contextValue);
+        else getOriginOfThreepProblemStatement(contextValue);
     });
 
 })
