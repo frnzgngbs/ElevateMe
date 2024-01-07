@@ -71,7 +71,7 @@ def GenerateFiveWhys(request, value):
     return HttpResponse("POST")
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
@@ -103,6 +103,7 @@ def showTwoHistory(request, pk):
     data = {
         'field1': venn.field1,
         'field2': venn.field2,
+        'filter': venn.filter
     }
 
     print(type(new_pk))
@@ -125,6 +126,7 @@ def showThreeHistory(request, pk):
         'field1': venn.field1,
         'field2': venn.field2,
         'field3': venn.field3,
+        'filter': venn.filter
 
     }
 

@@ -148,8 +148,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('venn2').textContent = data.data.field2;
 
                     document.getElementById('field1').value = data.data.field1;
-                    document.getElementById('field2').value = data.data. field2;
+                    document.getElementById('field2').value = data.data.field2;
                     document.getElementById('filterVenn2').value = data.data.filter;
+
                 }
 
             },

@@ -157,14 +157,14 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
         "content": f"List five problem statements where these three scopes intersect. The three scopes are:"
                    f"{field1}, {field2}, {field3}, make sure not to include the numbering for "
                    f"the problem statement. I do not need an explanation; just give me the problem statement "
-                   f"directly don't make it in question form. Please make each problem statement unique Apply filter: {field4}"
+                   f"directly and not in question form. Please make each problem statement unique Apply filter: {field4}"
                    f"Take note not to include the fields that we're passed in the generated problem statements. "
                    f"Please do not generate question type of problem statement."
     }])
