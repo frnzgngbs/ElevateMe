@@ -71,7 +71,7 @@ def GenerateFiveWhys(request, value):
     return HttpResponse("POST")
 
 def openAiFiveWhy(value):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",

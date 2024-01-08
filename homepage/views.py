@@ -28,6 +28,7 @@ class VennDiagramFilter(View):
                 field3 = ""
                 field4 = request.POST.get("filter")
 
+
                 venn_scopes = {
                     'settings': venn_settings,
                     'field1': field1,
@@ -121,6 +122,8 @@ class GeneratePS(View):
                 field3 = venn_diagram['field3']
                 field4 = venn_diagram['filter']
 
+                print(field4)
+
                 # Perform any additional processing with the data if needed
                 try:
                     generate_response = generateAi(field1, field2, field3, field4)
@@ -157,7 +160,7 @@ class Homepage(View):
 
 
 def generateAi(field1, field2, field3, field4):
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{
         "role": "user",
